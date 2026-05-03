@@ -1,14 +1,21 @@
-<!-- AFS Navbar — Phase 3 Liquid Glass -->
+<!-- AFS Navbar — Phase 3 -->
 <nav class="afs-nav nav--dark" role="navigation" aria-label="Main navigation">
   <div class="afs-nav__inner">
 
-    <!-- Logo -->
-    <a href="/" class="afs-nav__logo" aria-label="AFS Home">
-      <img src="/images/logo.png" alt="AFS Logo" width="40" height="40">
-      <span class="afs-nav__logo-text"><span>A</span>FS</span>
+    <!-- Logo — inline, no image file needed -->
+    <a href="/" class="afs-nav__logo" aria-label="AFS Home" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+      <span style="width:38px;height:38px;background:var(--afs-orange);border-radius:8px;
+                   display:flex;align-items:center;justify-content:center;flex-shrink:0;
+                   font-family:'Playfair Display',serif;font-weight:800;color:#fff;font-size:15px;letter-spacing:-1px;">
+        AS
+      </span>
+      <span style="display:flex;flex-direction:column;line-height:1.2;">
+        <strong style="font-family:'Playfair Display',serif;font-size:14px;color:#fff;font-weight:700;">Ashish Financial Services</strong>
+        <small style="font-size:10px;color:rgba(255,255,255,0.55);letter-spacing:0.3px;">AMFI ARN: 311127</small>
+      </span>
     </a>
 
-    <!-- Desktop Nav links -->
+    <!-- Desktop Nav -->
     <ul class="afs-nav__links" role="list">
       <li><a href="/" class="afs-nav__link{{ if .IsHome }} is-active{{ end }}">Home</a></li>
       <li><a href="/services/" class="afs-nav__link{{ if hasPrefix .RelPermalink "/services" }} is-active{{ end }}">Services</a></li>
@@ -42,27 +49,22 @@
 <div class="afs-nav__drawer" id="nav-drawer" role="dialog" aria-label="Mobile navigation" aria-modal="true">
   <div class="afs-nav__drawer-section">Navigation</div>
   <a href="/" class="afs-nav__drawer-link">Home</a>
-
   <div class="afs-nav__drawer-section">Services</div>
   <a href="/services/mutual-funds/" class="afs-nav__drawer-link">Mutual Funds</a>
   <a href="/services/insurance/" class="afs-nav__drawer-link">Insurance</a>
   <a href="/services/loans/" class="afs-nav__drawer-link">Loans Against Securities</a>
   <a href="/services/model-portfolios/" class="afs-nav__drawer-link">Model Portfolios</a>
-
   <div class="afs-nav__drawer-section">Tools &amp; Insights</div>
   <a href="/tools/wealth-lens/" class="afs-nav__drawer-link" style="color:var(--afs-orange);font-weight:600;">&#128269; AFS Wealth Lens — Free Portfolio Analyser</a>
   <a href="/tools/" class="afs-nav__drawer-link">All Calculators &amp; Tools</a>
   <a href="/insights/" class="afs-nav__drawer-link">Insights (Blog)</a>
-
   <div class="afs-nav__drawer-section">More</div>
   <a href="/monthly-digest/" class="afs-nav__drawer-link">Monthly Digest</a>
   <a href="/resources/" class="afs-nav__drawer-link">Resources</a>
-  <a href="/press/" class="afs-nav__drawer-link">Press &amp; Media</a>
   <a href="/refer-earn/" class="afs-nav__drawer-link">Refer &amp; Earn</a>
   <a href="/join-afs/" class="afs-nav__drawer-link">Join AFS</a>
   <a href="/contact/" class="afs-nav__drawer-link">Contact</a>
-
-  <div style="margin-top:1.5rem;display:flex;flex-direction:column;gap:0.75rem;padding:0 var(--space-4);">
+  <div style="margin-top:1.5rem;display:flex;flex-direction:column;gap:0.75rem;padding:0 1rem;">
     <a href="{{ .Site.Params.whatsappLink }}" class="btn btn--whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
     <a href="{{ .Site.Params.clientPortal }}" class="btn btn--outline" target="_blank" rel="noopener noreferrer">Client Login</a>
   </div>
