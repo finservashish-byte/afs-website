@@ -30,7 +30,7 @@
 <link rel="icon" type="image/png" href="/images/favicon.png">
 <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
 
-<!-- Google Fonts — preconnect for performance -->
+<!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -41,8 +41,23 @@
 {{ $css := slice $mainCSS $phase3CSS | resources.Concat "css/afs-bundle.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
 
-<!-- Per-page head injection (PDF.js, tool-specific styles, etc.) -->
+<!-- Per-page head injection -->
 {{ block "head-extra" . }}{{ end }}
+
+<!-- Netlify Identity — required on ALL pages for password reset to work -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  // Catch Netlify Identity token on any page and redirect to /admin/
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", function(user) {
+      if (!user) {
+        window.netlifyIdentity.on("login", function() {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
 
 <!-- Google Analytics 4 -->
 {{ if not .Site.IsServer }}
