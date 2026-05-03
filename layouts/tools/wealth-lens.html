@@ -1,0 +1,1031 @@
+{{ define "head-extra" }}
+<!-- PDF.js — loaded before body, required by Wealth Lens -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<!-- AFS Wealth Lens — scoped component styles -->
+<style>
+/* ── Wealth Lens scoped overrides: remove body padding added by Phase 3 ── */
+.wealth-lens-page { padding-bottom: 0; }
+.wealth-lens-page .page-content { padding-top: 0; }
+
+:root {
+  --navy:         #1A4F8A;
+  --navy-dark:    #0D3461;
+  --navy-mid:     #2468A8;
+  --orange:       #FF6600;
+  --orange-light: #FF8533;
+  --orange-pale:  #FFF3EB;
+  --warm-white:   #FAFAF8;
+  --light-gray:   #F4F3EF;
+  --text-dark:    #333333;
+  --text-mid:     #666666;
+  --border:       #E0E0E0;
+  --success:      #1A7A4A;
+  --success-bg:   #E8F5EE;
+  --whatsapp:     #25D366;
+  --danger:       #C0392B;
+  --danger-bg:    #FDEDEB;
+  --warning:      #D4820A;
+  --warning-bg:   #FEF4E2;
+  --r:            12px;
+  --r-lg:         20px;
+  --sh:           0 2px 16px rgba(0,0,0,.07);
+  --sh-md:        0 4px 28px rgba(0,0,0,.11);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--warm-white);color:var(--text-dark);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Playfair Display',serif;line-height:1.2}
+a{text-decoration:none}
+input[type=file]{display:none}
+
+/* ─── HEADER ─────────────────────────── */
+.hdr{background:var(--navy-dark);height:64px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99;box-shadow:0 2px 14px rgba(0,0,0,.22)}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{width:40px;height:40px;background:var(--orange);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;color:#fff;font-size:18px;letter-spacing:-1px;flex-shrink:0}
+.logo-text{display:flex;flex-direction:column;line-height:1.15}
+.logo-text b{font-family:'Playfair Display',serif;font-weight:700;font-size:15px;color:#fff}
+.logo-text span{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.4px}
+.hdr-badge{font-size:12px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);padding:5px 13px;border-radius:20px;border:1px solid rgba(255,255,255,.13);white-space:nowrap}
+@media(max-width:600px){.logo-text{display:none}.hdr-badge{font-size:11px;padding:4px 10px}}
+
+/* ─── SECTION SHOW/HIDE ───────────────── */
+.sec{display:none}.sec.on{display:block}
+
+/* ─── HERO / UPLOAD ──────────────────── */
+.hero{background:linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 55%,#205ba8 100%);padding:64px 24px 90px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-30%;right:-15%;width:500px;height:500px;background:radial-gradient(circle,rgba(255,102,0,.09) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-40%;left:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(36,104,168,.15) 0%,transparent 70%);pointer-events:none}
+.eyebrow{display:inline-flex;align-items:center;gap:6px;background:rgba(255,102,0,.14);border:1px solid rgba(255,102,0,.28);color:#FFA366;font-size:11.5px;font-weight:600;padding:6px 14px;border-radius:20px;letter-spacing:.6px;text-transform:uppercase;margin-bottom:20px}
+.hero h1{font-size:clamp(1.9rem,5vw,3.1rem);color:#fff;font-weight:800;margin-bottom:16px}
+.hero h1 em{color:var(--orange);font-style:italic}
+.hero-sub{font-size:clamp(.95rem,2.5vw,1.12rem);color:rgba(255,255,255,.72);max-width:520px;margin:0 auto 28px;font-weight:300}
+.priv-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(26,122,74,.2);border:1px solid rgba(26,122,74,.32);color:#5CE89C;font-size:12px;font-weight:500;padding:7px 15px;border-radius:20px;margin-bottom:36px}
+
+/* ─── UPLOAD ZONE ────────────────────── */
+.upload-wrap{max-width:580px;margin:0 auto;position:relative;z-index:1}
+.drop-zone{background:rgba(255,255,255,.06);border:2px dashed rgba(255,255,255,.25);border-radius:var(--r-lg);padding:44px 28px;cursor:pointer;transition:all .2s;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--orange);background:rgba(255,102,0,.05)}
+.up-icon{width:62px;height:62px;margin:0 auto 14px;background:rgba(255,102,0,.14);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.up-icon svg{width:30px;height:30px}
+.drop-zone h3{font-family:'DM Sans',sans-serif;font-size:18px;font-weight:600;color:#fff;margin-bottom:8px}
+.drop-zone p{color:rgba(255,255,255,.52);font-size:14px;margin-bottom:18px}
+.up-btn{background:var(--orange);color:#fff;border:none;padding:12px 28px;border-radius:9px;font-size:15px;font-weight:600;cursor:pointer;transition:background .18s;font-family:'DM Sans',sans-serif;display:inline-block}
+.up-btn:hover{background:var(--orange-light)}
+.fmt-chips{display:flex;justify-content:center;gap:10px;margin-top:15px;flex-wrap:wrap}
+.fmt-chip{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);color:rgba(255,255,255,.65);font-size:12px;padding:4px 11px;border-radius:20px}
+.demo-lnk{display:block;margin-top:18px;color:rgba(255,255,255,.45);font-size:13px;cursor:pointer;transition:color .2s}
+.demo-lnk:hover{color:var(--orange-light)}
+.demo-lnk u{text-decoration:underline}
+
+/* ─── HOW IT WORKS ───────────────────── */
+.hiw{background:#fff;padding:60px 24px}
+.container{max-width:980px;margin:0 auto}
+.sec-title{font-size:clamp(1.5rem,3vw,2rem);color:var(--navy-dark);margin-bottom:8px}
+.sec-sub{color:var(--text-mid);font-size:15px;margin-bottom:40px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px}
+.step{background:var(--light-gray);border-radius:var(--r);padding:26px 22px}
+.step-n{width:36px;height:36px;background:var(--navy);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;margin-bottom:14px}
+.step h4{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;margin-bottom:6px;color:var(--navy-dark)}
+.step p{font-size:13.5px;color:var(--text-mid)}
+.out-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.out-chip{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--border);border-left:3px solid var(--orange);color:var(--text-dark);font-size:13.5px;padding:10px 15px;border-radius:9px;font-weight:500}
+
+/* ─── PROCESSING ─────────────────────── */
+.proc{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--warm-white);padding:24px}
+.proc-card{background:#fff;border-radius:var(--r-lg);padding:50px 40px;text-align:center;max-width:420px;width:100%;box-shadow:var(--sh-md)}
+.spin{width:60px;height:60px;border:4px solid var(--light-gray);border-top-color:var(--orange);border-radius:50%;animation:spin .85s linear infinite;margin:0 auto 22px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.proc-card h3{font-size:1.4rem;color:var(--navy-dark);margin-bottom:8px}
+#statusMsg{color:var(--text-mid);font-size:14px;min-height:20px}
+.prog-bg{height:5px;background:var(--light-gray);border-radius:3px;margin-top:22px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--navy),var(--orange));border-radius:3px;width:0%;transition:width .5s ease}
+
+/* ─── RESULTS HEADER ─────────────────── */
+.res-hdr{background:linear-gradient(135deg,var(--navy-dark),var(--navy));padding:38px 24px 32px}
+.res-hdr-in{max-width:980px;margin:0 auto}
+.res-eyebrow{font-size:11.5px;font-weight:500;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+.res-hdr h2{font-size:clamp(1.5rem,3vw,2.1rem);color:#fff;margin-bottom:4px}
+.res-hdr .sub{color:rgba(255,255,255,.55);font-size:14px}
+
+/* ─── RESULTS BODY ───────────────────── */
+.res-body{max-width:980px;margin:0 auto;padding:28px 24px 64px}
+
+/* ─── SUMMARY CARDS ──────────────────── */
+.sum-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:14px;margin-top:-44px;margin-bottom:28px}
+.sum-card{background:#fff;border-radius:var(--r);padding:22px 18px;box-shadow:var(--sh-md);position:relative;overflow:hidden}
+.sum-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.sum-card.inv::before{background:var(--navy)}
+.sum-card.cur::before{background:var(--success)}
+.sum-card.xirr-c::before{background:var(--orange)}
+.sum-card.sc::before{background:var(--navy-mid)}
+.sum-lbl{font-size:11px;font-weight:600;color:var(--text-mid);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.sum-val{font-size:26px;font-weight:700;color:var(--text-dark);font-family:'Playfair Display',serif;line-height:1;margin-bottom:5px}
+.sum-val.pos{color:var(--success)}.sum-val.neg{color:var(--danger)}.sum-val.hi{color:var(--orange)}
+.sum-delta{font-size:13px;font-weight:500;color:var(--text-mid)}
+.sum-delta.up{color:var(--success)}.sum-delta.dn{color:var(--danger)}
+
+/* ─── ALERT ──────────────────────────── */
+.alert{border-radius:var(--r);padding:14px 18px;margin-bottom:22px;display:flex;align-items:flex-start;gap:11px;font-size:14px;line-height:1.5}
+.alert.warn{background:var(--warning-bg);border:1px solid rgba(212,130,10,.2);color:#6B3D00}
+.alert.good{background:var(--success-bg);border:1px solid rgba(26,122,74,.2);color:#0A3D20}
+
+/* ─── RESULT CARD ────────────────────── */
+.rc{background:#fff;border-radius:var(--r);padding:26px;margin-bottom:18px;box-shadow:var(--sh)}
+.rc h3{font-size:1.15rem;color:var(--navy-dark);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.rc-sub{font-size:13px;color:var(--text-mid);margin-bottom:18px}
+
+/* ─── FUND TABLE ─────────────────────── */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tbl-hint{font-size:12px;color:var(--text-mid);margin-bottom:9px;display:none}
+@media(max-width:768px){.tbl-hint{display:block}}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;padding:9px 11px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-mid);border-bottom:2px solid var(--border);white-space:nowrap}
+td{padding:14px 11px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.fn{font-weight:600;color:var(--text-dark);margin-bottom:3px;line-height:1.3}
+.folio{font-size:11.5px;color:var(--text-mid)}
+.cat-badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:10px;white-space:nowrap}
+.c-eq{background:#E8F4FD;color:#1A5F8A}.c-debt{background:#E8F5EE;color:#1A6A4A}.c-hyb{background:#FEF4E2;color:#7D5A0A}.c-idx{background:#F0E8FD;color:#5A1A8A}.c-liq{background:var(--success-bg);color:var(--success)}.c-intl{background:#FCE4EC;color:#880E4F}.c-sec{background:#FFF3E0;color:#BF360C}.c-oth{background:var(--light-gray);color:var(--text-mid)}
+.xv{font-weight:700;font-size:14.5px}.xv.g{color:var(--success)}.xv.o{color:var(--warning)}.xv.r{color:var(--danger)}
+.vbadge{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap}
+.v-perf{background:var(--success-bg);color:var(--success)}.v-under{background:var(--danger-bg);color:var(--danger)}.v-rev{background:var(--warning-bg);color:var(--warning)}.v-neut{background:var(--light-gray);color:var(--text-mid)}
+.vline{font-size:12px;color:var(--text-mid);margin-top:5px;line-height:1.4}
+
+/* ─── OVERLAP ────────────────────────── */
+.ol-grid{display:grid;gap:11px}
+.ol-row{background:var(--light-gray);border-radius:9px;padding:14px 16px}
+.ol-pair{font-size:13px;font-weight:600;margin-bottom:8px;color:var(--text-dark)}
+.ol-bar-bg{height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:5px}
+.ol-fill{height:100%;border-radius:3px;transition:width 1s ease}
+.ol-fill.hi{background:var(--danger)}.ol-fill.md{background:var(--warning)}.ol-fill.lo{background:var(--success)}
+.ol-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--text-mid)}
+.no-ol{background:var(--success-bg);border-radius:9px;padding:16px;font-size:14px;color:#0A3D20}
+
+/* ─── TAX ────────────────────────────── */
+.tax-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:14px}
+.tx{background:var(--light-gray);border-radius:10px;padding:19px}
+.tx-lbl{font-size:11px;font-weight:600;color:var(--text-mid);text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px}
+.tx-amt{font-size:21px;font-weight:700;font-family:'Playfair Display',serif;color:var(--text-dark);margin-bottom:4px}
+.tx-note{font-size:12px;color:var(--text-mid);line-height:1.4}
+.tax-note-box{border-radius:9px;padding:13px 16px;font-size:13px;margin-top:15px;line-height:1.5}
+
+/* ─── SCORE ──────────────────────────── */
+.score-wrap{display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:start}
+@media(max-width:480px){.score-wrap{grid-template-columns:1fr;text-align:center}}
+.score-ring{width:120px;height:120px;margin:0 auto 12px;position:relative}
+.score-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.score-val{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Playfair Display',serif;font-weight:800;font-size:30px}
+.score-lbl{font-size:17px;font-weight:600}
+.score-desc{font-size:13px;color:var(--text-mid);margin-top:3px}
+.reason{display:flex;align-items:flex-start;gap:8px;margin-bottom:10px;font-size:13.5px}
+
+/* ─── WHATSAPP CTA ───────────────────── */
+.wa-block{background:linear-gradient(135deg,var(--navy-dark),var(--navy));border-radius:var(--r-lg);padding:40px 30px;text-align:center;margin-bottom:22px}
+.wa-block h3{font-size:1.55rem;color:#fff;margin-bottom:8px}
+.wa-block p{color:rgba(255,255,255,.68);font-size:15px;margin-bottom:24px}
+.wa-btn{display:inline-flex;align-items:center;gap:10px;background:var(--whatsapp);color:#fff;padding:14px 28px;border-radius:50px;font-size:16px;font-weight:600;font-family:'DM Sans',sans-serif;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 20px rgba(37,211,102,.3)}
+.wa-btn:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(37,211,102,.42)}
+.wa-foot{font-size:11.5px;color:rgba(255,255,255,.35);margin-top:14px}
+
+/* ─── AGAIN BTN ──────────────────────── */
+.again-btn{background:#fff;border:1.5px solid var(--border);color:var(--navy);padding:10px 20px;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;display:inline-flex;align-items:center;gap:7px}
+.again-btn:hover{border-color:var(--navy);background:var(--light-gray)}
+
+/* ─── DISCLAIMERS ────────────────────── */
+.discl{background:var(--light-gray);border-top:1px solid var(--border);padding:36px 24px}
+.discl-in{max-width:980px;margin:0 auto}
+.discl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:24px;margin-bottom:24px}
+.discl-ttl{font-size:12px;font-weight:700;color:var(--text-dark);text-transform:uppercase;letter-spacing:.5px;margin-bottom:9px}
+.discl-txt{font-size:12px;color:var(--text-mid);line-height:1.75}
+.discl-txt p{margin-bottom:6px}
+.discl-txt p:last-child{margin-bottom:0}
+
+/* ─── FOOTER ─────────────────────────── */
+footer{background:var(--navy-dark);padding:18px 24px}
+.ft-in{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.ft-brand{color:#fff;font-size:14px;font-weight:600}
+.ft-chips{display:flex;gap:10px;flex-wrap:wrap}
+.ft-chip{font-size:11px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.55);padding:4px 10px;border-radius:20px}
+.ft-links{display:flex;gap:16px}
+.ft-links a{color:rgba(255,255,255,.45);font-size:12px;transition:color .2s}
+.ft-links a:hover{color:var(--orange)}
+
+/* ─── RESPONSIVE ─────────────────────── */
+@media(max-width:620px){
+  .sum-grid{grid-template-columns:repeat(2,1fr)}
+  .rc{padding:18px 14px}
+  .wa-block{padding:28px 18px}
+  .wa-block h3{font-size:1.25rem}
+  .hero{padding:44px 18px 80px}
+}
+</style>
+{{ end }}
+
+{{ define "main" }}
+<!-- Wealth Lens body flag (used by scoped CSS above) -->
+<script>document.body.classList.add('wealth-lens-page');</script>
+
+<input type="file" id="pdfInput" accept=".pdf">
+
+<!-- ═══ SECTION 1 — UPLOAD ════════════════════════════════════════════ -->
+<div class="sec on" id="secUpload">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div style="position:relative;z-index:1">
+      <div class="eyebrow">✦ AFS Wealth Lens &nbsp;·&nbsp; Free Tool</div>
+      <h1>What are your mutual funds<br><em>actually</em> returning?</h1>
+      <p class="hero-sub">Upload your CAMS or KFintech Consolidated Account Statement. Get real XIRR, tax estimate &amp; overlap analysis in under 60 seconds. Free. No login.</p>
+      <div class="priv-badge">🔒 Your data never leaves your device — processed entirely in your browser</div>
+      <div class="upload-wrap">
+        <div class="drop-zone" id="dropZone">
+          <div class="up-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FF6600" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+          </div>
+          <h3>Drop your CAS PDF here</h3>
+          <p>Drag &amp; drop or click to browse from your device</p>
+          <button class="up-btn" onclick="document.getElementById('pdfInput').click()">Choose PDF File</button>
+          <div class="fmt-chips">
+            <span class="fmt-chip">✓ CAMS</span>
+            <span class="fmt-chip">✓ KFintech</span>
+            <span class="fmt-chip">✓ MFCentral</span>
+            <span class="fmt-chip">PDF only · Password-free</span>
+          </div>
+        </div>
+        <a class="demo-lnk" id="demoLnk">Don't have a CAS? &nbsp;<u>Try with a sample portfolio →</u></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="hiw">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:40px">
+        <h2 class="sec-title">How AFS Wealth Lens works</h2>
+        <p class="sec-sub">Three steps to understand what your complete mutual fund portfolio is actually doing</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-n">1</div>
+          <h4>Get your CAS</h4>
+          <p>Download your Consolidated Account Statement from <b>camsonline.com</b> or <b>kfintech.com</b>. It's free, no-login, and takes 2 minutes.</p>
+        </div>
+        <div class="step">
+          <div class="step-n">2</div>
+          <h4>Upload the PDF</h4>
+          <p>Drop your CAS PDF above. Parsed entirely within your browser — nothing uploaded to any server, ever.</p>
+        </div>
+        <div class="step">
+          <div class="step-n">3</div>
+          <h4>Get your analysis</h4>
+          <p>Instant XIRR per fund, overlap check, tax estimate, fund verdict and an overall portfolio score out of 10.</p>
+        </div>
+        <div class="step">
+          <div class="step-n">4</div>
+          <h4>Connect with AFS</h4>
+          <p>Want a human to walk you through it? One-tap WhatsApp CTA with your results pre-filled. No hard sell — just guidance.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:48px;text-align:center">
+        <h3 style="font-size:1.3rem;color:var(--navy-dark);margin-bottom:6px;font-family:'Playfair Display',serif">What you get in your analysis</h3>
+        <p style="color:var(--text-mid);font-size:14px;margin-bottom:20px">Seven data points most investors never see from their statements</p>
+        <div class="out-chips">
+          <div class="out-chip">📈 Real XIRR — not just absolute return</div>
+          <div class="out-chip">💰 Total invested vs current value</div>
+          <div class="out-chip">🗂️ Fund-wise breakup by category</div>
+          <div class="out-chip">🔄 Overlap analysis — are you truly diversified?</div>
+          <div class="out-chip">🧾 Estimated LTCG &amp; STCG tax liability</div>
+          <div class="out-chip">🏷️ One-line verdict per fund</div>
+          <div class="out-chip">🎯 Portfolio score out of 10</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ SECTION 2 — PROCESSING ════════════════════════════════════════ -->
+<div class="sec" id="secProc">
+  <div class="proc">
+    <div class="proc-card">
+      <div class="spin"></div>
+      <h3>Analysing your portfolio</h3>
+      <p id="statusMsg">Reading your statement…</p>
+      <div class="prog-bg"><div class="prog-fill" id="progFill"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 3 — RESULTS ═══════════════════════════════════════════ -->
+<div class="sec" id="secResults">
+
+  <div class="res-hdr">
+    <div class="res-hdr-in">
+      <div class="res-eyebrow">AFS Wealth Lens · Portfolio Analysis</div>
+      <h2 id="resTitle">Your Portfolio Analysis</h2>
+      <p class="sub" id="resSub">Based on your Consolidated Account Statement</p>
+    </div>
+  </div>
+
+  <div class="res-body">
+
+    <!-- Summary cards -->
+    <div class="sum-grid" id="sumGrid"></div>
+
+    <!-- Alert -->
+    <div id="alertBox"></div>
+
+    <!-- Fund-wise table -->
+    <div class="rc">
+      <h3>🗂️ Fund-wise Breakup</h3>
+      <p class="rc-sub">All funds from your statement — with XIRR, category and a one-line verdict</p>
+      <p class="tbl-hint">← Scroll to see all columns</p>
+      <div class="tbl-wrap" id="fundTbl"></div>
+    </div>
+
+    <!-- Overlap -->
+    <div class="rc">
+      <h3>🔄 Overlap Analysis</h3>
+      <p class="rc-sub">Based on fund category. High overlap = less actual diversification than you think.</p>
+      <div id="overlapBox"></div>
+    </div>
+
+    <!-- Tax -->
+    <div class="rc">
+      <h3>🧾 Estimated Tax Liability <span style="font-size:.7em;font-family:'DM Sans';font-weight:400;color:var(--text-mid)">(FY 2025-26, if redeemed today)</span></h3>
+      <p class="rc-sub">FIFO method. Equity LTCG @ 12.5% above ₹1.25L exemption | STCG @ 20% | Debt as per income slab. Figures are estimates — consult a tax professional.</p>
+      <div id="taxBox"></div>
+    </div>
+
+    <!-- Score -->
+    <div class="rc">
+      <h3>🎯 Portfolio Score</h3>
+      <p class="rc-sub">Composite score across XIRR performance, diversification, category mix and overlap</p>
+      <div id="scoreBox"></div>
+    </div>
+
+    <!-- WhatsApp CTA -->
+    <div class="wa-block">
+      <h3>Want a detailed human review?</h3>
+      <p>AFS can walk you through your results, explain what each fund is actually doing, and suggest next steps — no jargon, no hard sell. Just guidance from a registered distributor.</p>
+      <a id="waBtnOut" href="#" target="_blank" rel="noopener" class="wa-btn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Connect with AFS on WhatsApp
+      </a>
+      <p class="wa-foot">A message will be pre-filled with your portfolio summary. You can edit it before sending.</p>
+    </div>
+
+    <div style="text-align:center;margin-bottom:8px">
+      <button class="again-btn" onclick="resetTool()">← Analyse another statement</button>
+    </div>
+
+  </div><!-- /res-body -->
+
+  <!-- Disclaimers (inside results section) -->
+  <div class="discl">
+    <div class="discl-in">
+      <div class="discl-grid">
+        <div>
+          <div class="discl-ttl">🔒 Privacy Statement</div>
+          <div class="discl-txt">
+            <p>AFS Wealth Lens processes your PDF entirely within your browser using PDF.js. <strong>No data is transmitted to any server.</strong> Your financial information never leaves your device. AFS does not collect, store or share your personal data or financial details in any form.</p>
+          </div>
+        </div>
+        <div>
+          <div class="discl-ttl">⚖️ Regulatory Disclaimer</div>
+          <div class="discl-txt">
+            <p>For educational purposes only. Not investment advice. AMFI ARN: 311127.</p>
+            <p>AFS acts as a distributor and not as an investment advisor under SEBI (Investment Advisers) Regulations, 2013.</p>
+            <p>Mutual Fund investments are subject to market risks. Please read all scheme-related documents carefully before investing.</p>
+          </div>
+        </div>
+        <div>
+          <div class="discl-ttl">📊 About the Calculations</div>
+          <div class="discl-txt">
+            <p>XIRR uses Newton-Raphson method on transaction cash flows from your statement. Tax estimates use FY 2025-26 rates: STCG equity 20%, LTCG equity 12.5% above ₹1.25L exemption, debt funds taxed as per income slab (post April 2023 amendment). Overlap analysis is category-based — actual stock-level overlap may differ. All outputs are indicative estimates.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /secResults -->
+{{ end }}
+
+{{ define "scripts" }}
+<script>
+'use strict';
+'use strict';
+
+/* ── PDF.js worker ───────────────────────────────────────────────── */
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+/* ── Formatters ──────────────────────────────────────────────────── */
+function fmtINR(n) {
+  if (n == null || isNaN(n)) return '—';
+  const abs = Math.abs(n);
+  let s;
+  if (abs >= 1e7)      s = '₹' + (abs/1e7).toFixed(2) + ' Cr';
+  else if (abs >= 1e5) s = '₹' + (abs/1e5).toFixed(2) + ' L';
+  else                 s = '₹' + abs.toLocaleString('en-IN', {maximumFractionDigits:0});
+  return n < 0 ? '−' + s : s;
+}
+function fmtPct(n) {
+  if (n == null || isNaN(n)) return '—';
+  return (n * 100).toFixed(1) + '%';
+}
+function parseNum(s) {
+  if (!s) return 0;
+  return parseFloat(String(s).replace(/[,\s₹Rs]/gi,'')) || 0;
+}
+function parseDate(s) {
+  if (!s) return null;
+  const mo = {jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
+  let m;
+  m = s.match(/(\d{1,2})[-\/]([A-Za-z]{3})[-\/](\d{4})/);
+  if (m) { const mon = mo[m[2].toLowerCase()]; if (mon!=null) return new Date(+m[3],mon,+m[1]); }
+  m = s.match(/(\d{2})[-\/](\d{2})[-\/](\d{4})/);
+  if (m) return new Date(+m[3],+m[2]-1,+m[1]);
+  m = s.match(/(\d{4})[-\/](\d{2})[-\/](\d{2})/);
+  if (m) return new Date(+m[1],+m[2]-1,+m[3]);
+  return null;
+}
+function shortName(n) {
+  return n.replace(/[-–]\s*Direct\s*(Plan)?.*/i,'').trim().slice(0,42);
+}
+
+/* ── XIRR ─────────────────────────────────────────────────────────── */
+function xirr(cfs, dates) {
+  if (!cfs || cfs.length < 2) return null;
+  const t0 = Math.min(...dates.map(d=>d.getTime()));
+  const days = dates.map(d=>(d.getTime()-t0)/86400000);
+
+  function npv(r) {
+    return cfs.reduce((s,c,i)=> s + c/Math.pow(1+r, days[i]/365), 0);
+  }
+  function dnpv(r) {
+    return cfs.reduce((s,c,i)=> s - (days[i]/365)*c/Math.pow(1+r, days[i]/365+1), 0);
+  }
+
+  for (const g of [0.1,0.2,0.05,-0.05,0.3,0.5]) {
+    let r = g;
+    for (let i=0;i<300;i++) {
+      const f=npv(r), df=dnpv(r);
+      if (isNaN(f)||isNaN(df)||Math.abs(df)<1e-12) break;
+      const rn = r - f/df;
+      if (Math.abs(rn-r)<1e-9) { if(rn>-0.999&&rn<50) return rn; break; }
+      r = Math.max(-0.999, Math.min(50, rn));
+    }
+  }
+  // Bisection fallback
+  let lo=-0.9, hi=10;
+  for (let i=0;i<120;i++) {
+    const mid=(lo+hi)/2, f=npv(mid);
+    if (isNaN(f)) break;
+    if (Math.abs(f)<0.5) return mid;
+    npv(lo)*f<0 ? hi=mid : lo=mid;
+  }
+  return null;
+}
+
+/* ── Category detection ──────────────────────────────────────────── */
+function detectCat(name) {
+  const n = name.toLowerCase();
+  if (/nifty 50|sensex|bse 100|nifty next|nifty 100|index fund|etf/.test(n)) return 'Index';
+  if (/overnight|liquid fund|money market/.test(n)) return 'Liquid';
+  if (/gilt|gsec|g-sec|government bond|psu bond/.test(n)) return 'Gilt/Debt';
+  if (/\bdebt\b|bond|income fund|credit risk|duration|short term|ultra short|low duration|floater|banking & psu/.test(n)) return 'Debt';
+  if (/large & mid|large and mid/.test(n)) return 'Large & Mid Cap';
+  if (/large cap|bluechip|blue chip/.test(n)) return 'Large Cap';
+  if (/mid cap|midcap/.test(n)) return 'Mid Cap';
+  if (/small cap|smallcap/.test(n)) return 'Small Cap';
+  if (/flexi cap|flexicap|multi cap|multicap/.test(n)) return 'Flexi Cap';
+  if (/elss|tax saver|tax saving/.test(n)) return 'ELSS';
+  if (/balanced|hybrid|equity savings|aggressive hybrid|conservative hybrid/.test(n)) return 'Hybrid';
+  if (/banking|financial services|psu bank/.test(n)) return 'Sector (Banking)';
+  if (/technology|tech fund|it fund/.test(n)) return 'Sector (Tech)';
+  if (/pharma|healthcare/.test(n)) return 'Sector (Pharma)';
+  if (/infrastructure|infra/.test(n)) return 'Sector (Infra)';
+  if (/international|global|us equity|nasdaq|emerging market|overseas/.test(n)) return 'International';
+  if (/gold|silver|commodity/.test(n)) return 'Commodity';
+  if (/dynamic asset|multi asset/.test(n)) return 'Hybrid';
+  return 'Equity';
+}
+function catClass(c) {
+  if (c.includes('Index')) return 'c-idx';
+  if (c==='Liquid'||c==='Gilt/Debt'||c==='Debt') return 'c-debt';
+  if (c.includes('Sector')) return 'c-sec';
+  if (c==='International') return 'c-intl';
+  if (c==='Hybrid') return 'c-hyb';
+  if (c==='Commodity') return 'c-oth';
+  return 'c-eq';
+}
+
+/* ── Overlap matrix ──────────────────────────────────────────────── */
+const OV = {
+  'Index,Large Cap':0.83,'Index,Large & Mid Cap':0.66,'Index,Flexi Cap':0.60,
+  'Index,ELSS':0.70,'Index,Mid Cap':0.14,'Index,Small Cap':0.04,'Index,Hybrid':0.48,
+  'Large Cap,Large & Mid Cap':0.70,'Large Cap,Flexi Cap':0.60,'Large Cap,ELSS':0.72,
+  'Large Cap,Mid Cap':0.16,'Large Cap,Small Cap':0.04,'Large Cap,Hybrid':0.48,
+  'Large & Mid Cap,Flexi Cap':0.56,'Large & Mid Cap,ELSS':0.62,'Large & Mid Cap,Mid Cap':0.42,
+  'Large & Mid Cap,Small Cap':0.12,'Flexi Cap,ELSS':0.56,'Flexi Cap,Mid Cap':0.38,
+  'Flexi Cap,Small Cap':0.20,'Mid Cap,Small Cap':0.24,'ELSS,Hybrid':0.44,
+};
+function overlapBetween(a,b) {
+  if (a===b) return 0.76;
+  const noOv = ['Debt','Gilt/Debt','Liquid','Commodity','International'];
+  if (noOv.some(c=>a.includes(c)||b.includes(c))) return 0;
+  return OV[a+','+b]||OV[b+','+a]||0.10;
+}
+function allOverlapPairs(funds) {
+  const pairs=[];
+  for (let i=0;i<funds.length;i++)
+    for (let j=i+1;j<funds.length;j++) {
+      const ov=overlapBetween(funds[i].category,funds[j].category);
+      if (ov>0.12) pairs.push({f1:funds[i].name,f2:funds[j].name,ov,c1:funds[i].category,c2:funds[j].category});
+    }
+  return pairs.sort((a,b)=>b.ov-a.ov);
+}
+
+/* ── Benchmarks & verdicts ───────────────────────────────────────── */
+const BM = {
+  'Large Cap':0.12,'Index':0.12,'Large & Mid Cap':0.13,'Mid Cap':0.14,'Small Cap':0.15,
+  'Flexi Cap':0.13,'ELSS':0.12,'Hybrid':0.10,'Debt':0.07,'Gilt/Debt':0.07,'Liquid':0.065,
+  'Sector (Banking)':0.11,'Sector (Tech)':0.13,'Sector (Pharma)':0.12,'Sector (Infra)':0.12,
+  'International':0.10,'Commodity':0.09,'Equity':0.12,
+};
+function verdict(fund) {
+  const x=fund.xirr, c=fund.category;
+  if (x==null) return {cls:'v-neut',lbl:'Insufficient Data',line:'Not enough transactions to calculate XIRR reliably.'};
+  const bm=BM[c]||0.12;
+  if (c==='Liquid'||c==='Debt'||c==='Gilt/Debt') {
+    if (x>=0.065) return {cls:'v-perf',lbl:'✓ Performing',line:'Good debt returns. Suitable for short-term goals.'};
+    if (x>=0.05)  return {cls:'v-rev', lbl:'⚡ Needs Review',line:'Below-average debt returns. Consider reviewing alternatives.'};
+    return {cls:'v-under',lbl:'↓ Underperforming',line:'Returns below FD rates. Review if this fits your goals.'};
+  }
+  if (x > bm+0.025) return {cls:'v-perf',lbl:'✓ Performing',    line:`Strong ${fmtPct(x)} XIRR — outpacing category benchmark by ${fmtPct(x-bm)}.`};
+  if (x >= bm-0.02)  return {cls:'v-neut',lbl:'→ On Track',      line:`${fmtPct(x)} XIRR — broadly in line with category expectations.`};
+  if (x >= 0)        return {cls:'v-rev', lbl:'⚡ Needs Review',  line:`${fmtPct(x)} XIRR underperforms its category benchmark of ${fmtPct(bm)}. Review with your distributor.`};
+  return {cls:'v-under',lbl:'↓ Underperforming',line:`Negative XIRR of ${fmtPct(x)}. Significant underperformance — review urgently.`};
+}
+
+/* ── Tax estimate ────────────────────────────────────────────────── */
+const EQ_CATS = new Set(['Large Cap','Mid Cap','Small Cap','Large & Mid Cap','Flexi Cap','ELSS','Index','Hybrid','Equity','Sector (Banking)','Sector (Tech)','Sector (Pharma)','Sector (Infra)','International']);
+function taxForFund(fund, today) {
+  const isEq = EQ_CATS.has(fund.category);
+  let ltcg=0, stcg=0, debt=0;
+  const buys = fund.transactions.filter(t=>t.type==='buy'&&t.units>0).sort((a,b)=>a.date-b.date);
+  let rem = fund.units || 0;
+  for (const b of buys) {
+    if (rem<=0) break;
+    const u = Math.min(b.units, rem);
+    const costPU = b.amount/b.units;
+    const gain = u*(fund.currentNAV||0) - u*costPU;
+    const held = (today - b.date)/86400000;
+    if (isEq) { if(held>365) ltcg+=gain; else stcg+=gain; }
+    else debt += gain;
+    rem -= u;
+  }
+  return {ltcg:Math.max(0,ltcg), stcg:Math.max(0,stcg), debt:Math.max(0,debt)};
+}
+
+/* ── Portfolio score ─────────────────────────────────────────────── */
+function portfolioScore(funds, ovXIRR) {
+  let score=0;
+  const reasons=[];
+  const eq = funds.filter(f=>EQ_CATS.has(f.category));
+  const dbt = funds.filter(f=>!EQ_CATS.has(f.category)&&f.category!=='Commodity');
+  const n = funds.length;
+  const pairs = allOverlapPairs(funds);
+  const hiOv = pairs.filter(p=>p.ov>0.58);
+
+  // XIRR (3 pts)
+  if (ovXIRR!=null) {
+    if (ovXIRR>0.15)      { score+=3; reasons.push({ok:true,t:`Excellent overall XIRR of ${fmtPct(ovXIRR)}`}); }
+    else if (ovXIRR>0.10) { score+=2; reasons.push({ok:true,t:`Good overall XIRR of ${fmtPct(ovXIRR)}`}); }
+    else if (ovXIRR>0.06) { score+=1; reasons.push({ok:false,t:`Moderate XIRR ${fmtPct(ovXIRR)} — room to improve`}); }
+    else                  { reasons.push({ok:false,t:`Low XIRR ${fmtPct(ovXIRR)} — portfolio needs attention`}); }
+  }
+  // Fund count (2 pts)
+  if (n>=3&&n<=7)     { score+=2; reasons.push({ok:true,t:`Ideal fund count (${n} funds) — well-sized portfolio`}); }
+  else if (n<=2)      { score+=1; reasons.push({ok:false,t:`Too few funds (${n}) — consider broader diversification`}); }
+  else if (n>10)      { reasons.push({ok:false,t:`Too many funds (${n}) — over-diversification adds cost without benefit`}); }
+  else                { score+=1; reasons.push({ok:false,t:`High fund count (${n}) — borderline over-diversification`}); }
+  // Category mix (2 pts)
+  if (eq.length>0&&dbt.length>0) { score+=2; reasons.push({ok:true,t:'Good equity + debt mix for stability'}); }
+  else if (eq.length>0)           { score+=1; reasons.push({ok:false,t:'All equity — adding debt improves stability'}); }
+  else                            { reasons.push({ok:false,t:'No equity — limited long-term growth potential'}); }
+  // Overlap (2 pts)
+  if (hiOv.length===0)    { score+=2; reasons.push({ok:true,t:'No high overlap detected — genuinely diversified'}); }
+  else if (hiOv.length<=2){ score+=1; reasons.push({ok:false,t:`${hiOv.length} high-overlap pair(s) — some duplication`}); }
+  else                    { reasons.push({ok:false,t:'Significant overlap — funds may be duplicating each other'}); }
+  // No underperformers (1 pt)
+  const bad = funds.filter(f=>verdict(f).cls==='v-under');
+  if (bad.length===0) { score+=1; reasons.push({ok:true,t:'No underperforming funds detected'}); }
+  else                { reasons.push({ok:false,t:`${bad.length} underperforming fund(s) dragging the portfolio`}); }
+
+  return {score:Math.min(10,score), reasons};
+}
+
+/* ── PDF extraction ──────────────────────────────────────────────── */
+async function extractText(file) {
+  const ab = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({data:ab}).promise;
+  let all='';
+  for (let p=1;p<=pdf.numPages;p++) {
+    const page = await pdf.getPage(p);
+    const tc = await page.getTextContent();
+    // Group items by Y into lines
+    const items = tc.items.filter(i=>i.str&&i.str.trim());
+    items.sort((a,b)=>{
+      const dy=Math.round(b.transform[5]/2)*2 - Math.round(a.transform[5]/2)*2;
+      return dy!==0 ? dy : a.transform[4]-b.transform[4];
+    });
+    const lines=[]; let curLine=[],curY=null;
+    for (const it of items) {
+      const y=Math.round(it.transform[5]);
+      if (curY===null||Math.abs(y-curY)>4) { if(curLine.length) lines.push(curLine.map(i=>i.str).join(' ')); curLine=[it]; curY=y; }
+      else curLine.push(it);
+    }
+    if (curLine.length) lines.push(curLine.map(i=>i.str).join(' '));
+    all += lines.join('\n') + '\n~~PAGE~~\n';
+    setProgress(10+Math.round((p/pdf.numPages)*35), `Reading page ${p} of ${pdf.numPages}…`);
+  }
+  return all;
+}
+
+/* ── Parser ──────────────────────────────────────────────────────── */
+function parseCAS(text) {
+  const lines = text.split('\n');
+  const funds  = [];
+  let cur = null;
+  let holderName = '', stmtDate = null;
+
+  // Investor name
+  const nm = text.match(/(?:Name|Investor)\s*[:\s]+([A-Z][A-Za-z\s\.]+?)(?:\n|PAN|Email|Mobile)/m);
+  if (nm) holderName = nm[1].trim();
+  // Statement date
+  const sd = text.match(/(?:As on|Statement.*?as on|Period.*?to)\s+(\d{2}[-\/][A-Za-z]{3}[-\/]\d{4}|\d{2}[-\/]\d{2}[-\/]\d{4})/i);
+  if (sd) stmtDate = parseDate(sd[1]);
+
+  const pushCur = ()=>{ if(cur&&cur.name) funds.push(cur); };
+
+  for (let i=0;i<lines.length;i++) {
+    const ln = lines[i].trim();
+    if (!ln||ln==='~~PAGE~~') continue;
+
+    /* Folio line → new fund section */
+    const folioM = ln.match(/Folio\s*No\.?\s*[:\s]\s*([\d\/\s]+)/i);
+    if (folioM) {
+      pushCur();
+      cur = { folio:folioM[1].trim(), name:'', category:'', transactions:[], units:0, currentValue:0, costValue:0, currentNAV:0, xirr:null };
+      // Peek next lines for fund name
+      for (let off=1;off<=6;off++) {
+        const nl=(lines[i+off]||'').trim();
+        if (!nl||/folio|pan:|kyc:|email|mobile|period|consolidated|account statement/i.test(nl)) continue;
+        if (nl.length>12&&/fund|scheme|growth|dividend|idcw|direct|regular|plan/i.test(nl)) {
+          cur.name = nl; cur.category = detectCat(nl); break;
+        }
+      }
+      continue;
+    }
+
+    /* Scheme/Fund label */
+    if (cur&&!cur.name) {
+      const sm = ln.match(/^(?:Scheme|Fund(?:\s*Name)?)\s*[:\-–]\s*(.+)/i);
+      if (sm) { cur.name=sm[1].trim(); cur.category=detectCat(cur.name); continue; }
+      // Heuristic: if line looks like a fund name
+      if (ln.length>15&&/(?:mutual fund|growth|dividend|IDCW|direct|regular|plan)/i.test(ln)&&!/folio|pan|kyc|date|opening|closing|market|cost|particular|transaction/i.test(ln)) {
+        cur.name=ln; cur.category=detectCat(ln);
+      }
+    }
+
+    if (!cur) continue;
+
+    /* Transaction line: starts with date */
+    const txM = ln.match(/^(\d{2}[-\/][A-Za-z]{3}[-\/]\d{4}|\d{2}[-\/]\d{2}[-\/]\d{4})\s+(.+)/);
+    if (txM) {
+      const dt=parseDate(txM[1]), rest=txM[2];
+      if (dt) {
+        const isRed=/redemption|withdraw|switch.?out/i.test(rest);
+        const isDvd=/dividend|idcw/i.test(rest);
+        const nums=(rest.match(/-?[\d,]+\.?\d*/g)||[]).map(x=>parseFloat(x.replace(/,/g,''))).filter(x=>x>0&&x<1e10);
+        if (nums.length>=2) {
+          const amount=nums[0], units=nums[1];
+          if (amount>0&&units>0) {
+            cur.transactions.push({ date:dt, type:isRed?'sell':isDvd?'div':'buy', amount, units, nav:nums[2]||0 });
+          }
+        }
+      }
+      continue;
+    }
+
+    /* Market / current value */
+    const mv = ln.match(/Market\s*Value[^:]*[:\s]+(?:Rs\.?\s*|INR\s*)?([\d,]+\.?\d*)/i);
+    if (mv) { cur.currentValue=parseNum(mv[1]); continue; }
+
+    /* Cost / invested value */
+    const cv = ln.match(/(?:Cost|Invested|Purchase)\s*(?:Value|Amount)[^:]*[:\s]+(?:Rs\.?\s*|INR\s*)?([\d,]+\.?\d*)/i);
+    if (cv) { cur.costValue=parseNum(cv[1]); continue; }
+
+    /* Closing balance → units */
+    const cb = ln.match(/(?:Closing|Current)\s*Balance[^:]*[:\s]+([\d,]+\.?\d*)\s*(?:Units?)?/i);
+    if (cb) { cur.units=parseNum(cb[1]); continue; }
+
+    /* Current NAV */
+    const nv = ln.match(/(?:Current\s+)?NAV\s*(?:\(Rs\.\))?\s*[:\s]+([\d,]+\.?\d*)/i);
+    if (nv&&parseNum(nv[1])>0) cur.currentNAV=parseNum(nv[1]);
+  }
+  pushCur();
+
+  return {funds, holderName, stmtDate};
+}
+
+/* ── Post-process: compute XIRR per fund ────────────────────────── */
+function processFunds(rawFunds) {
+  const today = new Date();
+  return rawFunds.filter(f=>f.name).map(f=>{
+    // Derive missing fields
+    if (!f.costValue) f.costValue = f.transactions.filter(t=>t.type==='buy').reduce((s,t)=>s+t.amount,0);
+    if (!f.units) f.units = f.transactions.reduce((s,t)=>s+(t.type==='buy'?t.units:t.type==='sell'?-t.units:0),0);
+    if (!f.currentNAV&&f.units>0&&f.currentValue>0) f.currentNAV=f.currentValue/f.units;
+    if (!f.currentValue&&f.units>0&&f.currentNAV>0) f.currentValue=f.units*f.currentNAV;
+
+    // XIRR
+    if (f.transactions.length>0&&f.currentValue>0) {
+      const cfs=[], dts=[];
+      for (const t of f.transactions) {
+        if (t.type==='buy')  { cfs.push(-t.amount); dts.push(t.date); }
+        if (t.type==='sell') { cfs.push(t.amount);  dts.push(t.date); }
+      }
+      cfs.push(f.currentValue); dts.push(today);
+      f.xirr = xirr(cfs,dts);
+    }
+    return f;
+  }).filter(f=>(f.currentValue>0||f.costValue>0)&&f.transactions.length>0);
+}
+
+/* ── Demo dataset ────────────────────────────────────────────────── */
+function demoData() {
+  const D=(y,m,d)=>new Date(y,m-1,d);
+  const sips=(fund,startY,startM,count,amount)=>{
+    const txns=[]; let d=new Date(startY,startM-1,10);
+    for(let i=0;i<count;i++){
+      const nav=fund.currentNAV*(0.72+Math.random()*0.28);
+      const units=amount/nav;
+      txns.push({date:new Date(d),type:'buy',amount,units,nav});
+      d.setMonth(d.getMonth()+1);
+    }
+    return txns;
+  };
+  const funds=[
+    {name:'Mirae Asset Large Cap Fund - Direct Plan - Growth',             folio:'1234567',category:'Large Cap',   currentValue:298000,costValue:240000,units:7100, currentNAV:41.97,xirr:null,transactions:[]},
+    {name:'HDFC Mid-Cap Opportunities Fund - Direct Plan - Growth',        folio:'2345678',category:'Mid Cap',    currentValue:212000,costValue:150000,units:4200, currentNAV:50.47,xirr:null,transactions:[]},
+    {name:'Parag Parikh Flexi Cap Fund - Direct Plan - Growth',            folio:'3456789',category:'Flexi Cap',  currentValue:180000,costValue:120000,units:3850, currentNAV:46.75,xirr:null,transactions:[]},
+    {name:'Nippon India Small Cap Fund - Direct Plan - Growth',            folio:'4567890',category:'Small Cap',  currentValue:82000, costValue:72000, units:1800, currentNAV:45.55,xirr:null,transactions:[]},
+    {name:'Axis Bluechip Fund - Direct Plan - Growth',                     folio:'5678901',category:'Large Cap',  currentValue:115000,costValue:120000,units:2740, currentNAV:41.97,xirr:null,transactions:[]},
+    {name:'ICICI Prudential Liquid Fund - Direct Plan - Growth',           folio:'6789012',category:'Liquid',     currentValue:53200, costValue:50000, units:207,  currentNAV:257.0,xirr:null,transactions:[]},
+  ];
+  funds[0].transactions=sips(funds[0],2022,1,36,5000); funds[0].costValue=36*5000;
+  funds[1].transactions=sips(funds[1],2022,3,30,5000); funds[1].costValue=30*5000;
+  funds[2].transactions=sips(funds[2],2022,6,24,5000); funds[2].costValue=24*5000;
+  funds[3].transactions=sips(funds[3],2023,8,12,6000); funds[3].costValue=12*6000;
+  funds[4].transactions=sips(funds[4],2021,4,24,5000); funds[4].costValue=24*5000;
+  funds[5].transactions=[{date:D(2024,11,1),type:'buy',amount:50000,units:207,nav:241.5}];
+  return {funds:processFunds(funds), holderName:'Sample Investor', stmtDate:new Date()};
+}
+
+/* ── UI helpers ──────────────────────────────────────────────────── */
+function show(id) { document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on')); document.getElementById(id).classList.add('on'); }
+function setProgress(pct,msg) {
+  document.getElementById('progFill').style.width=pct+'%';
+  if(msg) document.getElementById('statusMsg').textContent=msg;
+}
+function resetTool() { show('secUpload'); document.getElementById('pdfInput').value=''; }
+
+/* ── Render results ──────────────────────────────────────────────── */
+function renderResults({funds, holderName, stmtDate}) {
+  show('secResults');
+  const today=new Date();
+
+  /* Summary numbers */
+  const totInv  = funds.reduce((s,f)=>s+f.costValue,0);
+  const totCur  = funds.reduce((s,f)=>s+f.currentValue,0);
+  const totGain = totCur-totInv;
+  const gainPct = totInv>0 ? totGain/totInv : 0;
+
+  /* Overall XIRR */
+  const aCFs=[],aDTs=[];
+  for(const f of funds) {
+    for(const t of f.transactions) {
+      if(t.type==='buy')  {aCFs.push(-t.amount);  aDTs.push(t.date);}
+      if(t.type==='sell') {aCFs.push(t.amount);   aDTs.push(t.date);}
+    }
+  }
+  aCFs.push(totCur); aDTs.push(today);
+  const ovXIRR = aCFs.length>1 ? xirr(aCFs,aDTs) : null;
+
+  /* Score */
+  const {score,reasons} = portfolioScore(funds, ovXIRR);
+
+  /* Header */
+  document.getElementById('resTitle').textContent = holderName ? `${holderName}'s Portfolio` : 'Your Portfolio Analysis';
+  document.getElementById('resSub').textContent   = stmtDate
+    ? `Statement as on ${stmtDate.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})}`
+    : `Analysed on ${today.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})}`;
+
+  /* ─ Summary cards ─ */
+  const xCls = ovXIRR==null?'':ovXIRR>0.12?'pos':ovXIRR>0.06?'hi':'neg';
+  const sCls  = score>=7?'var(--success)':score>=5?'var(--warning)':'var(--danger)';
+  document.getElementById('sumGrid').innerHTML=`
+    <div class="sum-card inv">
+      <div class="sum-lbl">Total Invested</div>
+      <div class="sum-val">${fmtINR(totInv)}</div>
+      <div class="sum-delta">${funds.length} fund${funds.length!==1?'s':''}</div>
+    </div>
+    <div class="sum-card cur">
+      <div class="sum-lbl">Current Value</div>
+      <div class="sum-val pos">${fmtINR(totCur)}</div>
+      <div class="sum-delta ${totGain>=0?'up':'dn'}">${totGain>=0?'+':''}${fmtINR(totGain)} (${(gainPct*100).toFixed(1)}%)</div>
+    </div>
+    <div class="sum-card xirr-c">
+      <div class="sum-lbl">Overall XIRR</div>
+      <div class="sum-val ${xCls}">${ovXIRR!=null?fmtPct(ovXIRR):'—'}</div>
+      <div class="sum-delta">Annualised return</div>
+    </div>
+    <div class="sum-card sc">
+      <div class="sum-lbl">Portfolio Score</div>
+      <div class="sum-val" style="color:${sCls}">${score}/10</div>
+      <div class="sum-delta">${score>=7?'Strong':score>=5?'Average':'Needs work'}</div>
+    </div>`;
+
+  /* ─ Alert ─ */
+  let alertH='';
+  if (ovXIRR!=null&&ovXIRR<0.08) alertH+=`<div class="alert warn">⚠️ <div><strong>Portfolio XIRR of ${fmtPct(ovXIRR)} is below 8%</strong> — a basic equity investing benchmark. It may be time for a detailed review of your fund selection and SIP amounts with a registered distributor.</div></div>`;
+  else if (ovXIRR!=null&&ovXIRR>0.15) alertH+=`<div class="alert good">✅ <div><strong>Strong overall XIRR of ${fmtPct(ovXIRR)}</strong> — your portfolio is performing well above category benchmarks. Keep investing consistently and reviewing annually.</div></div>`;
+  if (funds.length>8) alertH+=`<div class="alert warn">⚠️ <div><strong>${funds.length} funds detected</strong> — this is over-diversification. Beyond 7 funds, additional complexity rarely adds returns. Consider consolidating with professional guidance.</div></div>`;
+  document.getElementById('alertBox').innerHTML=alertH;
+
+  /* ─ Fund table ─ */
+  let tbl=`<table><thead><tr>
+    <th>Fund</th><th>Category</th><th>Invested</th><th>Current</th><th>Gain / Loss</th><th>XIRR</th><th>Verdict</th>
+  </tr></thead><tbody>`;
+  for(const f of funds) {
+    const g=f.currentValue-f.costValue;
+    const gp=f.costValue>0?g/f.costValue:0;
+    const v=verdict(f);
+    const xc=f.xirr==null?'':f.xirr>0.12?'xv g':f.xirr>0.06?'xv o':'xv r';
+    tbl+=`<tr>
+      <td><div class="fn">${f.name}</div><div class="folio">Folio: ${f.folio||'—'}</div></td>
+      <td><span class="cat-badge ${catClass(f.category)}">${f.category}</span></td>
+      <td>${fmtINR(f.costValue)}</td>
+      <td>${fmtINR(f.currentValue)}</td>
+      <td><div style="font-weight:700;color:${g>=0?'var(--success)':'var(--danger)'}">${g>=0?'+':''}${fmtINR(g)}</div><div style="font-size:12px;color:var(--text-mid)">${(gp*100).toFixed(1)}%</div></td>
+      <td><span class="${xc}">${f.xirr!=null?fmtPct(f.xirr):'—'}</span></td>
+      <td><span class="vbadge ${v.cls}">${v.lbl}</span><div class="vline">${v.line}</div></td>
+    </tr>`;
+  }
+  tbl+='</tbody></table>';
+  document.getElementById('fundTbl').innerHTML=tbl;
+
+  /* ─ Overlap ─ */
+  const pairs=allOverlapPairs(funds).filter(p=>p.ov>0.14);
+  let ovH='';
+  if(!pairs.length) {
+    ovH=`<div class="no-ol">✅ Good category diversification! No significant overlap detected between your funds. Each fund appears to cover a meaningfully different market segment.</div>`;
+  } else {
+    ovH='<div class="ol-grid">';
+    for(const p of pairs.slice(0,8)) {
+      const pct=Math.round(p.ov*100);
+      const lvl=pct>=60?'hi':pct>=35?'md':'lo';
+      const note=lvl==='hi'?'⚠️ High overlap — likely holding same underlying stocks':lvl==='md'?'⚡ Moderate overlap — some common holdings expected':'✓ Low overlap — decent diversification';
+      ovH+=`<div class="ol-row">
+        <div class="ol-pair">${shortName(p.f1)} <span style="color:var(--text-mid);font-weight:400">vs</span> ${shortName(p.f2)}</div>
+        <div class="ol-bar-bg"><div class="ol-fill ${lvl}" style="width:0%" data-w="${pct}%"></div></div>
+        <div class="ol-meta"><span>${note}</span><span><strong>~${pct}%</strong> estimated overlap</span></div>
+      </div>`;
+    }
+    ovH+='</div>';
+  }
+  document.getElementById('overlapBox').innerHTML=ovH;
+  // Animate bars
+  setTimeout(()=>{document.querySelectorAll('.ol-fill[data-w]').forEach(el=>{el.style.width=el.dataset.w;});},120);
+
+  /* ─ Tax ─ */
+  let ltcg=0,stcg=0,debt=0;
+  for(const f of funds) { const t=taxForFund(f,today); ltcg+=t.ltcg; stcg+=t.stcg; debt+=t.debt; }
+  const ltcgTax = Math.max(0,ltcg-125000)*0.125;
+  const stcgTax = stcg*0.20;
+  const debtTax = debt*0.30; // 30% slab worst-case
+  const totTax  = ltcgTax+stcgTax+debtTax;
+  const noteBg  = ltcg<=125000 ? 'background:var(--success-bg);color:#0A3D20' : 'background:var(--warning-bg);color:#6B3D00';
+  const noteIco = ltcg<=125000 ? '✅' : '⚠️';
+  const noteMsg = ltcg<=125000
+    ? `Your LTCG gains of ${fmtINR(ltcg)} are within the ₹1.25L annual exemption limit. No LTCG tax if you redeem today.`
+    : `LTCG gains of ${fmtINR(ltcg)} exceed the ₹1.25L exemption. Tax-efficient redemption planning recommended — connect with AFS before redeeming.`;
+  document.getElementById('taxBox').innerHTML=`
+    <div class="tax-grid">
+      <div class="tx"><div class="tx-lbl">LTCG Gains <span style="font-size:10px">(Equity held &gt;1yr)</span></div>
+        <div class="tx-amt">${fmtINR(ltcg)}</div>
+        <div class="tx-note">₹1.25L exempt · Taxable: ${fmtINR(Math.max(0,ltcg-125000))} @ 12.5%</div></div>
+      <div class="tx"><div class="tx-lbl">STCG Gains <span style="font-size:10px">(Equity held &lt;1yr)</span></div>
+        <div class="tx-amt">${fmtINR(stcg)}</div><div class="tx-note">Fully taxable @ 20%</div></div>
+      <div class="tx"><div class="tx-lbl">Debt Fund Gains</div>
+        <div class="tx-amt">${fmtINR(debt)}</div><div class="tx-note">Taxed as per income slab</div></div>
+      <div class="tx" style="background:${totTax>10000?'var(--warning-bg)':'var(--success-bg)'}">
+        <div class="tx-lbl">Est. Total Tax Liability</div>
+        <div class="tx-amt">${fmtINR(totTax)}</div><div class="tx-note">If redeemed today · FY 2025-26</div></div>
+    </div>
+    <div class="tax-note-box" style="${noteBg}">${noteIco} ${noteMsg}</div>`;
+
+  /* ─ Score ─ */
+  const sCol = score>=7?'var(--success)':score>=5?'var(--warning)':'var(--danger)';
+  const circ = 2*Math.PI*48;
+  const dash  = circ - (score/10)*circ;
+  document.getElementById('scoreBox').innerHTML=`
+    <div class="score-wrap">
+      <div>
+        <div class="score-ring">
+          <svg viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="48" fill="none" stroke="var(--border)" stroke-width="8"/>
+            <circle cx="60" cy="60" r="48" fill="none" stroke="${sCol}" stroke-width="8"
+              stroke-dasharray="${circ}" stroke-dashoffset="${dash}" stroke-linecap="round"/>
+          </svg>
+          <div class="score-val" style="color:${sCol}">${score}</div>
+        </div>
+        <div class="score-lbl" style="color:${sCol}">${score>=8?'Excellent':score>=7?'Strong':score>=5?'Average':'Needs Work'}</div>
+        <div class="score-desc">out of 10</div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px">Score Breakdown</div>
+        ${reasons.map(r=>`<div class="reason"><span>${r.ok?'✅':'⚠️'}</span><span style="color:${r.ok?'var(--success)':'var(--warning)'}">${r.t}</span></div>`).join('')}
+      </div>
+    </div>`;
+
+  /* ─ WhatsApp CTA ─ */
+  const waMsg = encodeURIComponent(
+    `Hi AFS 👋, I used the AFS Wealth Lens and would like a detailed portfolio review.\n\n` +
+    `Portfolio summary:\n• Total invested: ${fmtINR(totInv)}\n• Current value: ${fmtINR(totCur)}\n• Gain/Loss: ${fmtINR(totGain)}\n• Overall XIRR: ${ovXIRR!=null?fmtPct(ovXIRR):'N/A'}\n• Funds: ${funds.length}\n• Score: ${score}/10\n\nCan you help me review this in detail?`
+  );
+  document.getElementById('waBtnOut').href=`https://wa.me/918073011715?text=${waMsg}`;
+}
+
+/* ── Main file handler ───────────────────────────────────────────── */
+async function handleFile(file) {
+  show('secProc');
+  setProgress(5,'Reading your statement…');
+  try {
+    const text = await extractText(file);
+    setProgress(50,'Parsing fund data…');
+    const raw = parseCAS(text);
+    setProgress(68,'Computing XIRR…');
+    const funds = processFunds(raw.funds);
+    setProgress(85,'Running overlap & tax analysis…');
+    if (!funds.length) {
+      show('secUpload');
+      alert('Could not extract fund data from this PDF.\n\nPlease ensure:\n• It is a CAMS or KFintech Consolidated Account Statement\n• The PDF is not password-protected\n\nTip: Try the "sample portfolio" link to see how the tool works.');
+      return;
+    }
+    await new Promise(r=>setTimeout(r,400));
+    setProgress(100,'Done!');
+    renderResults({funds, holderName:raw.holderName, stmtDate:raw.stmtDate});
+  } catch(e) {
+    console.error(e);
+    show('secUpload');
+    alert('Error reading the PDF. Please ensure the file is a valid, unencrypted CAMS or KFintech CAS PDF.');
+  }
+}
+
+/* ── Event listeners ─────────────────────────────────────────────── */
+document.getElementById('pdfInput').addEventListener('change', e=>{
+  const f=e.target.files[0]; if(f) handleFile(f);
+});
+
+const dz=document.getElementById('dropZone');
+dz.addEventListener('dragover', e=>{ e.preventDefault(); dz.classList.add('drag-over'); });
+dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
+dz.addEventListener('drop', e=>{
+  e.preventDefault(); dz.classList.remove('drag-over');
+  const f=e.dataTransfer.files[0];
+  if(f&&f.type==='application/pdf') handleFile(f);
+  else alert('Please drop a PDF file.');
+});
+dz.addEventListener('click', e=>{ if(e.target.tagName!=='BUTTON') document.getElementById('pdfInput').click(); });
+
+document.getElementById('demoLnk').addEventListener('click', e=>{
+  e.preventDefault();
+  show('secProc'); setProgress(10,'Loading sample portfolio…');
+  setTimeout(()=>{ setProgress(45,'Computing XIRR for 6 funds…');
+    setTimeout(()=>{ setProgress(80,'Running overlap analysis…');
+      setTimeout(()=>{ setProgress(100,'Done!'); renderResults(demoData()); }, 400);
+    }, 400);
+  }, 300);
+});
+</script>
+{{ end }}

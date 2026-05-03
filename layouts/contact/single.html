@@ -1,0 +1,67 @@
+{{ define "main" }}
+<header class="page-header">
+  <div class="page-header-inner">
+    <span class="section-label" style="color:var(--orange);">Always Reachable</span>
+    <h1>100% Digital. PAN India.</h1>
+    <p class="lead">No branch. No appointment needed. Reach AFS from anywhere in India via WhatsApp, email, or the contact form.</p>
+  </div>
+</header>
+
+<div class="container" style="padding-top:3rem; padding-bottom:4rem;">
+  <div style="display:grid; grid-template-columns:1fr 360px; gap:3rem; align-items:start;">
+    <div>
+      <h2 style="margin-bottom:1.5rem;">Get in Touch</h2>
+      <div class="contact-methods">
+        <div class="contact-card">
+          <div class="contact-icon">💬</div>
+          <h4>WhatsApp (Primary)</h4>
+          <p style="font-size:0.85rem; color:var(--text-mid); margin:0.4rem 0 0.75rem;">Fastest response — within hours on business days</p>
+          <a href="{{ .Site.Params.whatsappLink }}" target="_blank" rel="noopener noreferrer">+91 80730 11715</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">📧</div>
+          <h4>Email</h4>
+          <p style="font-size:0.85rem; color:var(--text-mid); margin:0.4rem 0 0.75rem;">For detailed queries — response within 48 hours</p>
+          <a href="mailto:finservashish@gmail.com">finservashish@gmail.com</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">📋</div>
+          <h4>Contact Form</h4>
+          <p style="font-size:0.85rem; color:var(--text-mid); margin:0.4rem 0 0.75rem;">For structured enquiries</p>
+          <a href="{{ .Site.Params.contactForm }}" target="_blank" rel="noopener noreferrer">Open Form →</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">📍</div>
+          <h4>Office</h4>
+          <p style="font-size:0.85rem; color:var(--text-mid); margin:0.4rem 0;">Bangalore, Karnataka — 560001</p>
+          <span style="font-size:0.8rem; color:var(--text-mid);">Physical meetings not required</span>
+        </div>
+      </div>
+
+      <div style="margin-top:2rem;">
+        <h3 style="margin-bottom:1rem;">Follow AFS</h3>
+        <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+          <a href="{{ .Site.Params.instagram }}" class="btn btn-outline btn-sm" target="_blank" rel="noopener noreferrer">📷 Instagram</a>
+          <a href="{{ .Site.Params.youtube }}" class="btn btn-outline btn-sm" target="_blank" rel="noopener noreferrer">▶️ YouTube</a>
+          <a href="{{ .Site.Params.whatsappChannel }}" class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener noreferrer">📢 WhatsApp Channel</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div>
+      <div class="sidebar-wa" style="margin-bottom:1.5rem;">
+        <h4>Start on WhatsApp</h4>
+        <p>The fastest way to connect. One message starts your investment journey.</p>
+        <a href="{{ .Site.Params.whatsappLink }}" class="btn btn-whatsapp" style="width:100%; justify-content:center;" target="_blank" rel="noopener noreferrer">Open WhatsApp Chat</a>
+      </div>
+      <div class="sidebar-card">
+        <h4>Client Portal Access</h4>
+        <p style="font-size:0.85rem; color:var(--text-mid); margin:0.5rem 0 1rem;">Track your portfolio anytime via Myplanner.</p>
+        <a href="{{ .Site.Params.clientPortal }}" class="btn btn-navy btn-sm" style="width:100%; justify-content:center;" target="_blank" rel="noopener noreferrer">Login to Myplanner →</a>
+        <p style="font-size:0.75rem; color:var(--text-mid); margin-top:0.75rem;">Login link provided at onboarding. Not yet a member? Connect with us first.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}

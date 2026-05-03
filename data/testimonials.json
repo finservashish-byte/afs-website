@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Rahul M.",
+    "role": "Software Engineer",
+    "quote": "AFS helped me start my first SIP in just one WhatsApp conversation. The guidance was clear, patient, and zero jargon. Six months in and I'm investing consistently for the first time in my life.",
+    "active": true
+  },
+  {
+    "name": "Priya S.",
+    "role": "Entrepreneur",
+    "quote": "I had insurance policies from three different agents — I had no idea what I actually had. AFS helped me consolidate and understand my coverage. Now I have the right term plan and nothing I don't need.",
+    "active": true
+  },
+  {
+    "name": "Avinash K.",
+    "role": "Business Owner",
+    "quote": "The Monthly Digest alone is worth it. I've learned more about how markets work in the last 3 months than I did in the last 10 years. And the portfolio review call every quarter gives me real confidence.",
+    "active": true
+  }
+]

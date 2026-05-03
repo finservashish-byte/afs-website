@@ -1,0 +1,97 @@
+{{ define "main" }}
+<header class="page-header">
+  <div class="page-header-inner">
+    <span class="section-label" style="color:var(--orange);">AMFI ARN: {{ .Site.Params.amfiArn }}</span>
+    <h1>Mutual Fund Distribution</h1>
+    <p class="lead">Goal-based SIP and lumpsum distribution across 30+ AMCs — equity, debt, hybrid, ELSS and more. 100% digital, PAN India.</p>
+  </div>
+</header>
+
+<div class="sidebar-layout">
+  <!-- Main Content -->
+  <div>
+    <!-- 6 Features -->
+    <section style="margin-bottom:3rem;">
+      <span class="section-label">What We Facilitate</span>
+      <h2 style="margin-bottom:1.5rem;">Comprehensive Mutual Fund Distribution</h2>
+      <div class="grid-2" style="gap:1.25rem;">
+        <div class="service-card" style="border-top-color:var(--orange);">
+          <div class="icon">📅</div>
+          <h3>SIP &amp; Lumpsum</h3>
+          <p>Systematic Investment Plans starting from ₹500/month, or one-time lumpsum investments — across all fund categories.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">🎯</div>
+          <h3>Goal-Based Portfolios</h3>
+          <p>Every investment mapped to a specific goal — retirement, education, home, or wealth creation. Not just returns, but purpose.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">🔄</div>
+          <h3>Portfolio Review &amp; Rebalancing</h3>
+          <p>Quarterly portfolio reviews and rebalancing support to keep your allocation aligned with your goals and risk profile.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">🏷️</div>
+          <h3>ELSS (Tax Saving)</h3>
+          <p>Save up to ₹46,800 in tax annually under Section 80C with Equity Linked Savings Schemes — shortest lock-in of 3 years.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">💻</div>
+          <h3>Client Dashboard</h3>
+          <p>Track all your investments in one place via your Myplanner client portal — login provided at onboarding.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">🔍</div>
+          <h3>Fund Research Support</h3>
+          <p>AFS provides category-level guidance on fund selection — consistent with AMFI distributor guidelines.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Fund Categories -->
+    <section style="margin-bottom:3rem;">
+      <span class="section-label">What You Can Invest In</span>
+      <h2 style="margin-bottom:1.5rem;">30+ AMCs, All Fund Categories</h2>
+      <div class="grid-3" style="gap:0.75rem;">
+        {{ $categories := slice "Large Cap Funds" "Mid Cap Funds" "Small Cap Funds" "Flexi Cap Funds" "ELSS (Tax Saver)" "Debt / Liquid Funds" "Index Funds" "Hybrid / Balanced Funds" "International Funds" }}
+        {{ range $categories }}
+        <div style="padding:0.75rem 1rem; background:var(--light-gray); border-radius:var(--radius-sm); font-size:0.88rem; font-weight:500; color:var(--navy); border-left:3px solid var(--orange);">
+          {{ . }}
+        </div>
+        {{ end }}
+      </div>
+      <p style="font-size:0.82rem; color:var(--text-mid); margin-top:1rem;">Fund categories shown are illustrative. AFS does not recommend specific mutual fund schemes. AMFI Registered Distributor ARN: {{ .Site.Params.amfiArn }}. Commission disclosure available on request and on the AMFI website.</p>
+    </section>
+
+    <!-- Model Portfolios teaser -->
+    <div style="background:var(--navy-dark); border-radius:var(--radius-lg); padding:2rem; color:#fff; margin-bottom:3rem;">
+      <h3 style="color:#fff; margin-bottom:0.75rem;">Explore Illustrative Model Portfolios</h3>
+      <p style="color:rgba(255,255,255,0.8); font-size:0.9rem; margin-bottom:1.25rem;">See how a Conservative, Balanced, Growth, or Aggressive allocation could look — using fund categories only.</p>
+      <a href="/services/model-portfolios/" class="btn btn-primary">View Model Portfolios →</a>
+    </div>
+
+    {{ .Content }}
+  </div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-wa">
+      <h4>Connect with AFS</h4>
+      <p>Get personalised guidance on choosing the right funds for your goals.</p>
+      <a href="{{ .Site.Params.whatsappLink }}" class="btn btn-whatsapp" style="width:100%; justify-content:center;" target="_blank" rel="noopener noreferrer">WhatsApp Us Now</a>
+    </div>
+    <div class="sidebar-card">
+      <h4>Quick Calculators</h4>
+      <ul style="margin-top:0.5rem;">
+        <li style="padding:0.4rem 0; border-bottom:1px solid var(--border);"><a href="/tools/#tab-sip" style="font-size:0.88rem;">→ SIP Calculator</a></li>
+        <li style="padding:0.4rem 0; border-bottom:1px solid var(--border);"><a href="/tools/#tab-goal" style="font-size:0.88rem;">→ Goal Planner</a></li>
+        <li style="padding:0.4rem 0;"><a href="/tools/#tab-tax" style="font-size:0.88rem;">→ Tax Calculator</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-card" style="background:var(--orange-pale); border:1px solid var(--orange);">
+      <h4 style="color:var(--navy); font-size:0.9rem;">Regulatory Disclosure</h4>
+      <p style="font-size:0.78rem; color:var(--text-mid); margin-top:0.5rem; line-height:1.6;">{{ .Site.Params.discMF }} {{ .Site.Params.discMFD }}</p>
+    </div>
+  </aside>
+</div>
+{{ end }}

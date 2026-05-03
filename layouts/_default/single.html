@@ -1,0 +1,32 @@
+{{ define "main" }}
+<!-- Breadcrumb -->
+{{ if not .IsHome }}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="/">Home</a>
+    {{ range .Ancestors.Reverse }}
+    <span class="sep" aria-hidden="true">›</span>
+    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    {{ end }}
+    <span class="sep" aria-hidden="true">›</span>
+    <span aria-current="page">{{ .Title }}</span>
+  </div>
+</nav>
+{{ end }}
+
+<!-- Page Header -->
+<header class="page-header">
+  <div class="page-header-inner">
+    {{ with .Params.label }}<span class="section-label">{{ . }}</span>{{ end }}
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="lead">{{ . }}</p>{{ end }}
+  </div>
+</header>
+
+<!-- Page Content -->
+<div class="container" style="padding-top:3rem; padding-bottom:4rem; max-width:880px;">
+  <div class="article-body">
+    {{ .Content }}
+  </div>
+</div>
+{{ end }}

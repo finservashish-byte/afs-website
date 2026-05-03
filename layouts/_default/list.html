@@ -1,0 +1,24 @@
+{{ define "main" }}
+<header class="page-header">
+  <div class="page-header-inner">
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="lead">{{ . }}</p>{{ end }}
+  </div>
+</header>
+
+<div class="container" style="padding-top:3rem; padding-bottom:4rem;">
+  {{ .Content }}
+  {{ if .Pages }}
+  <div class="grid-2" style="margin-top:2rem;">
+    {{ range .Pages }}
+    <div class="card">
+      <div class="card-body">
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        {{ with .Description }}<p>{{ . }}</p>{{ end }}
+      </div>
+    </div>
+    {{ end }}
+  </div>
+  {{ end }}
+</div>
+{{ end }}

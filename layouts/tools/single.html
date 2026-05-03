@@ -1,0 +1,258 @@
+{{ define "main" }}
+<header class="page-header">
+  <div class="page-header-inner">
+    <span class="section-label" style="color:var(--orange);">Free. No Login. Instant.</span>
+    <h1>Investment Tools &amp; Calculators</h1>
+    <p class="lead">Six practical calculators to plan, compare, and optimise your investments. All calculations happen in your browser — no data is collected.</p>
+  </div>
+</header>
+
+<div class="container" style="padding-top:2.5rem; padding-bottom:4rem;">
+
+  <!-- Tabs -->
+  <div class="calc-tabs" role="tablist" aria-label="Calculator tabs">
+    <button class="calc-tab active" data-tab="tab-sip"   role="tab" aria-selected="true"  aria-controls="tab-sip">SIP Calculator</button>
+    <button class="calc-tab"        data-tab="tab-goal"  role="tab" aria-selected="false" aria-controls="tab-goal">Goal Planner</button>
+    <button class="calc-tab"        data-tab="tab-risk"  role="tab" aria-selected="false" aria-controls="tab-risk">Risk Profiler</button>
+    <button class="calc-tab"        data-tab="tab-svl"   role="tab" aria-selected="false" aria-controls="tab-svl">SIP vs Lumpsum</button>
+    <button class="calc-tab"        data-tab="tab-delay" role="tab" aria-selected="false" aria-controls="tab-delay">Delay Cost</button>
+    <button class="calc-tab"        data-tab="tab-tax"   role="tab" aria-selected="false" aria-controls="tab-tax">Tax Calculator</button>
+  </div>
+
+  <!-- ===== TAB 1: SIP CALCULATOR ===== -->
+  <div class="calc-panel active" id="tab-sip" role="tabpanel" aria-labelledby="tab-sip-btn">
+    <div class="calc-inputs">
+      <h3>SIP Calculator</h3>
+      <p style="font-size:0.88rem; color:var(--text-mid); margin-bottom:1rem;">Calculate the future value of your monthly SIP investment using the power of compounding.</p>
+
+      <label for="sip-amount">Monthly SIP Amount (₹)</label>
+      <input type="number" id="sip-amount" value="5000" min="100" max="1000000" step="100">
+
+      <label for="sip-rate">Expected Annual Return (%)</label>
+      <input type="range" id="sip-rate" min="1" max="30" step="0.5" value="12">
+      <div style="display:flex;justify-content:space-between;font-size:0.8rem;color:var(--text-mid);margin-top:0.25rem;"><span>1%</span><span id="sip-rate-display" style="font-weight:600;color:var(--navy);">12%</span><span>30%</span></div>
+
+      <label for="sip-years" style="margin-top:1rem;">Investment Duration (Years)</label>
+      <input type="range" id="sip-years" min="1" max="40" step="1" value="10">
+      <div style="display:flex;justify-content:space-between;font-size:0.8rem;color:var(--text-mid);margin-top:0.25rem;"><span>1 Yr</span><span id="sip-years-display" style="font-weight:600;color:var(--navy);">10 Yrs</span><span>40 Yrs</span></div>
+    </div>
+    <div class="calc-results">
+      <h3>Your SIP Estimate</h3>
+      <div class="result-row"><span class="label">Monthly SIP</span><span class="value" id="sip-amount-display">₹5,000/mo</span></div>
+      <div class="result-row"><span class="label">Total Invested</span><span class="value" id="sip-invested">₹6,00,000</span></div>
+      <div class="result-row"><span class="label">Estimated Gains</span><span class="value" id="sip-gains">—</span></div>
+      <div class="result-row highlight"><span class="label">Estimated Corpus</span><span class="value" id="sip-corpus">—</span></div>
+      <a href="{{ .Site.Params.whatsappLink }}" class="btn btn-whatsapp" style="width:100%; justify-content:center; margin-top:1.25rem;" target="_blank" rel="noopener noreferrer">Connect with AFS →</a>
+      <p class="calc-disclaimer">For illustrative purposes only. Not investment advice. Returns are not guaranteed. AMFI ARN: {{ .Site.Params.amfiArn }}.</p>
+    </div>
+  </div>
+
+  <!-- ===== TAB 2: GOAL PLANNER ===== -->
+  <div class="calc-panel" id="tab-goal" role="tabpanel">
+    <div class="calc-inputs">
+      <h3>Goal Planner</h3>
+      <p style="font-size:0.88rem; color:var(--text-mid); margin-bottom:1rem;">Find out the monthly SIP needed to reach any financial goal, adjusted for inflation.</p>
+
+      <label for="goal-amount">Target Amount (₹)</label>
+      <input type="number" id="goal-amount" value="5000000" min="10000" step="10000">
+
+      <label for="goal-years">Time Horizon (Years)</label>
+      <input type="number" id="goal-years" value="10" min="1" max="40">
+
+      <label for="goal-return">Expected Return (% p.a.)</label>
+      <input type="number" id="goal-return" value="12" min="1" max="30" step="0.5">
+
+      <label for="goal-inflation">Expected Inflation (% p.a.)</label>
+      <input type="number" id="goal-inflation" value="6" min="0" max="15" step="0.5">
+    </div>
+    <div class="calc-results">
+      <h3>Goal Estimate</h3>
+      <div class="result-row"><span class="label">Inflation-Adjusted Target</span><span class="value" id="goal-inflated">—</span></div>
+      <div class="result-row highlight"><span class="label">Monthly SIP Required</span><span class="value" id="goal-sip">—</span></div>
+      <div class="result-row"><span class="label">Total You'll Invest</span><span class="value" id="goal-total-invested">—</span></div>
+      <div class="result-row"><span class="label">Estimated Gains</span><span class="value" id="goal-gains">—</span></div>
+      <a href="{{ .Site.Params.whatsappLink }}" class="btn btn-whatsapp" style="width:100%; justify-content:center; margin-top:1.25rem;" target="_blank" rel="noopener noreferrer">Connect with AFS →</a>
+      <p class="calc-disclaimer">For illustrative purposes only. Not investment advice. AMFI ARN: {{ .Site.Params.amfiArn }}.</p>
+    </div>
+  </div>
+
+  <!-- ===== TAB 3: RISK PROFILER ===== -->
+  <div class="calc-panel" id="tab-risk" role="tabpanel">
+    <div style="max-width:680px;">
+      <h3>Risk Profiler</h3>
+      <p style="font-size:0.88rem; color:var(--text-mid); margin-bottom:2rem;">Answer 5 quick questions to understand your investor temperament. Takes under 2 minutes.</p>
+
+      <form id="risk-form" novalidate>
+        <div class="risk-question">
+          <h4>1. If your portfolio dropped 20% in a month, you would:</h4>
+          <label class="risk-option"><input type="radio" name="q1" value="1"> Sell everything immediately to stop further losses</label>
+          <label class="risk-option"><input type="radio" name="q1" value="2"> Feel worried but wait and watch</label>
+          <label class="risk-option"><input type="radio" name="q1" value="3"> Stay calm — this is normal. Maybe invest more.</label>
+        </div>
+        <div class="risk-question">
+          <h4>2. Your investment time horizon is:</h4>
+          <label class="risk-option"><input type="radio" name="q2" value="1"> Less than 3 years</label>
+          <label class="risk-option"><input type="radio" name="q2" value="2"> 3–7 years</label>
+          <label class="risk-option"><input type="radio" name="q2" value="3"> 7+ years</label>
+        </div>
+        <div class="risk-question">
+          <h4>3. Your primary investment goal is:</h4>
+          <label class="risk-option"><input type="radio" name="q3" value="1"> Preserve my capital — I cannot afford to lose</label>
+          <label class="risk-option"><input type="radio" name="q3" value="2"> Moderate growth with some protection</label>
+          <label class="risk-option"><input type="radio" name="q3" value="3"> Maximum long-term growth — short-term dips don't bother me</label>
+        </div>
+        <div class="risk-question">
+          <h4>4. Your monthly SIP as a % of take-home income is:</h4>
+          <label class="risk-option"><input type="radio" name="q4" value="1"> Less than 5%</label>
+          <label class="risk-option"><input type="radio" name="q4" value="2"> 5–15%</label>
+          <label class="risk-option"><input type="radio" name="q4" value="3"> More than 15%</label>
+        </div>
+        <div class="risk-question">
+          <h4>5. Your investment experience is:</h4>
+          <label class="risk-option"><input type="radio" name="q5" value="1"> I'm new — this would be my first investment</label>
+          <label class="risk-option"><input type="radio" name="q5" value="2"> I have some MF investments but limited experience</label>
+          <label class="risk-option"><input type="radio" name="q5" value="3"> I've been investing for 5+ years through market cycles</label>
+        </div>
+        <button type="button" id="risk-btn" class="btn btn-navy btn-lg">View My Risk Profile →</button>
+      </form>
+
+      <!-- Result (hidden until quiz done) -->
+      <div id="risk-result" class="hidden" style="margin-top:2rem; background:var(--navy-dark); border-radius:var(--radius-lg); padding:2rem; color:#fff;">
+        <div id="risk-profile-badge" style="display:inline-block; padding:0.4rem 1rem; border-radius:var(--radius-full); font-size:0.85rem; font-weight:700; color:#fff; margin-bottom:1rem; background:var(--navy);">—</div>
+        <h3 id="risk-profile-name" style="color:#fff; margin-bottom:0.75rem;">—</h3>
+        <p id="risk-profile-desc" style="color:rgba(255,255,255,0.8); margin-bottom:1.5rem;">—</p>
+        <a href="{{ .Site.Params.whatsappLink }}" class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">Connect with AFS for a personalised portfolio →</a>
+        <p style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:1rem;">For educational purposes only. Not investment advice. AMFI ARN: {{ .Site.Params.amfiArn }}.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TAB 4: SIP VS LUMPSUM ===== -->
+  <div class="calc-panel" id="tab-svl" role="tabpanel">
+    <div class="calc-inputs">
+      <h3>SIP vs Lumpsum</h3>
+      <p style="font-size:0.88rem; color:var(--text-mid); margin-bottom:1rem;">Compare the outcome of the same amount invested as monthly SIP versus a lumpsum invested upfront.</p>
+
+      <label for="svl-amount">Monthly Amount (₹) — same used for both</label>
+      <input type="number" id="svl-amount" value="5000" min="100" step="100">
+
+      <label for="svl-rate">Expected Annual Return (%)</label>
+      <input type="number" id="svl-rate" value="12" min="1" max="30" step="0.5">
+
+      <label for="svl-years">Duration (Years)</label>
+      <input type="number" id="svl-years" value="10" min="1" max="40">
+    </div>
+    <div class="calc-results">
+      <h3>Comparison</h3>
+      <div style="padding:0.75rem 0; border-bottom:1px solid rgba(255,255,255,0.1);">
+        <div style="font-size:0.75rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--orange); margin-bottom:0.5rem;">Monthly SIP</div>
+        <div class="result-row" style="padding:0.3rem 0; border:none;"><span class="label">Total Invested</span><span class="value" id="svl-sip-invested">—</span></div>
+        <div class="result-row highlight" style="padding:0.3rem 0; border:none;"><span class="label">Final Corpus</span><span class="value" id="svl-sip-fv">—</span></div>
+      </div>
+      <div style="padding:0.75rem 0; border-bottom:1px solid rgba(255,255,255,0.1); margin-top:0.5rem;">
+        <div style="font-size:0.75rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--orange); margin-bottom:0.5rem;">Lumpsum (all at once)</div>
+        <div class="result-row" style="padding:0.3rem 0; border:none;"><span class="label">Total Invested</span><span class="value" id="svl-ls-invested">—</span></div>
+        <div class="result-row highlight" style="padding:0.3rem 0; border:none;"><span class="label">Final Corpus</span><span class="value" id="svl-ls-fv">—</span></div>
+      </div>
+      <div style="margin-top:1rem; padding:0.75rem; background:rgba(255,102,0,0.15); border-radius:var(--radius-sm); font-size:0.88rem; text-align:center; font-weight:600;" id="svl-winner">—</div>
+      <a href="{{ .Site.Params.whatsappLink }}" class="btn btn-whatsapp" style="width:100%; justify-content:center; margin-top:1.25rem;" target="_blank" rel="noopener noreferrer">Connect with AFS →</a>
+      <p class="calc-disclaimer">For illustrative purposes only. Not investment advice. AMFI ARN: {{ .Site.Params.amfiArn }}.</p>
+    </div>
+  </div>
+
+  <!-- ===== TAB 5: DELAY COST ===== -->
+  <div class="calc-panel" id="tab-delay" role="tabpanel">
+    <div class="calc-inputs">
+      <h3>SIP Delay Cost Calculator</h3>
+      <p style="font-size:0.88rem; color:var(--text-mid); margin-bottom:1rem;">See exactly how much wealth you lose by delaying your SIP start date.</p>
+
+      <label for="delay-amount">Monthly SIP (₹)</label>
+      <input type="number" id="delay-amount" value="5000" min="100" step="100">
+
+      <label for="delay-rate">Expected Return (% p.a.)</label>
+      <input type="number" id="delay-rate" value="12" min="1" max="30" step="0.5">
+
+      <label for="delay-years">Total Investment Period (Years)</label>
+      <input type="number" id="delay-years" value="20" min="1" max="40">
+
+      <label for="delay-delay">Delay (Months)</label>
+      <input type="range" id="delay-delay" min="1" max="24" step="1" value="6">
+      <div style="text-align:center; font-size:0.9rem; font-weight:700; color:var(--navy); margin-top:0.25rem;">Delaying by <span id="delay-months-display">6</span> months</div>
+    </div>
+    <div class="calc-results">
+      <h3>Cost of Waiting</h3>
+      <div class="result-row"><span class="label">If you start today</span><span class="value" id="delay-now-corpus">—</span></div>
+      <div class="result-row"><span class="label">If you delay</span><span class="value" id="delay-delayed-corpus">—</span></div>
+      <div class="result-row highlight"><span class="label">Wealth lost by waiting</span><span class="value" id="delay-cost" style="color:#ff4444;">—</span></div>
+      <a href="{{ .Site.Params.whatsappLink }}" class="btn btn-whatsapp" style="width:100%; justify-content:center; margin-top:1.25rem;" target="_blank" rel="noopener noreferrer">Start Today — Connect with AFS →</a>
+      <p class="calc-disclaimer">For illustrative purposes only. Not investment advice. AMFI ARN: {{ .Site.Params.amfiArn }}.</p>
+    </div>
+  </div>
+
+  <!-- ===== TAB 6: TAX CALCULATOR ===== -->
+  <div class="calc-panel" id="tab-tax" role="tabpanel">
+    <div class="calc-inputs">
+      <h3>MF Tax Calculator (FY 2025-26)</h3>
+      <p style="font-size:0.88rem; color:var(--text-mid); margin-bottom:1rem;">Calculate your capital gains tax liability on mutual fund redemptions.</p>
+
+      <label for="tax-fundtype">Fund Type</label>
+      <select id="tax-fundtype">
+        <option value="equity">Equity Fund</option>
+        <option value="debt">Debt Fund</option>
+      </select>
+
+      <label for="tax-holding">Holding Period (Months)</label>
+      <input type="number" id="tax-holding" value="18" min="1" max="120">
+      <small style="color:var(--text-mid); font-size:0.78rem;">LTCG for Equity: 12+ months | Debt: 24+ months</small>
+
+      <label for="tax-invested" style="margin-top:0.75rem;">Amount Invested (₹)</label>
+      <input type="number" id="tax-invested" value="100000" min="1000" step="1000">
+
+      <label for="tax-current">Current Value (₹)</label>
+      <input type="number" id="tax-current" value="140000" min="1000" step="1000">
+
+      <label for="tax-slab">Income Tax Slab (for debt funds)</label>
+      <select id="tax-slab">
+        <option value="0">0% (No tax)</option>
+        <option value="0.05">5%</option>
+        <option value="0.10">10%</option>
+        <option value="0.15">15%</option>
+        <option value="0.20">20%</option>
+        <option value="0.30" selected>30%</option>
+      </select>
+    </div>
+    <div class="calc-results">
+      <h3>Tax Estimate</h3>
+      <div class="result-row"><span class="label">Total Gains</span><span class="value" id="tax-gains">—</span></div>
+      <div class="result-row"><span class="label">Tax Type</span><span class="value" id="tax-type" style="font-size:0.82rem; text-align:right; max-width:180px;">—</span></div>
+      <div class="result-row highlight"><span class="label">Estimated Tax</span><span class="value" id="tax-liability">—</span></div>
+      <div class="result-row"><span class="label">Post-Tax Gains</span><span class="value" id="tax-post">—</span></div>
+      <a href="{{ .Site.Params.whatsappLink }}" class="btn btn-whatsapp" style="width:100%; justify-content:center; margin-top:1.25rem;" target="_blank" rel="noopener noreferrer">Connect with AFS for tax-efficient strategy →</a>
+      <p class="calc-disclaimer">Tax rates as per FY 2025-26: STCG Equity 20%, LTCG Equity 12.5% (above ₹1.25L exemption). Debt as per income slab. Consult a tax professional. Not advice.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Disclaimer bar -->
+<div style="background:var(--orange-pale); border-top:2px solid var(--orange); padding:1rem 1.5rem; text-align:center; font-size:0.82rem; color:var(--text-mid);">
+  All calculators are for educational and illustrative purposes only. Results are estimates and not guaranteed. AFS is a distributor (AMFI ARN: {{ .Site.Params.amfiArn }}) and not an investment advisor. Please consult a qualified professional before investing.
+</div>
+
+{{ end }}
+
+{{ define "scripts" }}
+<script>
+  // Sync delay months display
+  const delaySlider = document.getElementById('delay-delay');
+  const delayDisplay = document.getElementById('delay-months-display');
+  if (delaySlider && delayDisplay) {
+    delaySlider.addEventListener('input', function() {
+      delayDisplay.textContent = this.value;
+    });
+  }
+  // Show/hide risk result
+  document.getElementById('risk-result')?.classList.add('hidden');
+  document.head.insertAdjacentHTML('beforeend', '<style>.hidden{display:none!important}</style>');
+</script>
+{{ end }}

@@ -1,0 +1,55 @@
+{{ define "main" }}
+{{ $press := .Site.Data.press }}
+<header class="page-header">
+  <div class="page-header-inner">
+    <span class="section-label" style="color:var(--orange);">Since 2012</span>
+    <h1>Press & Media</h1>
+    <p class="lead">AFS's journey — from AMFI registration in 2013 to PAN India distribution today.</p>
+  </div>
+</header>
+
+<!-- Timeline -->
+<section class="section section-dark">
+  <div class="container">
+    <h2 style="color:#fff; margin-bottom:2rem;">Our Milestones</h2>
+    <div class="timeline" role="list">
+      {{ range $press.milestones }}
+      <div class="timeline-node" role="listitem">
+        <div class="year">{{ .year }}</div>
+        <div class="event">{{ .event }}</div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- Press Announcements -->
+<section class="section">
+  <div class="container" style="max-width:760px;">
+    <h2 style="margin-bottom:2rem;">Announcements</h2>
+    {{ range $press.announcements }}
+    <div style="display:flex; gap:1.5rem; padding:1.25rem 0; border-bottom:1px solid var(--border); align-items:flex-start;">
+      <div style="flex-shrink:0; background:var(--navy-dark); color:#fff; border-radius:var(--radius-sm); padding:0.5rem 0.75rem; font-size:0.78rem; font-weight:600; text-align:center; min-width:80px;">
+        {{ .date | dateFormat "Jan 2006" }}
+      </div>
+      <div>
+        <h4 style="margin-bottom:0.4rem; font-size:1rem;">{{ .title }}</h4>
+        <p style="font-size:0.88rem;">{{ .excerpt }}</p>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</section>
+
+<!-- Media Contact -->
+<section class="section section-gray" style="text-align:center;">
+  <div class="container">
+    <h2 style="margin-bottom:1rem;">Media Contact</h2>
+    <p class="lead" style="max-width:500px; margin:0 auto 2rem;">For press enquiries, interview requests, or editorial coverage.</p>
+    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+      <a href="mailto:finservashish@gmail.com" class="btn btn-navy">Email Us</a>
+      <a href="{{ .Site.Params.whatsappLink }}" class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+    </div>
+  </div>
+</section>
+{{ end }}

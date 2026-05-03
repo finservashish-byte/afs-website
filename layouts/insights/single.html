@@ -1,0 +1,99 @@
+{{ define "main" }}
+
+<!-- Breadcrumb -->
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="/">Home</a>
+    <span class="sep" aria-hidden="true">›</span>
+    <a href="/insights/">Insights</a>
+    <span class="sep" aria-hidden="true">›</span>
+    {{ with .Params.category }}<a href="/categories/{{ . | urlize }}/">{{ . }}</a><span class="sep" aria-hidden="true">›</span>{{ end }}
+    <span aria-current="page">{{ .Title }}</span>
+  </div>
+</nav>
+
+<!-- Article Hero -->
+<header class="article-hero">
+  <div class="container" style="max-width:860px;">
+    {{ with .Params.category }}<span class="category-tag" style="margin-bottom:1rem;">{{ . }}</span>{{ end }}
+    <h1>{{ .Title }}</h1>
+    <div class="article-meta">
+      <span>By <strong style="color:#fff;">{{ with .Params.author }}{{ . }}{{ else }}AFS Team{{ end }}</strong></span>
+      <span>{{ .Date.Format "January 2, 2006" }}</span>
+      <span>{{ .ReadingTime }} min read</span>
+      {{ with .Params.updated }}<span>Updated: {{ . }}</span>{{ end }}
+    </div>
+  </div>
+</header>
+
+<!-- Feature Image -->
+{{ with .Params.image }}
+<div style="max-width:860px; margin:0 auto; padding:0 1.5rem;">
+  <img src="{{ . }}" alt="{{ $.Title }}" style="width:100%; border-radius:var(--radius-md); margin-top:-2rem; box-shadow:var(--shadow-lg);" loading="eager">
+</div>
+{{ end }}
+
+<!-- Article Body -->
+<article class="article-body">
+  {{ .Content }}
+
+  <!-- AMFI Disclaimer (mandatory on all articles) -->
+  <div class="article-disclaimer" role="note">
+    <strong>Disclaimer:</strong> This article is for educational and informational purposes only. It does not constitute investment advice or a recommendation to buy, sell, or hold any security. {{ $.Site.Params.discMF }} AFS acts as a distributor (AMFI ARN: {{ $.Site.Params.amfiArn }}) and not as an investment advisor under SEBI (Investment Advisers) Regulations, 2013.
+  </div>
+
+  <!-- WhatsApp CTA -->
+  <div style="background:var(--navy-dark); border-radius:var(--radius-md); padding:1.5rem; margin-top:2rem; text-align:center;">
+    <p style="color:rgba(255,255,255,0.85); margin-bottom:1rem; font-size:0.95rem;">Have questions about this article? Connect with AFS directly.</p>
+    <a href="{{ $.Site.Params.whatsappLink }}" class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
+      Connect on WhatsApp →
+    </a>
+  </div>
+
+  <!-- Tags -->
+  {{ with .Params.tags }}
+  <div style="margin-top:2rem; padding-top:1.5rem; border-top:1px solid var(--border);">
+    <strong style="font-size:0.85rem; color:var(--text-mid);">Tags: </strong>
+    {{ range . }}<a href="/tags/{{ . | urlize }}/" class="badge" style="background:var(--orange-pale); color:var(--orange); border:none; text-decoration:none; margin:0.25rem 0.25rem 0 0;">{{ . }}</a>{{ end }}
+  </div>
+  {{ end }}
+</article>
+
+<!-- Prev / Next Navigation -->
+<nav class="container" style="max-width:860px; padding-bottom:3rem; display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;" aria-label="Article navigation">
+  {{ with .PrevInSection }}
+  <a href="{{ .RelPermalink }}" style="flex:1; background:var(--light-gray); border-radius:var(--radius-md); padding:1rem 1.25rem; font-size:0.88rem; color:var(--text-dark); text-decoration:none;">
+    <div style="font-size:0.75rem; color:var(--text-mid); margin-bottom:0.3rem;">← Previous</div>
+    <strong>{{ .Title }}</strong>
+  </a>
+  {{ end }}
+  {{ with .NextInSection }}
+  <a href="{{ .RelPermalink }}" style="flex:1; background:var(--light-gray); border-radius:var(--radius-md); padding:1rem 1.25rem; font-size:0.88rem; color:var(--text-dark); text-decoration:none; text-align:right;">
+    <div style="font-size:0.75rem; color:var(--text-mid); margin-bottom:0.3rem;">Next →</div>
+    <strong>{{ .Title }}</strong>
+  </a>
+  {{ end }}
+</nav>
+
+<!-- Related Articles -->
+{{ $related := .Site.RegularPages.Related . | first 3 }}
+{{ if $related }}
+<section class="section section-gray">
+  <div class="container">
+    <h3 style="margin-bottom:1.5rem;">Related Articles</h3>
+    <div class="grid-3">
+      {{ range $related }}
+      <article class="blog-card">
+        <div class="blog-card-body">
+          {{ with .Params.category }}<span class="category-tag">{{ . }}</span>{{ end }}
+          <h3 style="font-size:1rem;"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          <div class="meta"><span>{{ .Date.Format "Jan 2, 2006" }}</span></div>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+
+{{ end }}

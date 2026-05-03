@@ -1,0 +1,61 @@
+<!-- AFS — head.html partial -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<!-- Primary Meta -->
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | AFS | Mutual Fund Distributor India{{ end }}</title>
+<meta name="description" content="{{ if .Description }}{{ .Description }}{{ else if .Summary }}{{ .Summary | truncate 155 }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<meta name="author" content="{{ .Site.Params.author }}">
+<link rel="canonical" href="{{ .Permalink }}">
+
+<!-- Robots -->
+{{ if .Draft }}<meta name="robots" content="noindex, nofollow">{{ else }}<meta name="robots" content="index, follow">{{ end }}
+
+<!-- Open Graph -->
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | AFS{{ end }}">
+<meta property="og:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<meta property="og:site_name" content="Ashish Financial Services">
+<meta property="og:locale" content="en_IN">
+{{ with .Params.image }}<meta property="og:image" content="{{ . | absURL }}">{{ end }}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | AFS{{ end }}">
+<meta name="twitter:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+
+<!-- Google Fonts — preconnect for performance -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- CSS — Phase 2 base + Phase 3 Liquid Glass -->
+{{ $mainCSS   := resources.Get "css/main.css" }}
+{{ $phase3CSS := resources.Get "css/phase3.css" }}
+{{ $css := slice $mainCSS $phase3CSS | resources.Concat "css/afs-bundle.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
+
+<!-- Per-page head injection (PDF.js, tool-specific styles, etc.) -->
+{{ block "head-extra" . }}{{ end }}
+
+<!-- Google Analytics 4 -->
+{{ if not .Site.IsServer }}
+{{ with .Site.GoogleAnalytics }}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ . }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ . }}', { anonymize_ip: true });
+</script>
+{{ end }}
+{{ end }}
+
+<!-- JSON-LD Schema -->
+{{ partial "schema.html" . }}

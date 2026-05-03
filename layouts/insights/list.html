@@ -1,0 +1,63 @@
+{{ define "main" }}
+<header class="page-header">
+  <div class="page-header-inner">
+    <span class="section-label" style="color:var(--orange);">AFS Corner</span>
+    <h1>Insights &amp; Investment Education</h1>
+    <p class="lead">Practical, jargon-free content to help you make better financial decisions — updated regularly by the AFS team.</p>
+  </div>
+</header>
+
+<div class="container" style="padding-top:3rem; padding-bottom:4rem;">
+
+  <!-- Category Filter -->
+  <div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:2.5rem;">
+    <a href="/insights/" class="btn btn-navy btn-sm">All</a>
+    {{ range $.Site.Taxonomies.categories }}
+    <a href="{{ .Page.RelPermalink }}" class="btn btn-outline btn-sm">{{ .Page.Title }}</a>
+    {{ end }}
+  </div>
+
+  <!-- Article Grid -->
+  {{ if .Pages }}
+  <div class="grid-2">
+    {{ range .Pages }}
+    <article class="blog-card">
+      {{ with .Params.image }}
+      <div class="blog-card-img">
+        <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy" width="600" height="338">
+      </div>
+      {{ end }}
+      <div class="blog-card-body">
+        {{ with .Params.category }}<span class="category-tag">{{ . }}</span>{{ end }}
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        <p class="excerpt">{{ .Summary | truncate 140 }}</p>
+        <div class="meta">
+          <span>{{ .Date.Format "Jan 2, 2006" }}</span>
+          <span>{{ .ReadingTime }} min read</span>
+          {{ with .Params.author }}<span>{{ . }}</span>{{ end }}
+        </div>
+      </div>
+    </article>
+    {{ end }}
+  </div>
+  {{ else }}
+  <div style="text-align:center; padding:4rem 0; color:var(--text-mid);">
+    <p style="font-size:1.1rem;">No articles published yet. Check back soon!</p>
+  </div>
+  {{ end }}
+
+  <!-- Pagination -->
+  {{ template "_internal/pagination.html" . }}
+
+</div>
+
+<!-- Digest CTA -->
+<section class="section section-dark" style="text-align:center;">
+  <div class="container">
+    <span class="section-label" style="color:var(--orange);">Stay Updated</span>
+    <h2 style="color:#fff; margin-bottom:1rem;">Get the AFS Monthly Digest</h2>
+    <p style="color:rgba(255,255,255,0.8); max-width:560px; margin:0 auto 2rem;">Market insights, fund performance data, and curated analysis — free for all active AFS members.</p>
+    <a href="{{ .Site.Params.digestForm }}" class="btn btn-primary btn-lg" target="_blank" rel="noopener noreferrer">Subscribe Free →</a>
+  </div>
+</section>
+{{ end }}

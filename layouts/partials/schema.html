@@ -1,0 +1,129 @@
+{{/* AFS — schema.html — JSON-LD per page type */}}
+
+{{ if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["FinancialService", "LocalBusiness"],
+  "name": "Ashish Financial Services",
+  "alternateName": "AFS",
+  "description": "AMFI Registered Mutual Fund Distributor and IRDAI POSP Partner. Goal-based investing, insurance, and loans facilitation — 100% digital, PAN India.",
+  "url": "{{ .Site.BaseURL }}",
+  "logo": "{{ "/images/logo.png" | absURL }}",
+  "telephone": "+918073011715",
+  "email": "finservashish@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Bangalore",
+    "addressRegion": "Karnataka",
+    "addressCountry": "IN"
+  },
+  "areaServed": "IN",
+  "hasCredential": [
+    {
+      "@type": "EducationalOccupationalCredential",
+      "name": "AMFI Registered Mutual Fund Distributor",
+      "credentialCategory": "ARN: 311127"
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "name": "IRDAI POSP Insurance Partner",
+      "credentialCategory": "POSP ID: IP240588"
+    }
+  ],
+  "sameAs": [
+    "https://www.instagram.com/ashish_financial_services",
+    "https://www.youtube.com/channel/UCfAbc214zAl2g2TY0hoKQRA",
+    "https://whatsapp.com/channel/0029Vasues52v1IkYn6lN83M"
+  ],
+  "priceRange": "Free",
+  "openingHours": "Mo-Sa 09:00-18:00"
+}
+</script>
+{{ end }}
+
+{{ if and .IsPage (eq .Section "insights") }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ .Title }}",
+  "description": "{{ if .Description }}{{ .Description }}{{ else }}{{ .Summary | truncate 155 }}{{ end }}",
+  "datePublished": "{{ .Date.Format "2006-01-02" }}",
+  "dateModified": "{{ .Lastmod.Format "2006-01-02" }}",
+  "author": {
+    "@type": "Organization",
+    "name": "AFS Team"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Ashish Financial Services",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ "/images/logo.png" | absURL }}"
+    }
+  },
+  "url": "{{ .Permalink }}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ .Permalink }}"
+  }
+  {{ with .Params.image }},
+  "image": "{{ . | absURL }}"
+  {{ end }}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ .Site.BaseURL }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Insights",
+      "item": "{{ "/insights/" | absURL }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ .Title }}",
+      "item": "{{ .Permalink }}"
+    }
+  ]
+}
+</script>
+{{ end }}
+
+{{ if eq .Type "monthly-digest" }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Who is the AFS Monthly Digest for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The AFS Monthly Digest is for active AFS members — investors who have started their investment journey with AFS. It is free for all active members."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the digest delivered?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The digest is delivered via email or WhatsApp between the 1st and 10th of each month."
+      }
+    }
+  ]
+}
+</script>
+{{ end }}

@@ -1,0 +1,16 @@
+{
+  "leadership": [
+    {
+      "name": "Ashish",
+      "title": "Founder & Lead Distributor",
+      "bio": "12+ years in financial distribution. AMFI ARN: 311127. IRDAI POSP: IP240588.",
+      "active": true
+    }
+  ],
+  "partners": [
+    { "name": "PolicyBazaar", "category": "Insurance Distribution", "description": "Pan-insurer access via IRDAI POSP.", "active": true },
+    { "name": "Myplanner", "category": "Client Technology", "description": "Whitelabelled portfolio dashboard.", "active": true },
+    { "name": "Verified Lending Partner", "category": "Loan Facilitation", "description": "LAMF and LAS via verified NBFC.", "active": true },
+    { "name": "Associate Network", "category": "Distribution", "description": "City-level associates — PAN India.", "active": true }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "milestones": [
+    { "year": "2012", "event": "AFS Founded", "details": "Ashish Financial Services established in Bangalore, Karnataka." },
+    { "year": "2013", "event": "AMFI Registration", "details": "Received AMFI ARN (311127)." },
+    { "year": "2018", "event": "IRDAI POSP", "details": "Registered POSP ID: IP240588 via PolicyBazaar." },
+    { "year": "2021", "event": "Full Digital", "details": "100% digital operations launched." },
+    { "year": "2023", "event": "Monthly Digest", "details": "Launched free AFS Monthly Digest for members." },
+    { "year": "2024", "event": "PAN India", "details": "Expanded to all Indian states digitally." },
+    { "year": "2025+", "event": "What's Next", "details": "Phase 4 Value Engine + 10,000 investor target." }
+  ],
+  "announcements": [
+    {
+      "date": "2025-03-01",
+      "title": "AFS Launches Illustrative Model Portfolios",
+      "excerpt": "Four illustrative model portfolio baskets — Conservative, Balanced, Growth, Aggressive — now live."
+    },
+    {
+      "date": "2025-02-15",
+      "title": "AFS Partners with Myplanner for Client Dashboard",
+      "excerpt": "AFS clients can track their entire portfolio via the Myplanner whitelabelled dashboard."
+    }
+  ]
+}

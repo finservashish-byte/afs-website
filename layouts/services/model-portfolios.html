@@ -1,0 +1,168 @@
+{{ define "main" }}
+<header class="page-header">
+  <div class="page-header-inner">
+    <span class="section-label" style="color:var(--orange);">Illustrative Only</span>
+    <h1>Model Portfolio Baskets</h1>
+    <p class="lead">Four illustrative fund category allocations — Conservative, Balanced, Growth, and Aggressive. These are not personalised recommendations.</p>
+  </div>
+</header>
+
+<!-- Important Disclaimer -->
+<div style="background:var(--orange-pale); border-top:3px solid var(--orange); padding:1rem 1.5rem; text-align:center; font-size:0.85rem; color:var(--text-mid);">
+  ⚠️ <strong>Important:</strong> These are illustrative model portfolios showing fund <em>categories only</em> — not specific scheme names. They are not personalised investment recommendations. Past performance does not guarantee future results. AMFI ARN: {{ .Site.Params.amfiArn }}.
+</div>
+
+<div class="container" style="padding-top:3rem; padding-bottom:4rem;">
+  <div class="grid-2 portfolio-cards" style="gap:2rem;">
+
+    <!-- Conservative -->
+    <div class="portfolio-card">
+      <div class="portfolio-header conservative">
+        <span class="risk-badge">Low Risk</span>
+        <h3>Conservative</h3>
+        <p style="color:rgba(255,255,255,0.85); font-size:0.88rem; margin-top:0.5rem;">Capital preservation with moderate steady income</p>
+      </div>
+      <div class="portfolio-body">
+        <div style="font-size:0.82rem; color:var(--text-mid); margin-bottom:0.5rem; font-weight:600;">Asset Allocation</div>
+        <div class="alloc-bar">
+          <div class="alloc-segment" style="width:20%; background:#1A7A4A;" title="Equity 20%"></div>
+          <div class="alloc-segment" style="width:60%; background:#1A4F8A;" title="Debt 60%"></div>
+          <div class="alloc-segment" style="width:20%; background:#F4D03F;" title="Hybrid 20%"></div>
+        </div>
+        <div style="display:flex; gap:1rem; flex-wrap:wrap; font-size:0.78rem; margin-bottom:1rem;">
+          <span style="display:flex; align-items:center; gap:0.3rem;"><span style="width:10px; height:10px; background:#1A7A4A; border-radius:2px; display:inline-block;"></span>Equity 20%</span>
+          <span style="display:flex; align-items:center; gap:0.3rem;"><span style="width:10px; height:10px; background:#1A4F8A; border-radius:2px; display:inline-block;"></span>Debt 60%</span>
+          <span style="display:flex; align-items:center; gap:0.3rem;"><span style="width:10px; height:10px; background:#F4D03F; border-radius:2px; display:inline-block;"></span>Hybrid 20%</span>
+        </div>
+        <ul style="font-size:0.85rem; color:var(--text-mid); list-style:none;">
+          <li style="padding:0.3rem 0; border-bottom:1px solid var(--border);">Short Duration Debt Funds</li>
+          <li style="padding:0.3rem 0; border-bottom:1px solid var(--border);">Liquid / Overnight Funds</li>
+          <li style="padding:0.3rem 0; border-bottom:1px solid var(--border);">Conservative Hybrid Funds</li>
+          <li style="padding:0.3rem 0;">Large Cap Index Fund (partial)</li>
+        </ul>
+        <div style="display:flex; justify-content:space-between; margin-top:1rem; font-size:0.82rem;">
+          <div><div style="font-weight:600; color:var(--navy);">Ideal for</div><div style="color:var(--text-mid);">3–5 year horizon</div></div>
+          <div style="text-align:right;"><div style="font-weight:600; color:var(--navy);">Indicative return range</div><div style="color:var(--text-mid);">7–9% p.a. (illustrative)</div></div>
+        </div>
+        <a href="{{ $.Site.Params.whatsappLink }}" class="btn btn-whatsapp" style="width:100%; justify-content:center; margin-top:1rem;" target="_blank" rel="noopener noreferrer">Connect with AFS →</a>
+      </div>
+    </div>
+
+    <!-- Balanced -->
+    <div class="portfolio-card">
+      <div class="portfolio-header moderate">
+        <span class="risk-badge">Moderate Risk</span>
+        <h3>Balanced / Moderate</h3>
+        <p style="color:rgba(255,255,255,0.85); font-size:0.88rem; margin-top:0.5rem;">Balanced growth with managed volatility</p>
+      </div>
+      <div class="portfolio-body">
+        <div style="font-size:0.82rem; color:var(--text-mid); margin-bottom:0.5rem; font-weight:600;">Asset Allocation</div>
+        <div class="alloc-bar">
+          <div class="alloc-segment" style="width:50%; background:#1A7A4A;" title="Equity 50%"></div>
+          <div class="alloc-segment" style="width:30%; background:#1A4F8A;" title="Debt 30%"></div>
+          <div class="alloc-segment" style="width:20%; background:#F4D03F;" title="Hybrid 20%"></div>
+        </div>
+        <div style="display:flex; gap:1rem; flex-wrap:wrap; font-size:0.78rem; margin-bottom:1rem;">
+          <span style="display:flex; align-items:center; gap:0.3rem;"><span style="width:10px; height:10px; background:#1A7A4A; border-radius:2px; display:inline-block;"></span>Equity 50%</span>
+          <span style="display:flex; align-items:center; gap:0.3rem;"><span style="width:10px; height:10px; background:#1A4F8A; border-radius:2px; display:inline-block;"></span>Debt 30%</span>
+          <span style="display:flex; align-items:center; gap:0.3rem;"><span style="width:10px; height:10px; background:#F4D03F; border-radius:2px; display:inline-block;"></span>Hybrid 20%</span>
+        </div>
+        <ul style="font-size:0.85rem; color:var(--text-mid); list-style:none;">
+          <li style="padding:0.3rem 0; border-bottom:1px solid var(--border);">Large &amp; Flexi Cap Funds</li>
+          <li style="padding:0.3rem 0; border-bottom:1px solid var(--border);">Aggressive Hybrid Funds</li>
+          <li style="padding:0.3rem 0; border-bottom:1px solid var(--border);">Short / Medium Duration Debt</li>
+          <li style="padding:0.3rem 0;">Nifty 50 Index Fund</li>
+        </ul>
+        <div style="display:flex; justify-content:space-between; margin-top:1rem; font-size:0.82rem;">
+          <div><div style="font-weight:600; color:var(--navy);">Ideal for</div><div style="color:var(--text-mid);">5–7 year horizon</div></div>
+          <div style="text-align:right;"><div style="font-weight:600; color:var(--navy);">Indicative return range</div><div style="color:var(--text-mid);">10–12% p.a. (illustrative)</div></div>
+        </div>
+        <a href="{{ $.Site.Params.whatsappLink }}" class="btn btn-whatsapp" style="width:100%; justify-content:center; margin-top:1rem;" target="_blank" rel="noopener noreferrer">Connect with AFS →</a>
+      </div>
+    </div>
+
+    <!-- Growth -->
+    <div class="portfolio-card">
+      <div class="portfolio-header growth">
+        <span class="risk-badge">Moderately High Risk</span>
+        <h3>Growth</h3>
+        <p style="color:rgba(255,255,255,0.85); font-size:0.88rem; margin-top:0.5rem;">Long-term wealth creation with higher equity exposure</p>
+      </div>
+      <div class="portfolio-body">
+        <div style="font-size:0.82rem; color:var(--text-mid); margin-bottom:0.5rem; font-weight:600;">Asset Allocation</div>
+        <div class="alloc-bar">
+          <div class="alloc-segment" style="width:70%; background:#6B48D3;" title="Equity 70%"></div>
+          <div class="alloc-segment" style="width:20%; background:#1A4F8A;" title="Debt 20%"></div>
+          <div class="alloc-segment" style="width:10%; background:#F4D03F;" title="Other 10%"></div>
+        </div>
+        <div style="display:flex; gap:1rem; flex-wrap:wrap; font-size:0.78rem; margin-bottom:1rem;">
+          <span style="display:flex; align-items:center; gap:0.3rem;"><span style="width:10px; height:10px; background:#6B48D3; border-radius:2px; display:inline-block;"></span>Equity 70%</span>
+          <span style="display:flex; align-items:center; gap:0.3rem;"><span style="width:10px; height:10px; background:#1A4F8A; border-radius:2px; display:inline-block;"></span>Debt 20%</span>
+          <span style="display:flex; align-items:center; gap:0.3rem;"><span style="width:10px; height:10px; background:#F4D03F; border-radius:2px; display:inline-block;"></span>Other 10%</span>
+        </div>
+        <ul style="font-size:0.85rem; color:var(--text-mid); list-style:none;">
+          <li style="padding:0.3rem 0; border-bottom:1px solid var(--border);">Large, Mid &amp; Small Cap Mix</li>
+          <li style="padding:0.3rem 0; border-bottom:1px solid var(--border);">ELSS Fund (tax benefit)</li>
+          <li style="padding:0.3rem 0; border-bottom:1px solid var(--border);">International / Global Fund</li>
+          <li style="padding:0.3rem 0;">Dynamic Bond Fund</li>
+        </ul>
+        <div style="display:flex; justify-content:space-between; margin-top:1rem; font-size:0.82rem;">
+          <div><div style="font-weight:600; color:var(--navy);">Ideal for</div><div style="color:var(--text-mid);">7–10 year horizon</div></div>
+          <div style="text-align:right;"><div style="font-weight:600; color:var(--navy);">Indicative return range</div><div style="color:var(--text-mid);">12–14% p.a. (illustrative)</div></div>
+        </div>
+        <a href="{{ $.Site.Params.whatsappLink }}" class="btn btn-whatsapp" style="width:100%; justify-content:center; margin-top:1rem;" target="_blank" rel="noopener noreferrer">Connect with AFS →</a>
+      </div>
+    </div>
+
+    <!-- Aggressive -->
+    <div class="portfolio-card">
+      <div class="portfolio-header aggressive">
+        <span class="risk-badge">High Risk</span>
+        <h3>Aggressive</h3>
+        <p style="color:rgba(255,255,255,0.85); font-size:0.88rem; margin-top:0.5rem;">Maximum long-term growth — suitable only for high risk tolerance</p>
+      </div>
+      <div class="portfolio-body">
+        <div style="font-size:0.82rem; color:var(--text-mid); margin-bottom:0.5rem; font-weight:600;">Asset Allocation</div>
+        <div class="alloc-bar">
+          <div class="alloc-segment" style="width:85%; background:#C0392B;" title="Equity 85%"></div>
+          <div class="alloc-segment" style="width:15%; background:#F4D03F;" title="Other 15%"></div>
+        </div>
+        <div style="display:flex; gap:1rem; flex-wrap:wrap; font-size:0.78rem; margin-bottom:1rem;">
+          <span style="display:flex; align-items:center; gap:0.3rem;"><span style="width:10px; height:10px; background:#C0392B; border-radius:2px; display:inline-block;"></span>Equity 85%</span>
+          <span style="display:flex; align-items:center; gap:0.3rem;"><span style="width:10px; height:10px; background:#F4D03F; border-radius:2px; display:inline-block;"></span>Other 15%</span>
+        </div>
+        <ul style="font-size:0.85rem; color:var(--text-mid); list-style:none;">
+          <li style="padding:0.3rem 0; border-bottom:1px solid var(--border);">Mid &amp; Small Cap Funds</li>
+          <li style="padding:0.3rem 0; border-bottom:1px solid var(--border);">Sectoral / Thematic Funds</li>
+          <li style="padding:0.3rem 0; border-bottom:1px solid var(--border);">International Equity Funds</li>
+          <li style="padding:0.3rem 0;">Momentum / Factor Funds</li>
+        </ul>
+        <div style="display:flex; justify-content:space-between; margin-top:1rem; font-size:0.82rem;">
+          <div><div style="font-weight:600; color:var(--navy);">Ideal for</div><div style="color:var(--text-mid);">10+ year horizon</div></div>
+          <div style="text-align:right;"><div style="font-weight:600; color:var(--navy);">Indicative return range</div><div style="color:var(--text-mid);">14–18% p.a. (illustrative)</div></div>
+        </div>
+        <a href="{{ $.Site.Params.whatsappLink }}" class="btn btn-whatsapp" style="width:100%; justify-content:center; margin-top:1rem;" target="_blank" rel="noopener noreferrer">Connect with AFS →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom CTAs -->
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:3rem;">
+    <div style="background:var(--light-gray); border-radius:var(--radius-md); padding:1.5rem; text-align:center;">
+      <h4 style="color:var(--navy); margin-bottom:0.5rem;">Don't Know Your Risk Profile?</h4>
+      <p style="font-size:0.88rem; color:var(--text-mid); margin-bottom:1rem;">Take our free 5-question Risk Profiler to find out which portfolio suits you.</p>
+      <a href="/tools/#tab-risk" class="btn btn-navy">Take Risk Profiler →</a>
+    </div>
+    <div style="background:var(--navy-dark); border-radius:var(--radius-md); padding:1.5rem; text-align:center;">
+      <h4 style="color:#fff; margin-bottom:0.5rem;">Ready to Get Started?</h4>
+      <p style="font-size:0.88rem; color:rgba(255,255,255,0.8); margin-bottom:1rem;">Connect with AFS to build a personalised investment plan for your goals.</p>
+      <a href="{{ .Site.Params.whatsappLink }}" class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">Connect with AFS →</a>
+    </div>
+  </div>
+
+  <p style="font-size:0.78rem; color:var(--text-mid); margin-top:2rem; line-height:1.7; padding:1rem; background:var(--orange-pale); border-radius:var(--radius-sm);">
+    <strong>Mandatory Disclosure:</strong> Fund categories shown above are illustrative. AFS does not recommend specific mutual fund schemes. Returns shown are indicative ranges based on historical category performance and are not guaranteed. Actual returns will vary. {{ .Site.Params.discMF }} {{ .Site.Params.discMFD }}
+  </p>
+</div>
+{{ end }}

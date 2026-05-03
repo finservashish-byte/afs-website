@@ -1,0 +1,397 @@
+{{ define "main" }}
+{{/* Pull data files */}}
+{{ $stats        := .Site.Data.stats }}
+{{ $testimonials := .Site.Data.testimonials }}
+{{ $team         := .Site.Data.team }}
+
+<!-- ===== HERO ===== -->
+<section class="hero" aria-label="Hero">
+  <div class="hero-inner">
+    <div class="hero-content" data-animate="fade-up">
+      <span class="section-label">AMFI ARN: {{ .Site.Params.amfiArn }} | POSP: {{ .Site.Params.posP }}</span>
+      <h1>Your Trusted <span>Financial Distribution</span> Partner — PAN India</h1>
+      <p class="hero-sub">AFS guides first-time and experienced investors with goal-based mutual fund distribution, pan-insurer insurance, and loan facilitation — 100% digital, zero jargon.</p>
+      <div class="hero-actions">
+        <a href="{{ .Site.Params.whatsappLink }}" class="btn btn-whatsapp btn-lg" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Connect on WhatsApp
+        </a>
+        <a href="{{ .Site.Params.contactForm }}" class="btn btn-outline-white btn-lg" target="_blank" rel="noopener noreferrer">Contact Form ↗</a>
+      </div>
+      <div class="hero-badges">
+        <span class="badge">✓ AMFI Registered Distributor</span>
+        <span class="badge">✓ IRDAI POSP Partner</span>
+        <span class="badge">✓ 100% Digital</span>
+        <span class="badge">✓ PAN India</span>
+      </div>
+    </div>
+
+    <!-- Mini SIP Calculator — glass card on hero -->
+    <div class="hero-calc glass-card" aria-label="Quick SIP estimate" data-animate="fade-up" data-delay="150">
+      <h3>Quick SIP Estimate</h3>
+      <div class="calc-field">
+        <label for="hero-sip">Monthly SIP: <strong class="calc-value" id="hero-sip-display">₹5,000/mo</strong></label>
+        <input type="range" id="hero-sip" min="500" max="100000" step="500" value="5000" aria-label="Monthly SIP amount">
+      </div>
+      <div class="calc-field">
+        <label for="hero-years">Duration: <strong class="calc-value" id="hero-years-display">10 Years</strong></label>
+        <input type="range" id="hero-years" min="1" max="30" step="1" value="10" aria-label="Investment duration in years">
+      </div>
+      <div class="calc-result">
+        <div class="result-label">Estimated Corpus at 12% p.a.</div>
+        <div class="result-value" id="hero-corpus">₹11.61 L</div>
+        <div class="result-note">Illustrative only. Not investment advice.</div>
+      </div>
+      <a href="/tools/" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:1rem;">Full Calculators →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMPLIANCE BAR ===== -->
+<div class="compliance-bar" role="complementary" aria-label="Compliance information">
+  <div class="compliance-bar-inner">
+    <span class="item"><span class="dot"></span>AMFI ARN: {{ .Site.Params.amfiArn }}</span>
+    <span class="item"><span class="dot"></span>POSP ID: {{ .Site.Params.posP }}</span>
+    <span class="item"><span class="dot"></span>PAN India Distribution</span>
+    <span class="item"><span class="dot"></span>100% Digital</span>
+    <span class="item"><span class="dot"></span>Not a SEBI RIA</span>
+  </div>
+</div>
+
+<!-- ===== STATS STRIP ===== -->
+<div class="stats-strip" aria-label="AFS at a glance">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-number">{{ if $stats }}{{ $stats.investors }}{{ else }}{{ .Site.Params.statInvestors }}{{ end }}</div>
+      <div class="stat-label">Active Investors</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">{{ if $stats }}{{ $stats.aum }}{{ else }}{{ .Site.Params.statAum }}{{ end }}</div>
+      <div class="stat-label">Assets Under Distribution</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">{{ if $stats }}{{ $stats.experience }}{{ else }}{{ .Site.Params.statExperience }}{{ end }}</div>
+      <div class="stat-label">Years of Experience</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">{{ if $stats }}{{ $stats.compliance }}{{ else }}{{ .Site.Params.statCompliance }}{{ end }}</div>
+      <div class="stat-label">AMFI Compliant</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SERVICES OVERVIEW ===== -->
+<section class="section section-gray" aria-labelledby="services-heading">
+  <div class="container text-center">
+    <span class="section-label">What We Offer</span>
+    <h2 id="services-heading" class="section-title">One Relationship. Complete Financial Distribution.</h2>
+    <p class="section-sub lead">From SIP to insurance to loans — AFS facilitates your entire financial journey as a trusted distributor.</p>
+    <div class="grid-3" style="text-align:left; margin-top:2rem;" data-animate-group>
+      <a href="/services/mutual-funds/" class="service-card glass-card" style="display:block; color:inherit; text-decoration:none;">
+        <div class="icon">📈</div>
+        <h3>Mutual Funds</h3>
+        <p>Goal-based SIP and lumpsum distribution across 30+ AMCs. ELSS, equity, debt, hybrid — all categories.</p>
+        <span class="card-link">Explore Mutual Funds →</span>
+      </a>
+      <a href="/services/insurance/" class="service-card" style="display:block; color:inherit; text-decoration:none;">
+        <div class="icon">🛡️</div>
+        <h3>Insurance</h3>
+        <p>Term life, health, motor, and ULIP — facilitated via PolicyBazaar POSP. Pan-insurer access. Unbiased guidance.</p>
+        <span class="card-link">Explore Insurance →</span>
+      </a>
+      <a href="/services/loans/" class="service-card" style="display:block; color:inherit; text-decoration:none;">
+        <div class="icon">🏦</div>
+        <h3>Loans Against Securities</h3>
+        <p>Access liquidity without selling your investments. Loan Against MF and Loan Against Shares facilitated via verified lending partner.</p>
+        <span class="card-link">Explore Loans →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY AFS ===== -->
+<section class="section why-afs" aria-labelledby="why-heading">
+  <div class="why-afs-inner container">
+    <div>
+      <span class="section-label" style="color:var(--orange);">Why AFS</span>
+      <h2 id="why-heading" style="color:#fff; margin-bottom:2rem;">Human Guidance That No Algorithm Can Replicate</h2>
+      <div class="benefit-item">
+        <div class="icon">🎯</div>
+        <div>
+          <h4>Goal-Based Distribution</h4>
+          <p>We map every investment to a real life goal — child's education, retirement, home purchase — not just returns.</p>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="icon">🌏</div>
+        <div>
+          <h4>PAN India, 100% Digital</h4>
+          <p>No geography, no branch visits. Full onboarding and support over WhatsApp and email from anywhere in India.</p>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="icon">⚖️</div>
+        <div>
+          <h4>Full Regulatory Compliance</h4>
+          <p>AMFI Registered Distributor and IRDAI POSP — every transaction covered by the appropriate regulatory framework.</p>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="icon">💬</div>
+        <div>
+          <h4>WhatsApp-First Communication</h4>
+          <p>Market updates, portfolio review reminders, and your questions — all answered on the channel you already use.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="cred-card">
+        <div class="cred-label">Mutual Fund Distribution</div>
+        <div class="cred-value">AMFI Registered Distributor</div>
+        <div class="cred-sub">ARN: {{ .Site.Params.amfiArn }} | 30+ AMC Access</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-label">Insurance Distribution</div>
+        <div class="cred-value">IRDAI POSP Partner</div>
+        <div class="cred-sub">POSP ID: {{ .Site.Params.posP }} | Pan-Insurer via PolicyBazaar</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-label">Transaction Platform</div>
+        <div class="cred-value">Secure Digital Infrastructure</div>
+        <div class="cred-sub">Transactions via regulated platforms (MFU)</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-label">Client Portal</div>
+        <div class="cred-value">Myplanner Dashboard</div>
+        <div class="cred-sub">Track your portfolio anytime — login provided at onboarding</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TOOLS PREVIEW ===== -->
+<section class="section" aria-labelledby="tools-heading">
+  <div class="container text-center">
+    <span class="section-label">Free Tools</span>
+    <h2 id="tools-heading" class="section-title">Plan Your Finances With Confidence</h2>
+    <p class="section-sub lead">Free tools. No login. No data collected. Instant results.</p>
+
+    <!-- ── AFS Wealth Lens — featured hero tool card ── -->
+    <a href="/tools/wealth-lens/"
+       class="glass-card"
+       data-animate="fade-up"
+       style="display:flex;flex-direction:column;align-items:flex-start;text-align:left;
+              padding:2rem 2rem 1.75rem;margin-bottom:2rem;
+              background:linear-gradient(135deg,var(--afs-navy-dark) 0%,var(--afs-navy) 100%);
+              border:1px solid rgba(255,255,255,0.12);position:relative;overflow:hidden;
+              text-decoration:none;border-radius:var(--radius-lg);">
+      <!-- Radial glow accent -->
+      <span style="position:absolute;top:-60px;right:-60px;width:220px;height:220px;
+                   background:radial-gradient(circle,rgba(255,102,0,.18) 0%,transparent 70%);
+                   pointer-events:none;"></span>
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;flex-wrap:wrap;">
+        <span style="font-size:1.5rem;">🔍</span>
+        <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+                     color:var(--afs-orange);background:rgba(255,102,0,0.14);
+                     border:1px solid rgba(255,102,0,0.28);padding:4px 12px;border-radius:20px;">
+          ✦ AFS Wealth Lens &nbsp;·&nbsp; New
+        </span>
+      </div>
+      <h3 style="font-size:clamp(1.3rem,3vw,1.8rem);color:#fff;margin-bottom:0.5rem;font-family:var(--font-heading);">
+        What are your mutual funds <em style="color:var(--afs-orange);font-style:italic;">actually</em> returning?
+      </h3>
+      <p style="color:rgba(255,255,255,0.68);font-size:0.97rem;max-width:540px;margin-bottom:1.25rem;">
+        Upload your CAMS or KFintech CAS PDF. Get real XIRR, tax estimate &amp; overlap analysis in under 60 seconds. Free. No login. Your data never leaves your device.
+      </p>
+      <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+        <span style="display:inline-flex;align-items:center;gap:0.5rem;
+                     background:var(--afs-orange);color:#fff;padding:10px 22px;
+                     border-radius:var(--radius-full);font-weight:600;font-size:0.93rem;">
+          Try AFS Wealth Lens Free &rarr;
+        </span>
+        <span style="color:rgba(255,255,255,0.45);font-size:0.8rem;">🔒 100% client-side · No server · No storage</span>
+      </div>
+    </a>
+
+    <div class="grid-3" style="text-align:left; margin-top:1.5rem;">
+      <a href="/tools/#tab-sip" class="tool-card">
+        <div class="tool-icon">📊</div>
+        <h4>SIP Calculator</h4>
+        <p>See how your monthly SIP grows over time with compounding.</p>
+      </a>
+      <a href="/tools/#tab-goal" class="tool-card">
+        <div class="tool-icon">🎯</div>
+        <h4>Goal Planner</h4>
+        <p>Calculate the SIP needed to reach any financial goal.</p>
+      </a>
+      <a href="/tools/#tab-risk" class="tool-card">
+        <div class="tool-icon">🧭</div>
+        <h4>Risk Profiler</h4>
+        <p>5-question quiz that reveals your investor temperament.</p>
+      </a>
+      <a href="/tools/#tab-svl" class="tool-card">
+        <div class="tool-icon">⚖️</div>
+        <h4>SIP vs Lumpsum</h4>
+        <p>Compare outcomes of both strategies side by side.</p>
+      </a>
+      <a href="/tools/#tab-delay" class="tool-card">
+        <div class="tool-icon">⏰</div>
+        <h4>SIP Delay Cost</h4>
+        <p>See what postponing your SIP by 6 months really costs.</p>
+      </a>
+      <a href="/tools/#tab-tax" class="tool-card">
+        <div class="tool-icon">🧾</div>
+        <h4>Tax Calculator</h4>
+        <p>Calculate STCG &amp; LTCG on your MF redemptions (FY 2025-26).</p>
+      </a>
+    </div>
+    <a href="/tools/" class="btn btn-navy" style="margin-top:2rem;">View All Tools →</a>
+  </div>
+</section>
+
+<!-- ===== LATEST BLOG ===== -->
+{{ $posts := where .Site.RegularPages "Section" "insights" }}
+{{ if $posts }}
+<section class="section section-gray" aria-labelledby="blog-heading">
+  <div class="container">
+    <div class="flex-between" style="margin-bottom:2rem; flex-wrap:wrap; gap:1rem;">
+      <div>
+        <span class="section-label">AFS Corner</span>
+        <h2 id="blog-heading">Latest Insights</h2>
+      </div>
+      <a href="/insights/" class="btn btn-outline">All Articles →</a>
+    </div>
+    <div class="grid-3">
+      {{ range first 3 $posts }}
+      <article class="blog-card">
+        {{ with .Params.image }}<div class="blog-card-img"><img src="{{ . }}" alt="{{ $.Title }}" loading="lazy"></div>{{ end }}
+        <div class="blog-card-body">
+          {{ with .Params.category }}<span class="category-tag">{{ . }}</span>{{ end }}
+          <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          <p class="excerpt">{{ .Summary | truncate 120 }}</p>
+          <div class="meta">
+            <span>{{ .Date.Format "Jan 2, 2006" }}</span>
+            <span>{{ .ReadingTime }} min read</span>
+          </div>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="section section-dark" aria-labelledby="testimonials-heading">
+  <div class="container text-center">
+    <span class="section-label" style="color:var(--orange);">Member Stories</span>
+    <h2 id="testimonials-heading" style="color:#fff; margin-bottom:2.5rem;">What AFS Members Say</h2>
+    <div class="grid-3" data-animate-group>
+      {{ if $testimonials }}
+        {{ range $testimonials }}
+        <div class="testimonial-card glass-card--dark">
+          <div class="quote-mark">"</div>
+          <p class="quote">{{ .quote }}</p>
+          <div>
+            <div class="author-name">{{ .name }}</div>
+            <div class="author-role">{{ .role }}</div>
+          </div>
+        </div>
+        {{ end }}
+      {{ else }}
+      <div class="testimonial-card">
+        <div class="quote-mark">"</div>
+        <p class="quote">AFS helped me start my first SIP in just one WhatsApp conversation. The guidance was clear, patient, and zero jargon. Six months in and I'm investing consistently for the first time in my life.</p>
+        <div>
+          <div class="author-name">Rahul M.</div>
+          <div class="author-role">Software Engineer</div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="quote-mark">"</div>
+        <p class="quote">I had insurance policies from three different agents — I had no idea what I actually had. AFS helped me consolidate and understand my coverage. Now I have the right term plan and nothing I don't need.</p>
+        <div>
+          <div class="author-name">Priya S.</div>
+          <div class="author-role">Entrepreneur</div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="quote-mark">"</div>
+        <p class="quote">The Monthly Digest alone is worth it. I've learned more about how markets work in the last 3 months than I did in the last 10 years. And the portfolio review call every quarter gives me real confidence.</p>
+        <div>
+          <div class="author-name">Avinash K.</div>
+          <div class="author-role">Business Owner</div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- ===== AFS ECOSYSTEM ===== -->
+<section class="section" aria-labelledby="ecosystem-heading">
+  <div class="container text-center">
+    <span class="section-label">Our Structure</span>
+    <h2 id="ecosystem-heading" class="section-title">The AFS Ecosystem</h2>
+    <p class="section-sub lead">Institution-first. Built to serve 100,000 investors across India — not just a single advisor with a spreadsheet.</p>
+    <div class="grid-4" style="margin-top:2rem; text-align:left;">
+      <div class="card card-body" style="text-align:center;">
+        <div style="font-size:2rem; margin-bottom:0.75rem;">👤</div>
+        <h4 style="color:var(--navy); font-size:0.95rem;">Ashish</h4>
+        <p style="font-size:0.82rem;">Founder &amp; Lead Distributor — AMFI ARN holder, POSP partner</p>
+      </div>
+      <div class="card card-body" style="text-align:center;">
+        <div style="font-size:2rem; margin-bottom:0.75rem;">🏢</div>
+        <h4 style="color:var(--navy); font-size:0.95rem;">PolicyBazaar</h4>
+        <p style="font-size:0.82rem;">Insurance distribution — pan-insurer access via POSP partnership</p>
+      </div>
+      <div class="card card-body" style="text-align:center;">
+        <div style="font-size:2rem; margin-bottom:0.75rem;">💻</div>
+        <h4 style="color:var(--navy); font-size:0.95rem;">Myplanner</h4>
+        <p style="font-size:0.82rem;">Client portfolio dashboard — secure, whitelabelled, always-on access</p>
+      </div>
+      <div class="card card-body" style="text-align:center;">
+        <div style="font-size:2rem; margin-bottom:0.75rem;">🤝</div>
+        <h4 style="color:var(--navy); font-size:0.95rem;">Associate Network</h4>
+        <p style="font-size:0.82rem;">Growing team of city associates — AFS brand, PAN India reach</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MONTHLY DIGEST TEASER ===== -->
+<section class="digest-section" aria-labelledby="digest-heading">
+  <div class="digest-inner">
+    <div>
+      <span class="section-label" style="color:var(--orange);">Free for AFS Members</span>
+      <h2 id="digest-heading" style="color:#fff;">The AFS Monthly Digest</h2>
+      <p style="color:rgba(255,255,255,0.8); margin-bottom:1.5rem;">Market movements, fund performance data, macro insights — delivered to your inbox or WhatsApp between the 1st and 10th of every month.</p>
+      <div class="pillar-list">
+        <div class="pillar-item" style="color:rgba(255,255,255,0.9);">Market movements — what moved and why</div>
+        <div class="pillar-item" style="color:rgba(255,255,255,0.9);">Fund category performance — data-backed</div>
+        <div class="pillar-item" style="color:rgba(255,255,255,0.9);">Macro overview — RBI, inflation, global</div>
+        <div class="pillar-item" style="color:rgba(255,255,255,0.9);">AFS curated insights for the month ahead</div>
+      </div>
+    </div>
+    <div class="digest-card">
+      <h3>Get Your Monthly Digest</h3>
+      <p style="font-size:0.88rem; color:var(--text-mid); margin-bottom:1.5rem;">Free for all active AFS members. Start your investment journey with AFS to unlock access.</p>
+      <a href="{{ .Site.Params.digestForm }}" class="btn btn-primary" style="width:100%; justify-content:center;" target="_blank" rel="noopener noreferrer">Subscribe Now →</a>
+      <p style="font-size:0.78rem; color:var(--text-mid); margin-top:1rem; text-align:center;">Not yet an AFS member? <a href="{{ .Site.Params.whatsappLink }}" target="_blank" rel="noopener noreferrer">Connect with us first →</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="section" style="background:var(--orange); text-align:center;" aria-label="Call to action">
+  <div class="container">
+    <h2 style="color:#fff; margin-bottom:1rem;">Ready to Start Your Financial Journey?</h2>
+    <p style="color:rgba(255,255,255,0.9); margin-bottom:2rem; font-size:1.05rem;">One WhatsApp message is all it takes. No paperwork. No branch visits. PAN India.</p>
+    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+      <a href="{{ .Site.Params.whatsappLink }}" class="btn btn-navy btn-lg" target="_blank" rel="noopener noreferrer">Connect on WhatsApp</a>
+      <a href="{{ .Site.Params.contactForm }}" class="btn btn-outline-white btn-lg" target="_blank" rel="noopener noreferrer">Send us a Message</a>
+    </div>
+  </div>
+</section>
+
+{{ end }}

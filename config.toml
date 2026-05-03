@@ -1,0 +1,152 @@
+baseURL = "https://ashishfinancialservices.in/"
+languageCode = "en-in"
+title = "AFS | Ashish Financial Services | Mutual Fund Distributor India"
+theme = ""
+enableRobotsTXT = true
+googleAnalytics = "G-XXXXXXXXXX" # Replace with actual GA4 Measurement ID
+
+[params]
+  # Brand
+  siteName         = "Ashish Financial Services"
+  siteShortName    = "AFS"
+  tagline          = "Your Trusted Mutual Fund Distributor — PAN India, 100% Digital"
+  description      = "AFS is an AMFI Registered Mutual Fund Distributor (ARN: 311127) and IRDAI POSP Partner. Goal-based investing, insurance, and loans facilitation — 100% digital, PAN India."
+  author           = "AFS Team"
+
+  # Regulatory IDs
+  amfiArn          = "311127"
+  posP             = "IP240588"
+
+  # Contact
+  whatsappNumber   = "918073011715"
+  whatsappLink     = "https://wa.me/918073011715?text=Hi%20AFS%2C%20I%27d%20like%20to%20know%20more%20about%20your%20services."
+  whatsappChannel  = "https://whatsapp.com/channel/0029Vasues52v1IkYn6lN83M"
+  email            = "finservashish@gmail.com"
+  contactForm      = "https://docs.google.com/forms/d/e/1FAIpQLSejpTP9hkVryBBiiGk8fhKFjRuJUAr4WGMpvSA0taGE10zi8w/viewform"
+  digestForm       = "https://forms.gle/iDRcFnvNYjsLiVGfA"
+  instagram        = "https://www.instagram.com/ashish_financial_services"
+  youtube          = "https://www.youtube.com/channel/UCfAbc214zAl2g2TY0hoKQRA"
+  clientPortal     = "#"  # PLACEHOLDER — replace with Myplanner whitelabel URL
+
+  # Stats (update via CMS or here)
+  statInvestors    = "100+"
+  statAum          = "₹2Cr+"
+  statExperience   = "12+ Years"
+  statCompliance   = "100% AMFI"
+
+  # Mandatory Disclosures
+  discMF           = "Mutual Fund investments are subject to market risks. Please read all scheme-related documents carefully before investing."
+  discInsurance    = "Insurance is the subject matter of solicitation."
+  discMFD          = "AFS acts as a distributor and not as an investment advisor under SEBI (Investment Advisers) Regulations, 2013."
+
+  # Affiliate
+  amazonAffiliateID = "PLACEHOLDER"  # Replace with actual Amazon Associates tracking ID
+
+[menu]
+  [[menu.main]]
+    name       = "Home"
+    url        = "/"
+    weight     = 1
+  [[menu.main]]
+    name       = "Mutual Funds"
+    url        = "/services/mutual-funds/"
+    parent     = "Services"
+    weight     = 21
+  [[menu.main]]
+    name       = "Insurance"
+    url        = "/services/insurance/"
+    parent     = "Services"
+    weight     = 22
+  [[menu.main]]
+    name       = "Loans"
+    url        = "/services/loans/"
+    parent     = "Services"
+    weight     = 23
+  [[menu.main]]
+    name       = "Model Portfolios"
+    url        = "/services/model-portfolios/"
+    parent     = "Services"
+    weight     = 24
+  [[menu.main]]
+    name       = "Services"
+    url        = "/services/"
+    weight     = 2
+  [[menu.main]]
+    name       = "Tools"
+    url        = "/tools/"
+    weight     = 3
+  [[menu.main]]
+    name       = "Insights"
+    url        = "/insights/"
+    weight     = 4
+  [[menu.main]]
+    name       = "Monthly Digest"
+    url        = "/monthly-digest/"
+    parent     = "More"
+    weight     = 51
+  [[menu.main]]
+    name       = "Resources"
+    url        = "/resources/"
+    parent     = "More"
+    weight     = 52
+  [[menu.main]]
+    name       = "Press & Media"
+    url        = "/press/"
+    parent     = "More"
+    weight     = 53
+  [[menu.main]]
+    name       = "Refer & Earn"
+    url        = "/refer-earn/"
+    parent     = "More"
+    weight     = 54
+  [[menu.main]]
+    name       = "Join AFS"
+    url        = "/join-afs/"
+    parent     = "More"
+    weight     = 55
+  [[menu.main]]
+    name       = "More"
+    url        = "#"
+    weight     = 5
+  [[menu.main]]
+    name       = "Contact"
+    url        = "/contact/"
+    weight     = 6
+
+  # Footer menus
+  [[menu.footer]]
+    name   = "Terms & Conditions"
+    url    = "/legal/terms/"
+    weight = 1
+  [[menu.footer]]
+    name   = "Privacy Policy"
+    url    = "/legal/privacy-policy/"
+    weight = 2
+  [[menu.footer]]
+    name   = "Disclaimer"
+    url    = "/legal/disclaimer/"
+    weight = 3
+
+[outputs]
+  home    = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML"]
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+
+[taxonomies]
+  category = "categories"
+  tag      = "tags"
+
+[sitemap]
+  changefreq = "weekly"
+  priority   = 0.5
+
+[minify]
+  minifyOutput = true

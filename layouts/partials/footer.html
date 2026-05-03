@@ -1,0 +1,73 @@
+<!-- AFS Full Compliance Footer -->
+<footer class="footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-grid">
+
+      <!-- Brand Column -->
+      <div>
+        <div class="footer-logo">
+          <img src="/images/logo.png" alt="AFS Logo" width="36" height="36" loading="lazy">
+          <span class="footer-logo-text"><span>A</span>FS</span>
+        </div>
+        <p class="footer-tagline">Ashish Financial Services — Your trusted AMFI Registered Mutual Fund Distributor and IRDAI POSP partner. 100% Digital. PAN India.</p>
+        <p class="footer-reg">AMFI ARN: {{ .Site.Params.amfiArn }} | POSP ID: {{ .Site.Params.posP }}</p>
+        <div style="display:flex; gap:0.75rem; margin-top:1rem; flex-wrap:wrap;">
+          <a href="{{ .Site.Params.instagram }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style="color:rgba(255,255,255,0.6); font-size:0.85rem;">Instagram</a>
+          <a href="{{ .Site.Params.youtube }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube" style="color:rgba(255,255,255,0.6); font-size:0.85rem;">YouTube</a>
+          <a href="{{ .Site.Params.whatsappChannel }}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Channel" style="color:rgba(255,255,255,0.6); font-size:0.85rem;">WhatsApp Channel</a>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="/services/mutual-funds/">Mutual Funds</a>
+        <a href="/services/insurance/">Insurance</a>
+        <a href="/services/loans/">Loans</a>
+        <a href="/services/model-portfolios/">Model Portfolios</a>
+      </div>
+
+      <!-- Tools & Insights -->
+      <div class="footer-col">
+        <h4>Tools &amp; Insights</h4>
+        <a href="/tools/">SIP Calculator</a>
+        <a href="/tools/">Goal Planner</a>
+        <a href="/tools/">Risk Profiler</a>
+        <a href="/tools/">Tax Calculator</a>
+        <a href="/insights/">Insights Blog</a>
+        <a href="/monthly-digest/">Monthly Digest</a>
+      </div>
+
+      <!-- Company -->
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="/press/">Press &amp; Media</a>
+        <a href="/refer-earn/">Refer &amp; Earn</a>
+        <a href="/join-afs/">Join AFS</a>
+        <a href="/resources/">Resources</a>
+        <a href="/contact/">Contact</a>
+        <a href="{{ .Site.Params.clientPortal }}" target="_blank" rel="noopener noreferrer">Client Login</a>
+      </div>
+
+    </div>
+
+    <!-- Compliance Disclosures -->
+    <div class="footer-bottom">
+      <div class="footer-disclaimers">
+        <p>{{ .Site.Params.discMF }}</p>
+        <p>{{ .Site.Params.discInsurance }}</p>
+        <p>{{ .Site.Params.discMFD }}</p>
+        <p>IRDAI Grievance: <a href="https://igms.irda.gov.in" target="_blank" rel="noopener noreferrer" style="color:rgba(255,255,255,0.55);">igms.irda.gov.in</a> | SEBI SCORES: <a href="https://scores.sebi.gov.in" target="_blank" rel="noopener noreferrer" style="color:rgba(255,255,255,0.55);">scores.sebi.gov.in</a></p>
+      </div>
+      <div class="footer-legal">
+        <span>© {{ now.Year }} Ashish Financial Services. All rights reserved.</span>
+        <div class="footer-legal-links">
+          <a href="/legal/terms/">Terms &amp; Conditions</a>
+          <a href="/legal/privacy-policy/">Privacy Policy</a>
+          <a href="/legal/disclaimer/">Disclaimer</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</footer>

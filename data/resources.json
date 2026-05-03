@@ -1,0 +1,12 @@
+{
+  "categories": [
+    {
+      "category": "Finance Books",
+      "products": [
+        { "title": "The Psychology of Money", "description": "Morgan Housel's landmark book on investor behaviour.", "link": "https://www.amazon.in/dp/B08D9WJ9G8?tag=PLACEHOLDER", "active": true },
+        { "title": "Let's Talk Money", "description": "Monika Halan's guide to personal finance for Indian readers.", "link": "https://www.amazon.in/dp/0062905066?tag=PLACEHOLDER", "active": true },
+        { "title": "Coffee Can Investing", "description": "Saurabh Mukherjee on long-term equity investing.", "link": "https://www.amazon.in/dp/9352779738?tag=PLACEHOLDER", "active": true }
+      ]
+    }
+  ]
+}
