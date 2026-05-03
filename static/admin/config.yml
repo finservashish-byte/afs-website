@@ -1,426 +1,121 @@
-# ============================================================
-# Decap CMS Configuration — Ashish Financial Services (AFS)
-# Version: 2.0 | Phase 2 Production
-# Access: /admin | Auth: Netlify Identity (GitHub OAuth)
-# ============================================================
-
 backend:
   name: git-gateway
-  branch: main            # Branch to update (use "staging" for branch deploy previews)
-  commit_messages:
-    create:  "✍️ Create {{collection}} — {{slug}}"
-    update:  "📝 Update {{collection}} — {{slug}}"
-    delete:  "🗑️ Delete {{collection}} — {{slug}}"
-    uploadMedia:  "📸 Upload {{path}}"
-    deleteMedia:  "🗑️ Delete media {{path}}"
+  branch: main
 
-# Media uploads stored in /static/images via Git
 media_folder: "static/images/uploads"
 public_folder: "/images/uploads"
 
-# Editorial workflow — Draft → In Review → Ready → Published
-publish_mode: editorial_workflow
+site_url: https://remarkable-tarsier-cbae6c.netlify.app
+display_url: https://remarkable-tarsier-cbae6c.netlify.app
 
-# CMS UI branding
-site_url: https://ashishfinancialservices.in
-display_url: https://ashishfinancialservices.in
-logo_url: https://ashishfinancialservices.in/images/logo.png
-
-# ============================================================
-# COLLECTIONS
-# ============================================================
 collections:
 
-  # ----------------------------------------------------------
-  # 1. BLOG / INSIGHTS — Primary publishing workflow
-  # ----------------------------------------------------------
+  # 1. BLOG / INSIGHTS
   - name: "insights"
-    label: "📰 Insights (Blog)"
-    label_singular: "Article"
+    label: "Insights (Blog)"
     folder: "content/insights/posts"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    preview_path: "insights/{{slug}}"
-    sortable_fields: ["date", "title", "category"]
-    view_filters:
-      - label: "Drafts"
-        field: draft
-        pattern: true
-      - label: "Published"
-        field: draft
-        pattern: false
-    summary: "{{title}} | {{date}} | {{category}}"
     fields:
-      - label: "Title"
-        name: "title"
-        widget: "string"
-        hint: "Keep under 70 characters for SEO. No prohibited words (advisor, planner, consultant)."
-      - label: "Publish Date"
-        name: "date"
-        widget: "datetime"
-        format: "2006-01-02T15:04:05Z"
-        date_format: "DD/MM/YYYY"
-        time_format: "HH:mm"
-        default: ""
-      - label: "Draft"
-        name: "draft"
-        widget: "boolean"
-        default: true
-        hint: "Toggle OFF to publish. Stays in editorial review until approved."
-      - label: "Author"
-        name: "author"
-        widget: "string"
-        default: "AFS Team"
-        hint: "Use 'AFS Team' for institutional posts. Never 'Ashish' alone."
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Draft", name: "draft", widget: "boolean", default: true}
+      - {label: "Author", name: "author", widget: "string", default: "AFS Team"}
       - label: "Category"
         name: "category"
         widget: "select"
-        options:
-          - "Mutual Funds"
-          - "Insurance"
-          - "Tax Planning"
-          - "Goal Planning"
-          - "Market Insights"
-          - "Investment Basics"
-          - "Budget & Policy"
-          - "AFS Updates"
-        hint: "Select the primary category for this article."
-      - label: "Tags"
-        name: "tags"
-        widget: "list"
-        allow_add: true
-        hint: "Add 3–6 relevant tags (e.g. SIP, ELSS, mutual funds, retirement)."
-      - label: "SEO Description"
-        name: "description"
-        widget: "text"
-        required: false
-        pattern:
-          - ".{50,160}"
-          - "Must be 50–160 characters for best SEO"
-        hint: "Meta description shown in Google. 50–160 characters. Include primary keyword."
-      - label: "Featured Image"
-        name: "image"
-        widget: "image"
-        required: false
-        hint: "Upload a 1200×630px image. Used for OG/social sharing card."
-      - label: "Excerpt / Summary"
-        name: "summary"
-        widget: "text"
-        required: false
-        hint: "Short summary for blog listing cards. If blank, Hugo auto-generates from body."
-      - label: "Article Body"
-        name: "body"
-        widget: "markdown"
-        hint: |
-          ⚠️ COMPLIANCE CHECKLIST before publishing:
-          □ No prohibited words: advisor, advisory, financial planner, planning, portfolio manager, consultant
-          □ Use: distributor, guidance, support, goal-based investing, wealth creation
-          □ No specific fund scheme names
-          □ No specific insurer names
-          □ Disclaimer is automatically appended by the template — do not add manually
+        options: ["Mutual Funds","Insurance","Tax Planning","Goal Planning","Market Insights","Investment Basics","Budget & Policy","AFS Updates"]
+      - {label: "SEO Description", name: "description", widget: "text", required: false}
+      - {label: "Featured Image", name: "image", widget: "image", required: false}
+      - {label: "Article Body", name: "body", widget: "markdown"}
 
-  # ----------------------------------------------------------
-  # 2. TESTIMONIALS — CMS-managed member stories
-  # ----------------------------------------------------------
+  # 2. TESTIMONIALS
   - name: "testimonials"
-    label: "💬 Testimonials"
-    label_singular: "Testimonial"
-    file: "data/testimonials.json"
-    fields:
-      - label: "Testimonials"
+    label: "Testimonials"
+    files:
+      - label: "Testimonials List"
         name: "testimonials"
-        widget: "list"
-        summary: "{{fields.name}} — {{fields.role}}"
+        file: "data/testimonials.json"
         fields:
-          - label: "Member Name"
-            name: "name"
-            widget: "string"
-            hint: "Use first name + last initial only (e.g. Rahul M.). No full surnames."
-          - label: "Role / Profession"
-            name: "role"
-            widget: "string"
-            hint: "e.g. Software Engineer, Entrepreneur, Business Owner"
-          - label: "Quote"
-            name: "quote"
-            widget: "text"
-            hint: "Genuine member quote. No prohibited compliance words. 2–4 sentences."
-          - label: "Active"
-            name: "active"
-            widget: "boolean"
-            default: true
-            hint: "Uncheck to hide without deleting."
-
-  # ----------------------------------------------------------
-  # 3. STATS — Homepage numbers (update as business grows)
-  # ----------------------------------------------------------
-  - name: "stats"
-    label: "📊 Homepage Stats"
-    file: "data/stats.json"
-    fields:
-      - label: "Active Investors"
-        name: "investors"
-        widget: "string"
-        default: "100+"
-        hint: "e.g. 100+, 500+, 1,000+"
-      - label: "Assets Under Distribution (AUM)"
-        name: "aum"
-        widget: "string"
-        default: "₹2Cr+"
-        hint: "e.g. ₹2Cr+, ₹10Cr+, ₹50Cr+"
-      - label: "Years of Experience"
-        name: "experience"
-        widget: "string"
-        default: "12+ Years"
-      - label: "Compliance Status"
-        name: "compliance"
-        widget: "string"
-        default: "100% AMFI"
-      - label: "AMC Access"
-        name: "amcs"
-        widget: "string"
-        default: "30+"
-
-  # ----------------------------------------------------------
-  # 4. PRESS & MEDIA — News feed + milestone timeline
-  # ----------------------------------------------------------
-  - name: "press"
-    label: "📣 Press & Media"
-    label_singular: "Press Entry"
-    file: "data/press.json"
-    fields:
-      - label: "Milestones (Timeline)"
-        name: "milestones"
-        widget: "list"
-        summary: "{{fields.year}} — {{fields.event}}"
-        fields:
-          - label: "Year"
-            name: "year"
-            widget: "string"
-            hint: "e.g. 2012, 2025+"
-          - label: "Event / Milestone"
-            name: "event"
-            widget: "string"
-          - label: "Details"
-            name: "details"
-            widget: "text"
-            required: false
-      - label: "Press Announcements"
-        name: "announcements"
-        widget: "list"
-        summary: "{{fields.date}} — {{fields.title}}"
-        fields:
-          - label: "Date"
-            name: "date"
-            widget: "datetime"
-            date_format: "DD/MM/YYYY"
-            time_format: false
-          - label: "Title"
-            name: "title"
-            widget: "string"
-          - label: "Excerpt"
-            name: "excerpt"
-            widget: "text"
-          - label: "Link"
-            name: "link"
-            widget: "string"
-            required: false
-            hint: "External URL if published elsewhere"
-
-  # ----------------------------------------------------------
-  # 5. TEAM / ECOSYSTEM — Ecosystem section (institution-first)
-  # ----------------------------------------------------------
-  - name: "team"
-    label: "🏢 AFS Ecosystem"
-    label_singular: "Team / Partner Entry"
-    file: "data/team.json"
-    fields:
-      - label: "Leadership"
-        name: "leadership"
-        widget: "list"
-        summary: "{{fields.name}}"
-        fields:
-          - label: "Name"
-            name: "name"
-            widget: "string"
-          - label: "Title"
-            name: "title"
-            widget: "string"
-            hint: "e.g. Founder & Lead Distributor — never 'Advisor'"
-          - label: "Bio (short)"
-            name: "bio"
-            widget: "text"
-          - label: "Active"
-            name: "active"
-            widget: "boolean"
-            default: true
-      - label: "Partners"
-        name: "partners"
-        widget: "list"
-        summary: "{{fields.name}}"
-        fields:
-          - label: "Partner Name"
-            name: "name"
-            widget: "string"
-          - label: "Category"
-            name: "category"
-            widget: "string"
-            hint: "e.g. Insurance Distribution, Client Technology, Lending"
-          - label: "Description"
-            name: "description"
-            widget: "text"
-          - label: "Logo"
-            name: "logo"
-            widget: "image"
-            required: false
-          - label: "Active"
-            name: "active"
-            widget: "boolean"
-            default: true
-
-  # ----------------------------------------------------------
-  # 6. MODEL PORTFOLIOS — CMS-managed portfolio baskets
-  # ----------------------------------------------------------
-  - name: "portfolios"
-    label: "📈 Model Portfolios"
-    label_singular: "Portfolio"
-    file: "data/portfolios.json"
-    fields:
-      - label: "Portfolios"
-        name: "portfolios"
-        widget: "list"
-        summary: "{{fields.name}} — {{fields.risk}}"
-        fields:
-          - label: "Portfolio Name"
-            name: "name"
-            widget: "string"
-            hint: "e.g. Conservative, Balanced, Growth, Aggressive"
-          - label: "Risk Level"
-            name: "risk"
-            widget: "select"
-            options: ["Low Risk", "Moderate Risk", "Moderately High Risk", "High Risk"]
-          - label: "Description"
-            name: "description"
-            widget: "text"
-            hint: "One sentence description. No specific scheme names."
-          - label: "Ideal Horizon"
-            name: "horizon"
-            widget: "string"
-            hint: "e.g. 5–7 years"
-          - label: "Indicative Return Range"
-            name: "returnRange"
-            widget: "string"
-            hint: "e.g. 10–12% p.a. (illustrative) — must say 'illustrative'"
-          - label: "Fund Categories (no scheme names)"
-            name: "categories"
+          - label: "Testimonials"
+            name: "testimonials"
             widget: "list"
-            allow_add: true
-            hint: "List fund categories ONLY. Never specific scheme names — AMFI compliance."
-          - label: "Equity Allocation %"
-            name: "equityPct"
-            widget: "number"
-            value_type: "int"
-            min: 0
-            max: 100
-          - label: "Debt Allocation %"
-            name: "debtPct"
-            widget: "number"
-            value_type: "int"
-            min: 0
-            max: 100
-          - label: "Other Allocation %"
-            name: "otherPct"
-            widget: "number"
-            value_type: "int"
-            min: 0
-            max: 100
-          - label: "CSS Class (for card header colour)"
-            name: "cssClass"
-            widget: "select"
-            options: ["conservative", "moderate", "growth", "aggressive"]
-          - label: "Active"
-            name: "active"
-            widget: "boolean"
-            default: true
+            fields:
+              - {label: "Name", name: "name", widget: "string"}
+              - {label: "Role", name: "role", widget: "string"}
+              - {label: "Quote", name: "quote", widget: "text"}
+              - {label: "Active", name: "active", widget: "boolean", default: true}
 
-  # ----------------------------------------------------------
-  # 7. SITE SETTINGS — Global config editable in CMS
-  # ----------------------------------------------------------
+  # 3. STATS
+  - name: "stats"
+    label: "Homepage Stats"
+    files:
+      - label: "Stats"
+        name: "stats"
+        file: "data/stats.json"
+        fields:
+          - {label: "Active Investors", name: "investors", widget: "string", default: "100+"}
+          - {label: "AUM", name: "aum", widget: "string", default: "₹2Cr+"}
+          - {label: "Years of Experience", name: "experience", widget: "string", default: "12+ Years"}
+          - {label: "Compliance", name: "compliance", widget: "string", default: "100% AMFI"}
+          - {label: "AMCs", name: "amcs", widget: "string", default: "30+"}
+
+  # 4. SITE SETTINGS
   - name: "settings"
-    label: "⚙️ Site Settings"
+    label: "Site Settings"
     files:
       - label: "General Settings"
         name: "general"
         file: "data/settings.json"
         fields:
-          - label: "WhatsApp Pre-fill Message"
-            name: "whatsappMessage"
-            widget: "string"
-            default: "Hi AFS, I'd like to know more about your services."
-            hint: "Message pre-filled when WhatsApp button is clicked."
-          - label: "WhatsApp Channel Link"
-            name: "whatsappChannel"
-            widget: "string"
-          - label: "Contact Form Link"
-            name: "contactForm"
-            widget: "string"
-          - label: "Digest Form Link"
-            name: "digestForm"
-            widget: "string"
-          - label: "Amazon Affiliate Tracking ID"
-            name: "amazonAffiliateID"
-            widget: "string"
-            hint: "Add your Amazon Associates tracking ID here."
-          - label: "Client Portal URL (Myplanner)"
-            name: "clientPortal"
-            widget: "string"
-            hint: "PLACEHOLDER — replace with Myplanner whitelabel URL when ready."
-          - label: "Top Banner Active"
-            name: "bannerActive"
-            widget: "boolean"
-            default: true
-            hint: "Toggle the WhatsApp channel join banner."
-          - label: "Banner Text"
-            name: "bannerText"
-            widget: "string"
-            default: "📢 Join our free WhatsApp Channel for market insights & monthly digest —"
+          - {label: "WhatsApp Message", name: "whatsappMessage", widget: "string"}
+          - {label: "WhatsApp Channel Link", name: "whatsappChannel", widget: "string"}
+          - {label: "Contact Form Link", name: "contactForm", widget: "string"}
+          - {label: "Client Portal URL", name: "clientPortal", widget: "string"}
+          - {label: "Top Banner Active", name: "bannerActive", widget: "boolean", default: true}
+          - {label: "Banner Text", name: "bannerText", widget: "string"}
 
-  # ----------------------------------------------------------
-  # 8. RESOURCES (AFFILIATE) — Book & product listings
-  # ----------------------------------------------------------
-  - name: "resources"
-    label: "📚 Resources (Affiliate)"
-    label_singular: "Resource"
-    file: "data/resources.json"
-    fields:
-      - label: "Resource Categories"
-        name: "categories"
-        widget: "list"
-        summary: "{{fields.category}}"
+  # 5. MODEL PORTFOLIOS
+  - name: "portfolios"
+    label: "Model Portfolios"
+    files:
+      - label: "Portfolios"
+        name: "portfolios"
+        file: "data/portfolios.json"
         fields:
-          - label: "Category Name"
-            name: "category"
-            widget: "string"
-            hint: "e.g. Finance Books, Financial Tools, Tech for Productivity"
-          - label: "Products"
-            name: "products"
+          - label: "Portfolios"
+            name: "portfolios"
             widget: "list"
-            summary: "{{fields.title}}"
             fields:
-              - label: "Product Title"
-                name: "title"
-                widget: "string"
-              - label: "Description"
-                name: "description"
-                widget: "text"
-              - label: "Amazon Link (with affiliate tag)"
-                name: "link"
-                widget: "string"
-                hint: "Full Amazon URL with your Associates tracking tag."
-              - label: "Product Image"
-                name: "image"
-                widget: "image"
-                required: false
-              - label: "Active"
-                name: "active"
-                widget: "boolean"
-                default: true
+              - {label: "Name", name: "name", widget: "string"}
+              - label: "Risk"
+                name: "risk"
+                widget: "select"
+                options: ["Low Risk","Moderate Risk","Moderately High Risk","High Risk"]
+              - {label: "Description", name: "description", widget: "text"}
+              - {label: "Horizon", name: "horizon", widget: "string"}
+              - {label: "Active", name: "active", widget: "boolean", default: true}
+
+  # 6. PRESS & MEDIA
+  - name: "press"
+    label: "Press & Media"
+    files:
+      - label: "Press"
+        name: "press"
+        file: "data/press.json"
+        fields:
+          - label: "Milestones"
+            name: "milestones"
+            widget: "list"
+            fields:
+              - {label: "Year", name: "year", widget: "string"}
+              - {label: "Event", name: "event", widget: "string"}
+              - {label: "Details", name: "details", widget: "text", required: false}
+          - label: "Announcements"
+            name: "announcements"
+            widget: "list"
+            fields:
+              - {label: "Date", name: "date", widget: "datetime"}
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Excerpt", name: "excerpt", widget: "text"}
+              - {label: "Link", name: "link", widget: "string", required: false}
