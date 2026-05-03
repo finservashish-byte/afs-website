@@ -1,7 +1,6 @@
 baseURL = "https://ashishfinancialservices.in/"
 languageCode = "en-in"
 title = "AFS | Ashish Financial Services | Mutual Fund Distributor India"
-theme = ""
 enableRobotsTXT = true
 googleAnalytics = "G-XXXXXXXXXX" # Replace with actual GA4 Measurement ID
 
@@ -26,7 +25,7 @@ googleAnalytics = "G-XXXXXXXXXX" # Replace with actual GA4 Measurement ID
   digestForm       = "https://forms.gle/iDRcFnvNYjsLiVGfA"
   instagram        = "https://www.instagram.com/ashish_financial_services"
   youtube          = "https://www.youtube.com/channel/UCfAbc214zAl2g2TY0hoKQRA"
-  clientPortal     = "#"  # PLACEHOLDER — replace with Myplanner whitelabel URL
+  clientPortal     = "https://clients.ashishfinancialservices.in/login"  # PLACEHOLDER — replace with Myplanner whitelabel URL
 
   # Stats (update via CMS or here)
   statInvestors    = "100+"
@@ -40,7 +39,7 @@ googleAnalytics = "G-XXXXXXXXXX" # Replace with actual GA4 Measurement ID
   discMFD          = "AFS acts as a distributor and not as an investment advisor under SEBI (Investment Advisers) Regulations, 2013."
 
   # Affiliate
-  amazonAffiliateID = "PLACEHOLDER"  # Replace with actual Amazon Associates tracking ID
+  amazonAffiliateID = "finditfast0e-21"  # Replace with actual Amazon Associates tracking ID
 
 [menu]
   [[menu.main]]
@@ -150,3 +149,4 @@ googleAnalytics = "G-XXXXXXXXXX" # Replace with actual GA4 Measurement ID
 
 [minify]
   minifyOutput = true
+[Build]
