@@ -1,13 +1,7 @@
 {{ define "head-extra" }}
-<!-- PDF.js — loaded before body, required by Wealth Lens -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-
-<!-- AFS Wealth Lens — scoped component styles -->
 <style>
-/* ── Wealth Lens scoped overrides: remove body padding added by Phase 3 ── */
-.wealth-lens-page { padding-bottom: 0; }
-.wealth-lens-page .page-content { padding-top: 0; }
-
+/* Wealth Lens — scoped styles. .wl-container avoids conflict with phase3 .container */
 :root {
   --navy:         #1A4F8A;
   --navy-dark:    #0D3461;
@@ -79,7 +73,7 @@ input[type=file]{display:none}
 
 /* ─── HOW IT WORKS ───────────────────── */
 .hiw{background:#fff;padding:60px 24px}
-.container{max-width:980px;margin:0 auto}
+.wl-container{max-width:980px;margin:0 auto}
 .sec-title{font-size:clamp(1.5rem,3vw,2rem);color:var(--navy-dark);margin-bottom:8px}
 .sec-sub{color:var(--text-mid);font-size:15px;margin-bottom:40px}
 .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px}
@@ -218,13 +212,18 @@ footer{background:var(--navy-dark);padding:18px 24px}
   .wa-block h3{font-size:1.25rem}
   .hero{padding:44px 18px 80px}
 }
+
+/* Force section visibility — belt+suspenders over bundle CSS */
+.sec { display: none !important; }
+.sec.on { display: block !important; }
+
+/* Remove page-level padding on this tool page */
+body { padding-bottom: 0 !important; }
+.page-content { padding-top: 0 !important; margin-top: 0 !important; }
 </style>
 {{ end }}
 
 {{ define "main" }}
-<!-- Wealth Lens body flag (used by scoped CSS above) -->
-<script>document.body.classList.add('wealth-lens-page');</script>
-
 <input type="file" id="pdfInput" accept=".pdf">
 
 <!-- ═══ SECTION 1 — UPLOAD ════════════════════════════════════════════ -->
@@ -263,7 +262,7 @@ footer{background:var(--navy-dark);padding:18px 24px}
 
   <!-- HOW IT WORKS -->
   <div class="hiw">
-    <div class="container">
+    <div class="wl-container">
       <div style="text-align:center;margin-bottom:40px">
         <h2 class="sec-title">How AFS Wealth Lens works</h2>
         <p class="sec-sub">Three steps to understand what your complete mutual fund portfolio is actually doing</p>
@@ -310,7 +309,7 @@ footer{background:var(--navy-dark);padding:18px 24px}
 </div>
 
 <!-- ═══ SECTION 2 — PROCESSING ════════════════════════════════════════ -->
-<div class="sec" id="secProc">
+<div class="sec" id="secProc" style="display:none">
   <div class="proc">
     <div class="proc-card">
       <div class="spin"></div>
@@ -322,7 +321,7 @@ footer{background:var(--navy-dark);padding:18px 24px}
 </div>
 
 <!-- ═══ SECTION 3 — RESULTS ═══════════════════════════════════════════ -->
-<div class="sec" id="secResults">
+<div class="sec" id="secResults" style="display:none">
 
   <div class="res-hdr">
     <div class="res-hdr-in">
