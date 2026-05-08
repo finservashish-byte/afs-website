@@ -47,14 +47,25 @@
   </div>
 </section>
 
-<!-- ===== COMPLIANCE BAR ===== -->
+<!-- ===== COMPLIANCE BAR — continuous ticker ===== -->
 <div class="compliance-bar" role="complementary" aria-label="Compliance information">
-  <div class="compliance-bar-inner">
+  <div class="compliance-bar-inner" aria-hidden="true">
+    <!-- Set 1 -->
     <span class="item"><span class="dot"></span>AMFI ARN: {{ .Site.Params.amfiArn }}</span>
     <span class="item"><span class="dot"></span>POSP ID: {{ .Site.Params.posP }}</span>
     <span class="item"><span class="dot"></span>PAN India Distribution</span>
     <span class="item"><span class="dot"></span>100% Digital</span>
     <span class="item"><span class="dot"></span>Not a SEBI RIA</span>
+    <span class="item"><span class="dot"></span>AMFI Registered Mutual Fund Distributor</span>
+    <span class="item"><span class="dot"></span>IRDAI POSP Partner</span>
+    <!-- Set 2 — duplicate for seamless loop -->
+    <span class="item"><span class="dot"></span>AMFI ARN: {{ .Site.Params.amfiArn }}</span>
+    <span class="item"><span class="dot"></span>POSP ID: {{ .Site.Params.posP }}</span>
+    <span class="item"><span class="dot"></span>PAN India Distribution</span>
+    <span class="item"><span class="dot"></span>100% Digital</span>
+    <span class="item"><span class="dot"></span>Not a SEBI RIA</span>
+    <span class="item"><span class="dot"></span>AMFI Registered Mutual Fund Distributor</span>
+    <span class="item"><span class="dot"></span>IRDAI POSP Partner</span>
   </div>
 </div>
 
@@ -62,19 +73,19 @@
 <div class="stats-strip" aria-label="AFS at a glance">
   <div class="stats-inner">
     <div class="stat-item">
-      <div class="stat-number">{{ if $stats }}{{ $stats.investors }}{{ else }}{{ .Site.Params.statInvestors }}{{ end }}</div>
+      <div class="stat-number" data-countup data-target="100" data-suffix="+">{{ if $stats }}{{ $stats.investors }}{{ else }}{{ .Site.Params.statInvestors }}{{ end }}</div>
       <div class="stat-label">Active Investors</div>
     </div>
     <div class="stat-item">
-      <div class="stat-number">{{ if $stats }}{{ $stats.aum }}{{ else }}{{ .Site.Params.statAum }}{{ end }}</div>
+      <div class="stat-number" data-countup data-prefix="₹" data-target="2" data-suffix="Cr+">{{ if $stats }}{{ $stats.aum }}{{ else }}{{ .Site.Params.statAum }}{{ end }}</div>
       <div class="stat-label">Assets Under Distribution</div>
     </div>
     <div class="stat-item">
-      <div class="stat-number">{{ if $stats }}{{ $stats.experience }}{{ else }}{{ .Site.Params.statExperience }}{{ end }}</div>
+      <div class="stat-number" data-countup data-target="12" data-suffix="+ Years">{{ if $stats }}{{ $stats.experience }}{{ else }}{{ .Site.Params.statExperience }}{{ end }}</div>
       <div class="stat-label">Years of Experience</div>
     </div>
     <div class="stat-item">
-      <div class="stat-number">{{ if $stats }}{{ $stats.compliance }}{{ else }}{{ .Site.Params.statCompliance }}{{ end }}</div>
+      <div class="stat-number" data-countup data-target="100" data-suffix="% AMFI">{{ if $stats }}{{ $stats.compliance }}{{ else }}{{ .Site.Params.statCompliance }}{{ end }}</div>
       <div class="stat-label">AMFI Compliant</div>
     </div>
   </div>
