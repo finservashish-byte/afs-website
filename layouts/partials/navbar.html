@@ -2,10 +2,13 @@
 <nav class="afs-nav nav--dark" role="navigation" aria-label="Main navigation">
   <div class="afs-nav__inner">
 
-    <!-- Logo — inline, no image file needed -->
+    <!-- Logo -->
     <a href="/" class="afs-nav__logo" aria-label="AFS Home" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+      <img src="/images/logo.png" alt="AFS"
+           style="width:38px;height:38px;border-radius:8px;object-fit:contain;flex-shrink:0;"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
       <span style="width:38px;height:38px;background:var(--afs-orange);border-radius:8px;
-                   display:flex;align-items:center;justify-content:center;flex-shrink:0;
+                   display:none;align-items:center;justify-content:center;flex-shrink:0;
                    font-family:'Playfair Display',serif;font-weight:800;color:#fff;font-size:15px;letter-spacing:-1px;">
         AS
       </span>
