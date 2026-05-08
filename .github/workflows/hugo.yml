@@ -28,7 +28,7 @@ jobs:
           extended: true
 
       - name: Build
-        run: hugo --minify -b https://finservashish-byte.github.io/afs-website/
+        run: hugo --minify -b https://ashishfinancialservices.in/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
