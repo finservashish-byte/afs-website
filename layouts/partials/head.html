@@ -44,21 +44,6 @@
 <!-- Per-page head injection -->
 {{ block "head-extra" . }}{{ end }}
 
-<!-- Netlify Identity — required on ALL pages for password reset to work -->
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-<script>
-  // Catch Netlify Identity token on any page and redirect to /admin/
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", function(user) {
-      if (!user) {
-        window.netlifyIdentity.on("login", function() {
-          document.location.href = "/admin/";
-        });
-      }
-    });
-  }
-</script>
-
 <!-- Google Analytics 4 -->
 {{ if not .Site.IsServer }}
 {{ with .Site.GoogleAnalytics }}
