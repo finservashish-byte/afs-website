@@ -27,7 +27,7 @@ jobs:
           hugo-version: '0.124.1'
           extended: true
 
-     - name: Build
+      - name: Build
         run: hugo --minify -b https://finservashish-byte.github.io/afs-website/
 
       - name: Upload artifact
