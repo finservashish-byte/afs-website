@@ -545,7 +545,7 @@ p { line-height: 1.7; color: var(--text-mid); }
 
 /* 15. Testimonial Cards */
 .testimonial-card {
-  background: rgba(255,255,255,0.06);
+  background: rgba(10, 30, 60, 0.85);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
@@ -554,20 +554,11 @@ p { line-height: 1.7; color: var(--text-mid); }
   -webkit-backdrop-filter: blur(12px);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.testimonial-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+.testimonial-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
 .testimonial-card .quote-mark { font-size: 3rem; color: var(--orange); font-family: var(--font-heading); line-height: 1; margin-bottom: var(--space-sm); }
 .testimonial-card .quote { color: rgba(255,255,255,0.92); font-size: 0.95rem; line-height: 1.7; margin-bottom: var(--space-lg); }
 .testimonial-card .author-name { font-weight: 700; color: #fff; }
 .testimonial-card .author-role { font-size: 0.82rem; color: rgba(255,255,255,0.6); }
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: var(--radius-lg);
-  padding: var(--space-xl);
-}
-.testimonial-card .quote-mark { font-size: 3rem; color: var(--orange); font-family: var(--font-heading); line-height: 1; margin-bottom: var(--space-sm); }
-.testimonial-card .quote { color: rgba(255,255,255,0.9); font-size: 0.95rem; line-height: 1.7; margin-bottom: var(--space-lg); }
-.testimonial-card .author-name { font-weight: 700; color: #fff; }
-.testimonial-card .author-role { font-size: 0.82rem; color: rgba(255,255,255,0.65); }
 
 /* 16. Why AFS Section */
 .why-afs { background: var(--navy-dark); color: #fff; }
