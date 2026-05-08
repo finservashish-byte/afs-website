@@ -2,54 +2,273 @@
 {{ $press := .Site.Data.press }}
 <header class="page-header">
   <div class="page-header-inner">
-    <span class="section-label" style="color:var(--orange);">Since 2012</span>
-    <h1>Press & Media</h1>
-    <p class="lead">AFS's journey — from AMFI registration in 2013 to PAN India distribution today.</p>
+    <span class="section-label" style="color:var(--orange);">Since 2024</span>
+    <h1>Press &amp; Media</h1>
+    <p class="lead">AFS's journey — from launch in 2024 to building India's most trusted digital MFD network.</p>
   </div>
 </header>
 
-<!-- Timeline -->
-<section class="section section-dark">
-  <div class="container">
-    <h2 style="color:#fff; margin-bottom:2rem;">Our Milestones</h2>
-    <div class="timeline" role="list">
-      {{ range $press.milestones }}
-      <div class="timeline-node" role="listitem">
-        <div class="year">{{ .year }}</div>
-        <div class="event">{{ .event }}</div>
+<!-- ===== ANIMATED PATHWAY TIMELINE ===== -->
+<section class="section section-dark" style="overflow:hidden;">
+  <div class="container" style="max-width:900px;">
+    <h2 style="color:#fff;margin-bottom:3rem;text-align:center;">Our Journey</h2>
+
+    <div class="pathway-timeline">
+
+      <!-- Node 1 -->
+      <div class="pathway-node" data-animate="fade-up">
+        <div class="pathway-side left">
+          <div class="pathway-card">
+            <div class="pathway-date">Oct 2024</div>
+            <div class="pathway-title">🚀 Launch of AFS</div>
+            <div class="pathway-desc">Ashish Financial Services officially launched as an AMFI registered mutual fund distributor. 100% digital. PAN India.</div>
+          </div>
+        </div>
+        <div class="pathway-center">
+          <div class="pathway-dot"><span>1</span></div>
+          <div class="pathway-line"></div>
+        </div>
+        <div class="pathway-side right hidden-mobile"></div>
       </div>
-      {{ end }}
-    </div>
+
+      <!-- Node 2 -->
+      <div class="pathway-node" data-animate="fade-up" data-delay="100">
+        <div class="pathway-side left hidden-mobile"></div>
+        <div class="pathway-center">
+          <div class="pathway-line"></div>
+          <div class="pathway-dot"><span>2</span></div>
+          <div class="pathway-line"></div>
+        </div>
+        <div class="pathway-side right">
+          <div class="pathway-card">
+            <div class="pathway-date">Nov 2024</div>
+            <div class="pathway-title">📱 Investor Education Series</div>
+            <div class="pathway-desc">Launched free Investor Education Series on our WhatsApp Channel. Weekly insights on mutual funds, taxes, and wealth building — zero jargon.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Node 3 -->
+      <div class="pathway-node" data-animate="fade-up" data-delay="200">
+        <div class="pathway-side left">
+          <div class="pathway-card">
+            <div class="pathway-date">Jan 2025</div>
+            <div class="pathway-title">📊 Monthly Digest Launched</div>
+            <div class="pathway-desc">AFS Monthly Digest — a curated newsletter covering market updates, fund recommendations, and financial planning tips — goes live for subscribers.</div>
+          </div>
+        </div>
+        <div class="pathway-center">
+          <div class="pathway-line"></div>
+          <div class="pathway-dot"><span>3</span></div>
+          <div class="pathway-line"></div>
+        </div>
+        <div class="pathway-side right hidden-mobile"></div>
+      </div>
+
+      <!-- Node 4 -->
+      <div class="pathway-node" data-animate="fade-up" data-delay="300">
+        <div class="pathway-side left hidden-mobile"></div>
+        <div class="pathway-center">
+          <div class="pathway-line"></div>
+          <div class="pathway-dot"><span>4</span></div>
+          <div class="pathway-line"></div>
+        </div>
+        <div class="pathway-side right">
+          <div class="pathway-card">
+            <div class="pathway-date">Apr 2025</div>
+            <div class="pathway-title">🌐 Official Website Launch</div>
+            <div class="pathway-desc">Full AFS website goes live at ashishfinancialservices.in — with calculators, model portfolios, Wealth Lens tool, and complete service pages.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Node 5 -->
+      <div class="pathway-node" data-animate="fade-up" data-delay="400">
+        <div class="pathway-side left">
+          <div class="pathway-card">
+            <div class="pathway-date">May 2025</div>
+            <div class="pathway-title">📲 Myplanner App Launch</div>
+            <div class="pathway-desc">AFS clients get access to the Myplanner whitelabelled investor platform — track portfolio, statements, and returns in one place. 24/7 access.</div>
+          </div>
+        </div>
+        <div class="pathway-center">
+          <div class="pathway-line"></div>
+          <div class="pathway-dot"><span>5</span></div>
+          <div class="pathway-line"></div>
+        </div>
+        <div class="pathway-side right hidden-mobile"></div>
+      </div>
+
+      <!-- Node 6 -->
+      <div class="pathway-node" data-animate="fade-up" data-delay="500">
+        <div class="pathway-side left hidden-mobile"></div>
+        <div class="pathway-center">
+          <div class="pathway-line"></div>
+          <div class="pathway-dot"><span>6</span></div>
+          <div class="pathway-line"></div>
+        </div>
+        <div class="pathway-side right">
+          <div class="pathway-card">
+            <div class="pathway-date">Jun 2025</div>
+            <div class="pathway-title">🔍 AFS Wealth Lens</div>
+            <div class="pathway-desc">Launched AFS Wealth Lens — India's first free, 100% client-side CAS PDF analyser. Real XIRR, tax estimate, overlap analysis. No login. No server.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Node 7 — Growing -->
+      <div class="pathway-node" data-animate="fade-up" data-delay="600">
+        <div class="pathway-side left">
+          <div class="pathway-card pathway-card--glow">
+            <div class="pathway-date" style="color:var(--orange);">Now &amp; Beyond ✦</div>
+            <div class="pathway-title">🎯 Target: 10,000 Investors</div>
+            <div class="pathway-desc">Building India's most trusted fully-digital MFD. Goal-based investing, pan-insurer insurance, and wealth tools — all under one relationship.</div>
+          </div>
+        </div>
+        <div class="pathway-center">
+          <div class="pathway-line"></div>
+          <div class="pathway-dot pathway-dot--glow"><span>→</span></div>
+        </div>
+        <div class="pathway-side right hidden-mobile"></div>
+      </div>
+
+    </div><!-- /pathway-timeline -->
   </div>
 </section>
 
+<!-- Pathway Timeline CSS (scoped) -->
+<style>
+.pathway-timeline { position: relative; }
+.pathway-node {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  gap: 0;
+  align-items: stretch;
+  min-height: 120px;
+}
+.pathway-side {
+  padding: 0 1.5rem 2rem;
+  display: flex;
+  align-items: flex-start;
+}
+.pathway-side.right { justify-content: flex-start; }
+.pathway-side.left { justify-content: flex-end; }
+.pathway-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.pathway-line {
+  flex: 1;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(255,102,0,0.3), rgba(255,102,0,0.6));
+  min-height: 20px;
+}
+.pathway-dot {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--navy-dark);
+  border: 2px solid var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: var(--orange);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 0 4px rgba(255,102,0,0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.pathway-dot--glow {
+  background: var(--orange);
+  color: #fff;
+  box-shadow: 0 0 20px rgba(255,102,0,0.5);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%,100% { box-shadow: 0 0 20px rgba(255,102,0,0.5); }
+  50%      { box-shadow: 0 0 35px rgba(255,102,0,0.9); }
+}
+.pathway-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  max-width: 340px;
+  backdrop-filter: blur(8px);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.pathway-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255,102,0,0.4);
+}
+.pathway-card--glow {
+  border-color: rgba(255,102,0,0.35);
+  background: rgba(255,102,0,0.07);
+}
+.pathway-date {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.pathway-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-heading);
+}
+.pathway-desc {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.68);
+  line-height: 1.6;
+}
+@media(max-width: 680px) {
+  .pathway-node { grid-template-columns: 40px 1fr; }
+  .pathway-side.left { display: none; }
+  .pathway-side.right { padding-left: 1rem; }
+  .pathway-center { order: -1; }
+  .hidden-mobile { display: none; }
+  .pathway-card { max-width: 100%; }
+}
+</style>
+
 <!-- Press Announcements -->
+{{ if $press.announcements }}
 <section class="section">
   <div class="container" style="max-width:760px;">
     <h2 style="margin-bottom:2rem;">Announcements</h2>
     {{ range $press.announcements }}
-    <div style="display:flex; gap:1.5rem; padding:1.25rem 0; border-bottom:1px solid var(--border); align-items:flex-start;">
-      <div style="flex-shrink:0; background:var(--navy-dark); color:#fff; border-radius:var(--radius-sm); padding:0.5rem 0.75rem; font-size:0.78rem; font-weight:600; text-align:center; min-width:80px;">
+    <div style="display:flex;gap:1.5rem;padding:1.25rem 0;border-bottom:1px solid var(--border);align-items:flex-start;">
+      <div style="flex-shrink:0;background:var(--navy-dark);color:#fff;border-radius:var(--radius-sm);padding:0.5rem 0.75rem;font-size:0.78rem;font-weight:600;text-align:center;min-width:80px;">
         {{ .date | dateFormat "Jan 2006" }}
       </div>
       <div>
-        <h4 style="margin-bottom:0.4rem; font-size:1rem;">{{ .title }}</h4>
+        <h4 style="margin-bottom:0.4rem;font-size:1rem;">{{ .title }}</h4>
         <p style="font-size:0.88rem;">{{ .excerpt }}</p>
       </div>
     </div>
     {{ end }}
   </div>
 </section>
+{{ end }}
 
 <!-- Media Contact -->
 <section class="section section-gray" style="text-align:center;">
   <div class="container">
     <h2 style="margin-bottom:1rem;">Media Contact</h2>
-    <p class="lead" style="max-width:500px; margin:0 auto 2rem;">For press enquiries, interview requests, or editorial coverage.</p>
-    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+    <p class="lead" style="max-width:500px;margin:0 auto 2rem;">For press enquiries, interview requests, or editorial coverage.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
       <a href="mailto:finservashish@gmail.com" class="btn btn-navy">Email Us</a>
       <a href="{{ .Site.Params.whatsappLink }}" class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a>
     </div>
   </div>
 </section>
+
 {{ end }}
