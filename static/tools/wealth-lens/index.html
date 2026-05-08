@@ -210,6 +210,16 @@ footer{background:var(--navy-dark);padding:18px 24px}
 .ft-links a{color:rgba(255,255,255,.45);font-size:12px;transition:color .2s}
 .ft-links a:hover{color:var(--orange)}
 
+/* ─── PASSWORD UNLOCK ROW ─────────────── */
+#pwdRow{margin-top:22px;background:#fff7f0;border:1.5px solid rgba(255,102,0,.28);border-radius:12px;padding:18px 20px;text-align:left}
+.pwd-title{font-size:14px;font-weight:700;color:#5A2D00;margin-bottom:5px;display:flex;align-items:center;gap:7px}
+.pwd-hint{font-size:13px;color:#8B4513;margin-bottom:14px;line-height:1.5}
+.pwd-row{display:flex;gap:8px;flex-wrap:wrap}
+#pwdRow input[type=password]{flex:1;min-width:160px;padding:10px 14px;border:1.5px solid rgba(255,102,0,.35);border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;background:#fff;color:var(--text-dark)}
+#pwdRow input[type=password]:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,102,0,.13)}
+.pwd-btn{background:var(--orange);color:#fff;border:none;padding:10px 22px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:background .18s}
+.pwd-btn:hover{background:var(--orange-light)}
+
 /* ─── RESPONSIVE ─────────────────────── */
 @media(max-width:620px){
   .sum-grid{grid-template-columns:repeat(2,1fr)}
@@ -265,7 +275,7 @@ footer{background:var(--navy-dark);padding:18px 24px}
             <span class="fmt-chip">✓ CAMS</span>
             <span class="fmt-chip">✓ KFintech</span>
             <span class="fmt-chip">✓ MFCentral</span>
-            <span class="fmt-chip">PDF only · Password-free</span>
+            <span class="fmt-chip">🔒 Password-protected PDFs supported</span>
           </div>
         </div>
         <a class="demo-lnk" id="demoLnk">Don't have a CAS? &nbsp;<u>Try with a sample portfolio →</u></a>
@@ -329,6 +339,17 @@ footer{background:var(--navy-dark);padding:18px 24px}
       <h3>Analysing your portfolio</h3>
       <p id="statusMsg">Reading your statement…</p>
       <div class="prog-bg"><div class="prog-fill" id="progFill"></div></div>
+
+      <!-- Password unlock — shown only for encrypted PDFs -->
+      <div id="pwdRow" style="display:none">
+        <div class="pwd-title">🔒 This PDF is password-protected</div>
+        <p class="pwd-hint">Enter the password you set when downloading your CAS from CAMS / KFintech. Your password is used only in your browser — never sent anywhere.</p>
+        <div class="pwd-row">
+          <input type="password" id="pdfPwd" placeholder="Enter PDF password…"
+                 onkeydown="if(event.key==='Enter')submitPassword()">
+          <button class="pwd-btn" onclick="submitPassword()">Unlock &amp; Analyse</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -781,7 +802,7 @@ function parseCAS(text) {
 
         // Units always have exactly 3 decimal places in CAMS (e.g. 123.456)
         const unitCandidates = candidates.filter(x => {
-          const dec = (x.toString().split('.')[1]||'')';
+          const dec = (x.toString().split('.')[1]||'');
           return dec.length >= 3 && x < 1e6;
         });
         // Amount is usually the largest value or the one > 100 that isn't units/NAV
@@ -1068,7 +1089,7 @@ async function handleFile(file) {
     setProgress(85,'Running overlap & tax analysis…');
     if (!funds.length) {
       show('secUpload');
-      alert('Could not extract fund data from this PDF.\n\nPlease ensure:\n• It is a CAMS or KFintech Consolidated Account Statement\n• The PDF is not password-protected\n\nTip: Try the "sample portfolio" link to see how the tool works.');
+      alert('Could not extract fund data from this PDF.\n\nPlease ensure:\n• It is a CAMS or KFintech Consolidated Account Statement\n\nTip: Try the "sample portfolio" link to see how the tool works.');
       return;
     }
     await new Promise(r=>setTimeout(r,400));
@@ -1077,7 +1098,7 @@ async function handleFile(file) {
   } catch(e) {
     console.error(e);
     show('secUpload');
-    alert('Error reading the PDF. Please ensure the file is a valid, unencrypted CAMS or KFintech CAS PDF.');
+    alert('Error reading the PDF. Please ensure the file is a valid CAMS or KFintech CAS PDF.');
   }
 }
 
