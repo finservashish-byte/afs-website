@@ -82,3 +82,40 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
+
+/* ── Count-up animation for stats ── */
+(function(){
+  const stats = document.querySelectorAll('.stat-item');
+  if(!stats.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if(!entry.isIntersecting) return;
+      const el = entry.target;
+      el.style.transitionDelay = (i * 120) + 'ms';
+      el.classList.add('visible');
+      const numEl = el.querySelector('[data-countup]');
+      if(!numEl || numEl.dataset.counted) return;
+      numEl.dataset.counted = '1';
+      const target = parseInt(numEl.dataset.target) || 0;
+      const prefix = numEl.dataset.prefix || '';
+      const suffix = numEl.dataset.suffix || '';
+      const duration = 1400;
+      const step = 16;
+      const steps = duration / step;
+      let current = 0;
+      numEl.classList.add('counting');
+      const timer = setInterval(() => {
+        current = Math.min(current + Math.ceil(target / steps), target);
+        numEl.textContent = prefix + current + suffix;
+        if(current >= target){
+          clearInterval(timer);
+          numEl.classList.remove('counting');
+        }
+      }, step);
+      observer.unobserve(el);
+    });
+  }, { threshold: 0.3 });
+
+  stats.forEach(el => observer.observe(el));
+})();
