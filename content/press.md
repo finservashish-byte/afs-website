@@ -1,4 +1,5 @@
 ---
 title: "Press & Media"
-description: "AFS milestone timeline, press announcements, and media contact. Founded 2012. AMFI registered 2013. PAN India since 2024."
+description: "AFS journey — from launch in October 2024 to building India's most trusted digital MFD network. 100% digital. PAN India."
+layout: "press"
 ---
