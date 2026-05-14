@@ -683,34 +683,46 @@ function portfolioScore(funds, ovXIRR) {
 }
 
 /* ── PDF extraction ──────────────────────────────────────────────── */
-let _pendingPwdResolve = null;
-let _currentFileBuffer = null;
+let _pendingPwdCallback = null;  // holds PDF.js updatePassword function
+let _currentFileBuffer  = null;
 
 function submitPassword() {
-  const pwd = document.getElementById('pdfPwd').value;
+  const pwd = document.getElementById('pdfPwd').value.trim();
+  if (!pwd) {
+    document.getElementById('pdfPwd').focus();
+    return;
+  }
+  document.getElementById('pdfPwd').value = '';
   document.getElementById('pwdRow').style.display = 'none';
-  if (_pendingPwdResolve) { _pendingPwdResolve(pwd); _pendingPwdResolve = null; }
+  if (_pendingPwdCallback) {
+    _pendingPwdCallback(pwd);   // pass password directly to PDF.js
+    _pendingPwdCallback = null;
+  }
 }
 
-async function extractText(file, password) {
+async function extractText(file) {
   const ab = file ? await file.arrayBuffer() : _currentFileBuffer;
   if (file) _currentFileBuffer = ab;
-  const loadArgs = { data: ab };
-  if (password) loadArgs.password = password;
 
-  let pdf;
-  try {
-    pdf = await pdfjsLib.getDocument(loadArgs).promise;
-  } catch(e) {
-    if (e && (e.name === 'PasswordException' || e.code === 1 || e.code === 2)) {
-      // Show password UI and wait for user input
-      document.getElementById('pwdRow').style.display = 'block';
-      document.getElementById('pdfPwd').focus();
-      const pwd = await new Promise(res => { _pendingPwdResolve = res; });
-      return extractText(null, pwd);  // retry with password
+  const loadingTask = pdfjsLib.getDocument({ data: ab });
+
+  // PDF.js v3 onPassword callback — called by PDF.js when password needed
+  loadingTask.onPassword = function(updatePassword, reason) {
+    // reason 1 = password needed, reason 2 = wrong password
+    const pwdRow  = document.getElementById('pwdRow');
+    const pwdInput = document.getElementById('pdfPwd');
+    if (reason === 2) {
+      // Wrong password — show error hint
+      const hint = pwdRow.querySelector('.pwd-hint');
+      if (hint) hint.style.color = '#C0392B';
+      if (hint) hint.textContent = '❌ Incorrect password. Please try again.';
     }
-    throw e;
-  }
+    pwdRow.style.display  = 'block';
+    pwdInput.focus();
+    _pendingPwdCallback = updatePassword;  // PDF.js will retry once called
+  };
+
+  const pdf = await loadingTask.promise;
   let all='';
   for (let p=1;p<=pdf.numPages;p++) {
     const page = await pdf.getPage(p);
@@ -1080,6 +1092,15 @@ function renderResults({funds, holderName, stmtDate}) {
 async function handleFile(file) {
   show('secProc');
   setProgress(5,'Reading your statement…');
+  // Reset password UI for fresh upload
+  document.getElementById('pwdRow').style.display = 'none';
+  document.getElementById('pdfPwd').value = '';
+  const hint = document.querySelector('#pwdRow .pwd-hint');
+  if (hint) {
+    hint.style.color = '';
+    hint.textContent = 'Enter the password you set when downloading your CAS from CAMS / KFintech. Your password is used only in your browser — never sent anywhere.';
+  }
+  _pendingPwdCallback = null;
   try {
     const text = await extractText(file);
     setProgress(50,'Parsing fund data…');
