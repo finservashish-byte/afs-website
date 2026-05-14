@@ -1,78 +1,159 @@
-{{/* AFS — schema.html — JSON-LD per page type */}}
+{{/* ═══ AFS Schema.org JSON-LD — All structured data in one partial ═══ */}}
 
-{{ if .IsHome }}
+{{/* 1. Organization — on every page */}}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": ["FinancialService", "LocalBusiness"],
+  "@type": "FinancialService",
+  "@id": "{{ .Site.BaseURL }}#organization",
   "name": "Ashish Financial Services",
   "alternateName": "AFS",
-  "description": "AMFI Registered Mutual Fund Distributor and IRDAI POSP Partner. Goal-based investing, insurance, and loans facilitation — 100% digital, PAN India.",
   "url": "{{ .Site.BaseURL }}",
-  "logo": "{{ "/images/logo.png" | absURL }}",
-  "telephone": "+918073011715",
-  "email": "finservashish@gmail.com",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "{{ .Site.BaseURL }}images/logo.png",
+    "width": 200,
+    "height": 200
+  },
+  "description": "AMFI Registered Mutual Fund Distributor. Goal-based SIP, insurance, and loans against securities. 100% digital. PAN India.",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Bangalore",
     "addressRegion": "Karnataka",
     "addressCountry": "IN"
   },
-  "areaServed": "IN",
+  "telephone": "+918073011715",
+  "email": "finservashish@gmail.com",
+  "sameAs": [
+    "https://www.instagram.com/ashishfinancialservices",
+    "https://www.facebook.com/ashishfinancialservices",
+    "https://www.youtube.com/@ashishfinancialservices"
+  ],
+  "areaServed": {
+    "@type": "Country",
+    "name": "India"
+  },
   "hasCredential": [
     {
       "@type": "EducationalOccupationalCredential",
-      "name": "AMFI Registered Mutual Fund Distributor",
-      "credentialCategory": "ARN: 311127"
+      "name": "AMFI Registration",
+      "credentialCategory": "ARN-311127"
     },
     {
       "@type": "EducationalOccupationalCredential",
-      "name": "IRDAI POSP Insurance Partner",
-      "credentialCategory": "POSP ID: IP240588"
+      "name": "IRDAI POSP",
+      "credentialCategory": "IP240588"
     }
   ],
-  "sameAs": [
-    "https://www.instagram.com/ashish_financial_services",
-    "https://www.youtube.com/channel/UCfAbc214zAl2g2TY0hoKQRA",
-    "https://whatsapp.com/channel/0029Vasues52v1IkYn6lN83M"
-  ],
-  "priceRange": "Free",
-  "openingHours": "Mo-Sa 09:00-18:00"
+  "priceRange": "Free consultation",
+  "openingHours": "Mo-Sa 09:00-19:00"
+}
+</script>
+
+{{/* 2. WebSite with SearchAction — helps Google sitelinks searchbox */}}
+{{ if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "{{ .Site.BaseURL }}#website",
+  "name": "Ashish Financial Services",
+  "url": "{{ .Site.BaseURL }}",
+  "description": "{{ .Site.Params.description }}",
+  "publisher": {
+    "@id": "{{ .Site.BaseURL }}#organization"
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "{{ .Site.BaseURL }}insights/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+{{/* 3. SiteNavigationElement — tells Google your nav structure for sitelinks */}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "AFS Site Navigation",
+  "itemListElement": [
+    {"@type":"SiteNavigationElement","position":1,"name":"Mutual Funds","url":"{{ .Site.BaseURL }}services/mutual-funds/"},
+    {"@type":"SiteNavigationElement","position":2,"name":"Insurance","url":"{{ .Site.BaseURL }}services/insurance/"},
+    {"@type":"SiteNavigationElement","position":3,"name":"Loans Against Securities","url":"{{ .Site.BaseURL }}services/loans/"},
+    {"@type":"SiteNavigationElement","position":4,"name":"AFS Wealth Lens","url":"{{ .Site.BaseURL }}tools/wealth-lens/"},
+    {"@type":"SiteNavigationElement","position":5,"name":"Calculators","url":"{{ .Site.BaseURL }}tools/"},
+    {"@type":"SiteNavigationElement","position":6,"name":"Insights Blog","url":"{{ .Site.BaseURL }}insights/"},
+    {"@type":"SiteNavigationElement","position":7,"name":"Contact AFS","url":"{{ .Site.BaseURL }}contact/"}
+  ]
 }
 </script>
 {{ end }}
 
+{{/* 4. Article schema — blog posts only */}}
 {{ if and .IsPage (eq .Section "insights") }}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "BlogPosting",
+  "@type": "Article",
+  "@id": "{{ .Permalink }}#article",
   "headline": "{{ .Title }}",
   "description": "{{ if .Description }}{{ .Description }}{{ else }}{{ .Summary | truncate 155 }}{{ end }}",
-  "datePublished": "{{ .Date.Format "2006-01-02" }}",
-  "dateModified": "{{ .Lastmod.Format "2006-01-02" }}",
+  "url": "{{ .Permalink }}",
+  "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+  "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
   "author": {
-    "@type": "Organization",
-    "name": "AFS Team"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Ashish Financial Services",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "{{ "/images/logo.png" | absURL }}"
+    "@type": "Person",
+    "name": "{{ if .Params.author }}{{ .Params.author }}{{ else }}AFS Team{{ end }}",
+    "url": "{{ .Site.BaseURL }}",
+    "worksFor": {
+      "@id": "{{ .Site.BaseURL }}#organization"
     }
   },
-  "url": "{{ .Permalink }}",
+  "publisher": {
+    "@id": "{{ .Site.BaseURL }}#organization"
+  },
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "{{ .Permalink }}"
-  }
-  {{ with .Params.image }},
-  "image": "{{ . | absURL }}"
-  {{ end }}
+  },
+  "articleSection": "{{ if .Params.category }}{{ .Params.category }}{{ else }}Personal Finance{{ end }}",
+  "keywords": "{{ if .Params.tags }}{{ delimit .Params.tags ", " }}{{ else }}mutual fund, SIP, investment India{{ end }}",
+  "inLanguage": "en-IN"{{ with .Params.image }},
+  "image": {
+    "@type": "ImageObject",
+    "url": "{{ . | absURL }}"
+  }{{ end }}
 }
 </script>
+
+{{/* FAQ schema — if article has faqs param */}}
+{{ with .Params.faqs }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {{ range $i, $faq := . }}{{ if $i }},{{ end }}
+    {
+      "@type": "Question",
+      "name": "{{ $faq.q }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ $faq.a }}"
+      }
+    }{{ end }}
+  ]
+}
+</script>
+{{ end }}
+{{ end }}
+
+{{/* 5. BreadcrumbList — all pages except homepage */}}
+{{ if not .IsHome }}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -83,45 +164,18 @@
       "position": 1,
       "name": "Home",
       "item": "{{ .Site.BaseURL }}"
-    },
+    }{{ if .Parent }},
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "Insights",
-      "item": "{{ "/insights/" | absURL }}"
-    },
+      "name": "{{ .Parent.Title }}",
+      "item": "{{ .Parent.Permalink }}"
+    }{{ end }},
     {
       "@type": "ListItem",
-      "position": 3,
+      "position": {{ if .Parent }}3{{ else }}2{{ end }},
       "name": "{{ .Title }}",
       "item": "{{ .Permalink }}"
-    }
-  ]
-}
-</script>
-{{ end }}
-
-{{ if eq .Type "monthly-digest" }}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Who is the AFS Monthly Digest for?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The AFS Monthly Digest is for active AFS members — investors who have started their investment journey with AFS. It is free for all active members."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is the digest delivered?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The digest is delivered via email or WhatsApp between the 1st and 10th of each month."
-      }
     }
   ]
 }
