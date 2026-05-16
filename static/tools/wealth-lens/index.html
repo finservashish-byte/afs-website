@@ -6,6 +6,8 @@
 <title>AFS Wealth Lens — Free Mutual Fund Portfolio Analyser | Ashish Financial Services</title>
 <meta name="description" content="Find out what your mutual funds are actually returning. Free. 60 seconds. No login. Upload your CAMS or KFintech Consolidated Account Statement for XIRR, tax estimate and overlap analysis.">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -38,15 +40,45 @@ h1,h2,h3,h4{font-family:'Playfair Display',serif;line-height:1.2}
 a{text-decoration:none}
 input[type=file]{display:none}
 
-/* ─── HEADER ─────────────────────────── */
-.hdr{background:var(--navy-dark);height:64px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99;box-shadow:0 2px 14px rgba(0,0,0,.22)}
+/* ─── HEADER / NAVBAR ────────────────────── */
+.hdr{background:var(--navy-dark);height:64px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:1rem;position:sticky;top:0;z-index:99;box-shadow:0 2px 14px rgba(0,0,0,.22)}
 .logo{display:flex;align-items:center;gap:10px}
-.logo-mark{width:40px;height:40px;background:var(--orange);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;color:#fff;font-size:18px;letter-spacing:-1px;flex-shrink:0}
+.logo-mark{width:38px;height:38px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;color:#fff;font-size:16px;letter-spacing:-1px;flex-shrink:0}
 .logo-text{display:flex;flex-direction:column;line-height:1.15}
-.logo-text b{font-family:'Playfair Display',serif;font-weight:700;font-size:15px;color:#fff}
-.logo-text span{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.4px}
-.hdr-badge{font-size:12px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);padding:5px 13px;border-radius:20px;border:1px solid rgba(255,255,255,.13);white-space:nowrap}
-@media(max-width:600px){.logo-text{display:none}.hdr-badge{font-size:11px;padding:4px 10px}}
+.logo-text b{font-family:'Playfair Display',serif;font-weight:700;font-size:14px;color:#fff}
+.logo-text span{font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.4px}
+
+/* Desktop nav links */
+.hdr-nav{display:flex;align-items:center;gap:0.25rem;flex:1;justify-content:center}
+.hdr-link{color:rgba(255,255,255,0.78);font-size:13.5px;font-weight:500;padding:6px 12px;border-radius:7px;transition:all .2s;text-decoration:none;white-space:nowrap}
+.hdr-link:hover{color:#fff;background:rgba(255,255,255,0.08)}
+.hdr-wa{display:inline-flex;align-items:center;gap:6px;background:#25D366;color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:30px;text-decoration:none;white-space:nowrap;transition:background .2s;margin-left:0.5rem}
+.hdr-wa:hover{background:#1ea855}
+.hdr-badge{font-size:11px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);padding:5px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.13);white-space:nowrap;flex-shrink:0}
+
+/* Hamburger */
+.hdr-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;flex-shrink:0}
+.hdr-hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all .25s}
+
+/* Mobile right area */
+.hdr-mobile-right{display:none;align-items:center;gap:0.75rem}
+.hdr-back{color:rgba(255,255,255,0.7);font-size:12px;font-weight:500;text-decoration:none;white-space:nowrap}
+.hdr-back:hover{color:#fff}
+
+/* Drawer */
+.hdr-drawer{position:fixed;top:64px;right:-280px;width:270px;height:calc(100vh - 64px);background:var(--navy-dark);z-index:98;padding:1rem 0;display:flex;flex-direction:column;transition:right .3s ease;box-shadow:-4px 0 20px rgba(0,0,0,.3);overflow-y:auto}
+.hdr-drawer.open{right:0}
+.hdr-drawer-link{padding:14px 24px;color:rgba(255,255,255,0.82);font-size:15px;font-weight:500;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.06);transition:all .2s}
+.hdr-drawer-link:hover{color:#fff;background:rgba(255,255,255,0.05);padding-left:30px}
+.hdr-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:97;opacity:0;pointer-events:none;transition:opacity .3s}
+.hdr-overlay.open{opacity:1;pointer-events:all}
+
+@media(max-width:768px){
+  .hdr-nav{display:none}
+  .hdr-mobile-right{display:flex}
+  .hdr-hamburger{display:flex}
+  .logo-text{display:none}
+}
 
 /* ─── SECTION SHOW/HIDE ───────────────── */
 .sec{display:none}.sec.on{display:block}
@@ -232,10 +264,11 @@ footer{background:var(--navy-dark);padding:18px 24px}
 </head>
 <body>
 
-<!-- ═══ HEADER ═══════════════════════════════════════════════════════ -->
-<header class="hdr">
-  <a href="https://ashishfinancialservices.in" class="logo" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
-    <img src="/images/logo.png" alt="AFS"
+<!-- ═══ HEADER / NAVBAR ══════════════════════════════════════════════ -->
+<header class="hdr" id="siteNav">
+  <!-- Logo -->
+  <a href="https://ashishfinancialservices.in" class="logo" style="display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;">
+    <img src="/images/logo.png" alt="AFS Logo"
          style="width:38px;height:38px;border-radius:8px;object-fit:contain;"
          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
     <div class="logo-mark" style="display:none">AS</div>
@@ -244,8 +277,43 @@ footer{background:var(--navy-dark);padding:18px 24px}
       <span>AMFI ARN: 311127 · POSP ID: IP240588</span>
     </div>
   </a>
-  <div class="hdr-badge">🔒 100% Client-Side · No Server</div>
+
+  <!-- Desktop nav links -->
+  <nav class="hdr-nav" aria-label="Site navigation">
+    <a href="https://ashishfinancialservices.in/" class="hdr-link">Home</a>
+    <a href="https://ashishfinancialservices.in/services/" class="hdr-link">Services</a>
+    <a href="https://ashishfinancialservices.in/tools/" class="hdr-link">Tools</a>
+    <a href="https://ashishfinancialservices.in/insights/" class="hdr-link">Insights</a>
+    <a href="https://ashishfinancialservices.in/contact/" class="hdr-link">Contact</a>
+    <a href="https://wa.me/918073011715?text=Hi%20AFS%2C%20I%20used%20Wealth%20Lens%20and%20would%20like%20to%20discuss%20my%20portfolio."
+       class="hdr-wa" target="_blank" rel="noopener noreferrer">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="white" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+  </nav>
+
+  <!-- Mobile: back link + badge -->
+  <div class="hdr-mobile-right">
+    <a href="https://ashishfinancialservices.in" class="hdr-back">← AFS Home</a>
+    <div class="hdr-badge">🔒 100% Client-Side</div>
+  </div>
+
+  <!-- Hamburger for mobile -->
+  <button class="hdr-hamburger" id="hdrHamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </header>
+
+<!-- Mobile drawer -->
+<div class="hdr-drawer" id="hdrDrawer">
+  <a href="https://ashishfinancialservices.in/" class="hdr-drawer-link">🏠 Home</a>
+  <a href="https://ashishfinancialservices.in/services/" class="hdr-drawer-link">Services</a>
+  <a href="https://ashishfinancialservices.in/tools/" class="hdr-drawer-link">Tools & Calculators</a>
+  <a href="https://ashishfinancialservices.in/insights/" class="hdr-drawer-link">Insights Blog</a>
+  <a href="https://ashishfinancialservices.in/contact/" class="hdr-drawer-link">Contact</a>
+  <a href="https://wa.me/918073011715" class="hdr-drawer-link" target="_blank" rel="noopener noreferrer" style="color:#25D366;font-weight:600;">💬 WhatsApp Us</a>
+</div>
+<div class="hdr-overlay" id="hdrOverlay"></div>
 
 <input type="file" id="pdfInput" accept=".pdf">
 
@@ -683,21 +751,15 @@ function portfolioScore(funds, ovXIRR) {
 }
 
 /* ── PDF extraction ──────────────────────────────────────────────── */
-let _pendingPwdCallback = null;  // holds PDF.js updatePassword function
+let _pendingPwdCallback = null;
 let _currentFileBuffer  = null;
 
 function submitPassword() {
   const pwd = document.getElementById('pdfPwd').value.trim();
-  if (!pwd) {
-    document.getElementById('pdfPwd').focus();
-    return;
-  }
+  if (!pwd) { document.getElementById('pdfPwd').focus(); return; }
   document.getElementById('pdfPwd').value = '';
   document.getElementById('pwdRow').style.display = 'none';
-  if (_pendingPwdCallback) {
-    _pendingPwdCallback(pwd);   // pass password directly to PDF.js
-    _pendingPwdCallback = null;
-  }
+  if (_pendingPwdCallback) { _pendingPwdCallback(pwd); _pendingPwdCallback = null; }
 }
 
 async function extractText(file) {
@@ -706,20 +768,16 @@ async function extractText(file) {
 
   const loadingTask = pdfjsLib.getDocument({ data: ab });
 
-  // PDF.js v3 onPassword callback — called by PDF.js when password needed
   loadingTask.onPassword = function(updatePassword, reason) {
-    // reason 1 = password needed, reason 2 = wrong password
     const pwdRow  = document.getElementById('pwdRow');
-    const pwdInput = document.getElementById('pdfPwd');
-    if (reason === 2) {
-      // Wrong password — show error hint
-      const hint = pwdRow.querySelector('.pwd-hint');
-      if (hint) hint.style.color = '#C0392B';
-      if (hint) hint.textContent = '❌ Incorrect password. Please try again.';
+    const hint    = pwdRow.querySelector('.pwd-hint');
+    if (reason === 2 && hint) {
+      hint.style.color = '#C0392B';
+      hint.textContent = '❌ Incorrect password. Please try again.';
     }
-    pwdRow.style.display  = 'block';
-    pwdInput.focus();
-    _pendingPwdCallback = updatePassword;  // PDF.js will retry once called
+    pwdRow.style.display = 'block';
+    document.getElementById('pdfPwd').focus();
+    _pendingPwdCallback = updatePassword;
   };
 
   const pdf = await loadingTask.promise;
@@ -1092,15 +1150,6 @@ function renderResults({funds, holderName, stmtDate}) {
 async function handleFile(file) {
   show('secProc');
   setProgress(5,'Reading your statement…');
-  // Reset password UI for fresh upload
-  document.getElementById('pwdRow').style.display = 'none';
-  document.getElementById('pdfPwd').value = '';
-  const hint = document.querySelector('#pwdRow .pwd-hint');
-  if (hint) {
-    hint.style.color = '';
-    hint.textContent = 'Enter the password you set when downloading your CAS from CAMS / KFintech. Your password is used only in your browser — never sent anywhere.';
-  }
-  _pendingPwdCallback = null;
   try {
     const text = await extractText(file);
     setProgress(50,'Parsing fund data…');
@@ -1148,6 +1197,20 @@ document.getElementById('demoLnk').addEventListener('click', e=>{
     }, 400);
   }, 300);
 });
+/* ── Hamburger menu ── */
+(function(){
+  const btn = document.getElementById('hdrHamburger');
+  const drawer = document.getElementById('hdrDrawer');
+  const overlay = document.getElementById('hdrOverlay');
+  if(!btn) return;
+  function close(){ drawer.classList.remove('open'); overlay.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
+  btn.addEventListener('click', function(){
+    const open = drawer.classList.toggle('open');
+    overlay.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+  });
+  overlay.addEventListener('click', close);
+})();
 </script>
 </body>
 </html>
