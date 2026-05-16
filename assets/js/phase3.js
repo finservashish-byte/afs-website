@@ -956,3 +956,34 @@ window.afs = afs;
     if (btn) btn.classList.toggle('visible', window.scrollY > 400);
   }, { passive: true });
 })();
+
+/* ── Mobile menu drawer ── */
+(function(){
+  const btn     = document.getElementById('mbnMenuBtn');
+  const drawer  = document.getElementById('mobMenuDrawer');
+  const overlay = document.getElementById('mobMenuOverlay');
+  const close   = document.getElementById('mobMenuClose');
+  if(!btn || !drawer) return;
+
+  function openMenu(){
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    btn.setAttribute('aria-expanded','true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu(){
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');
+    document.body.style.overflow = '';
+  }
+
+  btn.addEventListener('click', openMenu);
+  if(close) close.addEventListener('click', closeMenu);
+  if(overlay) overlay.addEventListener('click', closeMenu);
+
+  // Close on nav link tap
+  drawer.querySelectorAll('.mob-menu-link').forEach(a => {
+    a.addEventListener('click', closeMenu);
+  });
+})();
