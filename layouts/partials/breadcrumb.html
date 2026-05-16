@@ -1,0 +1,31 @@
+{{/* AFS Breadcrumb — shown on all pages except homepage */}}
+{{ if not .IsHome }}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a href="{{ .Site.BaseURL }}" itemprop="item"><span itemprop="name">Home</span></a>
+      <meta itemprop="position" content="1">
+    </li>
+    {{ if .Parent }}
+    <li class="breadcrumb-sep" aria-hidden="true">›</li>
+    <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a href="{{ .Parent.Permalink }}" itemprop="item"><span itemprop="name">{{ .Parent.Title }}</span></a>
+      <meta itemprop="position" content="2">
+    </li>
+    <li class="breadcrumb-sep" aria-hidden="true">›</li>
+    <li class="breadcrumb-item breadcrumb-current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <span itemprop="name">{{ .Title }}</span>
+      <meta itemprop="item" content="{{ .Permalink }}">
+      <meta itemprop="position" content="3">
+    </li>
+    {{ else }}
+    <li class="breadcrumb-sep" aria-hidden="true">›</li>
+    <li class="breadcrumb-item breadcrumb-current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <span itemprop="name">{{ .Title }}</span>
+      <meta itemprop="item" content="{{ .Permalink }}">
+      <meta itemprop="position" content="2">
+    </li>
+    {{ end }}
+  </ol>
+</nav>
+{{ end }}
