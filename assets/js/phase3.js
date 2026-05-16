@@ -943,3 +943,16 @@ afs.ready(() => {
 
 // Expose the afs namespace for Phase 4 tools that extend it
 window.afs = afs;
+
+/* ── Sticky adaptive navbar ── */
+(function(){
+  const nav = document.querySelector('.afs-nav');
+  if (!nav) return;
+  const btn = document.getElementById('backToTop');
+
+  window.addEventListener('scroll', function() {
+    const scrolled = window.scrollY > 60;
+    nav.classList.toggle('is-scrolled', scrolled);
+    if (btn) btn.classList.toggle('visible', window.scrollY > 400);
+  }, { passive: true });
+})();
