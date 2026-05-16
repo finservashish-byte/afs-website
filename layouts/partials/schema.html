@@ -1,39 +1,32 @@
-{{/* ═══ AFS Schema.org JSON-LD ═══ */}}
+{{/* AFS Schema.org — minimal safe version */}}
 
-{{/* 1. Organization — every page */}}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "FinancialService",
   "@id": "{{ .Site.BaseURL }}#organization",
   "name": "Ashish Financial Services",
-  "alternateName": "AFS",
   "url": "{{ .Site.BaseURL }}",
   "logo": "{{ .Site.BaseURL }}images/logo.png",
-  "description": "AMFI Registered Mutual Fund Distributor. Goal-based SIP, insurance, and loans against securities. 100% digital. PAN India.",
+  "description": "AMFI Registered Mutual Fund Distributor. Goal-based SIP, insurance, loans. 100% digital. PAN India.",
+  "telephone": "+918073011715",
+  "email": "finservashish@gmail.com",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Bangalore",
     "addressRegion": "Karnataka",
     "addressCountry": "IN"
-  },
-  "telephone": "+918073011715",
-  "email": "finservashish@gmail.com",
-  "areaServed": "IN",
-  "priceRange": "Free consultation"
+  }
 }
 </script>
 
-{{/* 2. WebSite + SiteNavigation — homepage only */}}
 {{ if .IsHome }}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "@id": "{{ .Site.BaseURL }}#website",
   "name": "Ashish Financial Services",
   "url": "{{ .Site.BaseURL }}",
-  "publisher": { "@id": "{{ .Site.BaseURL }}#organization" },
   "potentialAction": {
     "@type": "SearchAction",
     "target": "{{ .Site.BaseURL }}insights/?q={search_term_string}",
@@ -41,64 +34,16 @@
   }
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": "AFS Site Navigation",
-  "itemListElement": [
-    {"@type":"SiteNavigationElement","position":1,"name":"Mutual Funds","url":"{{ .Site.BaseURL }}services/mutual-funds/"},
-    {"@type":"SiteNavigationElement","position":2,"name":"Insurance","url":"{{ .Site.BaseURL }}services/insurance/"},
-    {"@type":"SiteNavigationElement","position":3,"name":"Loans Against Securities","url":"{{ .Site.BaseURL }}services/loans/"},
-    {"@type":"SiteNavigationElement","position":4,"name":"AFS Wealth Lens","url":"{{ .Site.BaseURL }}tools/wealth-lens/"},
-    {"@type":"SiteNavigationElement","position":5,"name":"Calculators","url":"{{ .Site.BaseURL }}tools/"},
-    {"@type":"SiteNavigationElement","position":6,"name":"Insights Blog","url":"{{ .Site.BaseURL }}insights/"},
-    {"@type":"SiteNavigationElement","position":7,"name":"Contact AFS","url":"{{ .Site.BaseURL }}contact/"}
-  ]
-}
-</script>
 {{ end }}
 
-{{/* 3. Article schema — blog posts only */}}
-{{ if and .IsPage (eq .Section "insights") }}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "{{ .Title | safeJS }}",
-  "description": {{ if .Description }}"{{ .Description | safeJS }}"{{ else }}"{{ .Summary | truncate 155 | safeJS }}"{{ end }},
-  "url": "{{ .Permalink }}",
-  "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
-  "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
-  "author": {
-    "@type": "Person",
-    "name": {{ if .Params.author }}"{{ .Params.author | safeJS }}"{{ else }}"AFS Team"{{ end }}
-  },
-  "publisher": { "@id": "{{ .Site.BaseURL }}#organization" },
-  "inLanguage": "en-IN"
-}
-</script>
-{{ end }}
-
-{{/* 4. BreadcrumbList — all pages except homepage */}}
 {{ if not .IsHome }}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "{{ .Site.BaseURL }}"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "{{ .Title | safeJS }}",
-      "item": "{{ .Permalink }}"
-    }
+    {"@type":"ListItem","position":1,"name":"Home","item":"{{ .Site.BaseURL }}"},
+    {"@type":"ListItem","position":2,"name":"{{ .Title }}","item":"{{ .Permalink }}"}
   ]
 }
 </script>
