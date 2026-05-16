@@ -848,6 +848,33 @@ p { line-height: 1.7; color: var(--text-mid); }
   .navbar-nav { display: none; }
   .hamburger { display: flex; }
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+
+  /* ── Horizontal scroll cards on mobile ── */
+  .grid-3.h-scroll-mobile,
+  .grid-2.h-scroll-mobile {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    /* Hide scrollbar but keep functional */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .grid-3.h-scroll-mobile::-webkit-scrollbar,
+  .grid-2.h-scroll-mobile::-webkit-scrollbar { display: none; }
+  .grid-3.h-scroll-mobile > *,
+  .grid-2.h-scroll-mobile > * {
+    flex: 0 0 82vw;
+    max-width: 320px;
+    scroll-snap-align: start;
+  }
   .contact-methods { grid-template-columns: 1fr; }
   .stats-inner { grid-template-columns: repeat(2, 1fr); gap: var(--space-lg); }
   .footer-grid { grid-template-columns: 1fr; }
