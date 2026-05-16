@@ -580,6 +580,20 @@ p {
   background: #fff;
 }
 
+/* ── Mobile navbar fixes ── */
+@media (max-width: 1023px) {
+  /* Hide logo text on mobile — show icon only */
+  .afs-nav__logo-text,
+  .afs-nav__logo strong,
+  .afs-nav__logo small,
+  .afs-nav__logo b,
+  .afs-nav__logo span:not(.afs-nav__logo-mark) {
+    display: none !important;
+  }
+  /* Keep logo mark visible */
+  .afs-nav__inner { gap: var(--space-3); }
+}
+
 .afs-nav__actions {
   display: flex;
   align-items: center;
