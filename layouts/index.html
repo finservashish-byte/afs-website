@@ -224,7 +224,7 @@
       </div>
     </a>
 
-    <div class="grid-3" style="text-align:left; margin-top:1.5rem;">
+    <div class="grid-3 h-scroll-mobile" style="text-align:left; margin-top:1.5rem;">
       <a href="/tools/#tab-sip" class="tool-card">
         <div class="tool-icon">📊</div>
         <h4>SIP Calculator</h4>
@@ -272,8 +272,7 @@
       </div>
       <a href="/insights/" class="btn btn-outline">All Articles →</a>
     </div>
-    <div class="grid-3">
-      {{ range first 3 $posts }}
+    <div class="grid-3 h-scroll-mobile">
       <article class="blog-card">
         {{ with .Params.image }}<div class="blog-card-img"><img src="{{ . }}" alt="{{ $.Title }}" loading="lazy"></div>{{ end }}
         <div class="blog-card-body">
@@ -297,7 +296,7 @@
   <div class="container text-center">
     <span class="section-label" style="color:var(--orange);">Member Stories</span>
     <h2 id="testimonials-heading" style="color:#fff; margin-bottom:2.5rem;">What AFS Members Say</h2>
-    <div class="grid-3" data-animate-group>
+    <div class="grid-3 h-scroll-mobile" data-animate-group>
       {{ if $testimonials }}
         {{ range $testimonials }}
         <div class="testimonial-card" style="background:rgba(8,24,52,0.92)!important;border:1px solid rgba(255,255,255,0.12);">
