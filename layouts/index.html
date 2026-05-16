@@ -261,7 +261,7 @@
 </section>
 
 <!-- ===== LATEST BLOG ===== -->
-{{ $posts := where .Site.RegularPages "Section" "insights" }}
+{{ $posts := where .Site.RegularPages "Type" "insights" }}
 {{ if $posts }}
 <section class="section section-gray" aria-labelledby="blog-heading">
   <div class="container">
@@ -273,6 +273,7 @@
       <a href="/insights/" class="btn btn-outline">All Articles →</a>
     </div>
     <div class="grid-3 h-scroll-mobile">
+      {{ range first 3 $posts }}
       <article class="blog-card">
         {{ with .Params.image }}<div class="blog-card-img"><img src="{{ . }}" alt="{{ $.Title }}" loading="lazy"></div>{{ end }}
         <div class="blog-card-body">
@@ -289,6 +290,7 @@
     </div>
   </div>
 </section>
+{{ end }}
 
 <!-- ===== TESTIMONIALS ===== -->
 <section class="section section-dark" aria-labelledby="testimonials-heading">
