@@ -2,7 +2,7 @@ baseURL = "https://ashishfinancialservices.in/"
 languageCode = "en-in"
 title = "AFS | Ashish Financial Services | Mutual Fund Distributor India"
 enableRobotsTXT = true
-googleAnalytics = "G-XXXXXXXXXX" # Replace with actual GA4 Measurement ID
+googleAnalytics = "G-022FKG3YHF" # Replace with actual GA4 Measurement ID
 
 [params]
   # Brand
