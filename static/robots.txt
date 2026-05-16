@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
+
+# Block admin
 Disallow: /admin/
+Disallow: /admin
+
+# Sitemap
 Sitemap: https://ashishfinancialservices.in/sitemap.xml
