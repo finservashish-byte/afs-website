@@ -866,3 +866,148 @@ p { line-height: 1.7; color: var(--text-mid); }
   .btn { padding: 0.65rem 1.2rem; font-size: 0.88rem; }
   .section { padding: 3rem 1rem; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   BREADCRUMB
+═══════════════════════════════════════════════════════════════════ */
+.breadcrumb-wrap {
+  background: var(--light-gray);
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+}
+.breadcrumb {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0.6rem 1.5rem;
+}
+.breadcrumb-list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+}
+.breadcrumb-item a {
+  color: var(--navy);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.breadcrumb-item a:hover { color: var(--orange); }
+.breadcrumb-current { color: var(--text-mid); }
+.breadcrumb-sep { color: var(--text-mid); opacity: 0.5; font-size: 0.75rem; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   BACK TO TOP BUTTON
+═══════════════════════════════════════════════════════════════════ */
+.back-to-top {
+  position: fixed;
+  bottom: 90px;
+  right: 1.5rem;
+  width: 42px;
+  height: 42px;
+  background: var(--navy);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 998;
+}
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.back-to-top:hover { background: var(--orange); }
+@media(max-width: 768px) {
+  .back-to-top { bottom: 80px; right: 1rem; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   MOBILE BOTTOM NAV
+═══════════════════════════════════════════════════════════════════ */
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: rgba(13, 52, 97, 0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  z-index: 999;
+  padding: 0 0.5rem;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.mobile-bottom-nav .mbn-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  flex: 1;
+  height: 100%;
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 500;
+  transition: color 0.2s;
+  padding: 8px 4px;
+}
+.mobile-bottom-nav .mbn-item svg { flex-shrink: 0; }
+.mobile-bottom-nav .mbn-item:hover,
+.mobile-bottom-nav .mbn-item.mbn-active { color: #fff; }
+.mobile-bottom-nav .mbn-cta {
+  background: var(--whatsapp);
+  border-radius: 14px;
+  margin: 8px 4px;
+  color: #fff !important;
+  flex: 1.2;
+}
+.mobile-bottom-nav .mbn-cta:hover { background: #1ea855; }
+/* Show bottom nav on mobile */
+@media(max-width: 768px) {
+  .mobile-bottom-nav {
+    display: flex;
+    align-items: stretch;
+  }
+  /* Push page content up so it's not hidden behind bottom nav */
+  body { padding-bottom: 64px; }
+  /* Hide desktop WhatsApp FAB on mobile */
+  .wa-float { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   STICKY ADAPTIVE NAVBAR
+═══════════════════════════════════════════════════════════════════ */
+.afs-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  transition: background 0.3s ease, box-shadow 0.3s ease, height 0.3s ease, padding 0.3s ease;
+}
+/* Compact on scroll */
+.afs-nav.is-scrolled .afs-nav__inner {
+  height: 60px;
+  padding: 0 1.5rem;
+}
+.afs-nav.is-scrolled {
+  background: rgba(13, 52, 97, 0.97) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+}
+/* Offset page content for fixed navbar */
+.page-content { padding-top: 80px; }
+.hero { padding-top: 80px; }
