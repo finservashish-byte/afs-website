@@ -1141,3 +1141,26 @@ p { line-height: 1.7; color: var(--text-mid); }
   .mob-menu-overlay,
   .mbn-menu-btn { display: none !important; }
 }
+
+/* ── Mobile logo bar ── */
+.mob-logo-bar {
+  display: none;
+  background: var(--navy-dark);
+  padding: 10px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+.mob-logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+@media(max-width: 768px) {
+  .mob-logo-bar { display: flex; }
+}
+@media(min-width: 769px) {
+  .mob-logo-bar { display: none !important; }
+}
