@@ -7,110 +7,90 @@
   {{ partial "whatsapp-banner.html" . }}
   {{ partial "navbar.html" . }}
 
-  <!-- Breadcrumb — auto-shown on all inner pages -->
-  {{ if not .IsHome }}
-  <div class="breadcrumb-wrap">
-    {{ partial "breadcrumb.html" . }}
-  </div>
-  {{ end }}
-
   <main class="page-content">
     {{ block "main" . }}{{ end }}
   </main>
 
   {{ partial "footer.html" . }}
 
-  <!-- Floating WhatsApp Button (desktop) -->
-  <a href="{{ .Site.Params.whatsappLink }}" target="_blank" rel="noopener noreferrer"
-     class="wa-float" aria-label="Chat on WhatsApp">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
+  <!-- Floating WhatsApp Button (desktop only) -->
+  <a href="{{ .Site.Params.whatsappLink }}" target="_blank" rel="noopener noreferrer" class="wa-float" aria-label="Chat on WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     <span class="wa-label">WhatsApp Us</span>
   </a>
 
-  <!-- Back to top button -->
+  <!-- Back to top -->
   <button class="back-to-top" id="backToTop" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
   </button>
 
   <!-- Mobile Bottom Nav -->
-  <nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Quick navigation">
-    <a href="/" class="mbn-item {{ if .IsHome }}mbn-active{{ end }}" aria-label="Home">
+  <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+    <a href="/" class="mbn-item{{ if .IsHome }} mbn-active{{ end }}">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       <span>Home</span>
     </a>
-    <a href="/insights/" class="mbn-item {{ if hasPrefix .RelPermalink "/insights" }}mbn-active{{ end }}" aria-label="Blog">
+    <a href="/insights/" class="mbn-item{{ if hasPrefix .RelPermalink "/insights" }} mbn-active{{ end }}">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
       <span>Blog</span>
     </a>
-    <a href="{{ .Site.Params.whatsappLink }}" target="_blank" rel="noopener noreferrer" class="mbn-item mbn-cta" aria-label="WhatsApp">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <a href="{{ .Site.Params.whatsappLink }}" target="_blank" rel="noopener noreferrer" class="mbn-item mbn-cta">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       <span>WhatsApp</span>
     </a>
-    <a href="{{ .Site.Params.clientPortal }}" target="_blank" rel="noopener noreferrer" class="mbn-item" aria-label="Login">
+    <a href="{{ .Site.Params.clientPortal }}" target="_blank" rel="noopener noreferrer" class="mbn-item">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       <span>Login</span>
     </a>
-    <button class="mbn-item mbn-menu-btn" id="mbnMenuBtn" aria-label="Menu" aria-expanded="false">
+    <button class="mbn-item mbn-menu-btn" id="mbnMenuBtn" aria-label="Menu">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       <span>Menu</span>
     </button>
   </nav>
 
-  <!-- Mobile Full Menu Drawer -->
-  <div class="mob-menu-drawer" id="mobMenuDrawer" aria-hidden="true">
+  <!-- Full Menu Drawer -->
+  <div class="mob-menu-drawer" id="mobMenuDrawer">
     <div class="mob-menu-header">
       <div style="display:flex;align-items:center;gap:10px;">
-        <div style="width:36px;height:36px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:800;color:#fff;font-size:15px;">AS</div>
+        <div style="width:36px;height:36px;background:#FF6600;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:15px;">AS</div>
         <div>
-          <div style="font-weight:700;color:#fff;font-size:14px;font-family:var(--font-heading);">Ashish Financial Services</div>
+          <div style="font-weight:700;color:#fff;font-size:14px;">Ashish Financial Services</div>
           <div style="font-size:10px;color:rgba(255,255,255,0.5);">AMFI ARN: 311127</div>
         </div>
       </div>
-      <button class="mob-menu-close" id="mobMenuClose" aria-label="Close menu">✕</button>
+      <button class="mob-menu-close" id="mobMenuClose">&#10005;</button>
     </div>
     <div class="mob-menu-body">
       <div class="mob-menu-section">Navigation</div>
-      <a href="/" class="mob-menu-link">🏠 Home</a>
-      <a href="/services/" class="mob-menu-link">💼 Services</a>
-      <a href="/tools/" class="mob-menu-link">🧮 Tools & Calculators</a>
-      <a href="/tools/wealth-lens/" class="mob-menu-link" style="color:var(--orange);font-weight:600;">🔍 AFS Wealth Lens — Free</a>
-      <a href="/insights/" class="mob-menu-link">📰 Insights Blog</a>
-      <a href="/contact/" class="mob-menu-link">📞 Contact</a>
-
+      <a href="/" class="mob-menu-link">&#127968; Home</a>
+      <a href="/services/" class="mob-menu-link">&#128188; Services</a>
+      <a href="/tools/" class="mob-menu-link">&#129518; Tools &amp; Calculators</a>
+      <a href="/tools/wealth-lens/" class="mob-menu-link" style="color:#FF6600;font-weight:600;">&#128269; AFS Wealth Lens &#8212; Free</a>
+      <a href="/insights/" class="mob-menu-link">&#128240; Insights Blog</a>
+      <a href="/contact/" class="mob-menu-link">&#128222; Contact</a>
       <div class="mob-menu-section">Services</div>
       <a href="/services/mutual-funds/" class="mob-menu-link">Mutual Funds</a>
       <a href="/services/insurance/" class="mob-menu-link">Insurance</a>
       <a href="/services/loans/" class="mob-menu-link">Loans Against Securities</a>
       <a href="/services/model-portfolios/" class="mob-menu-link">Model Portfolios</a>
-
       <div class="mob-menu-section">More</div>
       <a href="/monthly-digest/" class="mob-menu-link">Monthly Digest</a>
       <a href="/resources/" class="mob-menu-link">Resources</a>
-      <a href="/refer-earn/" class="mob-menu-link">Refer & Earn</a>
-      <a href="/press/" class="mob-menu-link">Press & Media</a>
-
+      <a href="/refer-earn/" class="mob-menu-link">Refer &amp; Earn</a>
+      <a href="/press/" class="mob-menu-link">Press &amp; Media</a>
       <div style="padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:0.75rem;">
-        <a href="{{ .Site.Params.whatsappLink }}" target="_blank" rel="noopener noreferrer"
-           style="display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#fff;padding:13px;border-radius:10px;font-weight:600;text-decoration:none;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Connect on WhatsApp
-        </a>
-        <a href="{{ .Site.Params.clientPortal }}" target="_blank" rel="noopener noreferrer"
-           style="display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.08);color:#fff;padding:13px;border-radius:10px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,0.15);">
-          Client Login
-        </a>
+        <a href="{{ .Site.Params.whatsappLink }}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#fff;padding:13px;border-radius:10px;font-weight:600;text-decoration:none;">&#128172; Connect on WhatsApp</a>
+        <a href="{{ .Site.Params.clientPortal }}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.08);color:#fff;padding:13px;border-radius:10px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,0.15);">Client Login</a>
       </div>
     </div>
   </div>
   <div class="mob-menu-overlay" id="mobMenuOverlay"></div>
 
   <!-- JS Bundle -->
-  {{ $main   := resources.Get "js/main.js" }}
-  {{ $calc   := resources.Get "js/calculators.js" }}
-  {{ $p3     := resources.Get "js/phase3.js" }}
-  {{ $js     := slice $main $calc $p3 | resources.Concat "js/afs-bundle.js" | minify | fingerprint }}
+  {{ $main := resources.Get "js/main.js" }}
+  {{ $calc := resources.Get "js/calculators.js" }}
+  {{ $p3   := resources.Get "js/phase3.js" }}
+  {{ $js   := slice $main $calc $p3 | resources.Concat "js/afs-bundle.js" | minify | fingerprint }}
   <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous" defer></script>
 
   {{ block "scripts" . }}{{ end }}
