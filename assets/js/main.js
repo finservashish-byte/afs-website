@@ -119,3 +119,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   stats.forEach(el => observer.observe(el));
 })();
+
+
+/* ── Credit Cards Carousel ── */
+(function(){
+  const carousel = document.getElementById('ccCarousel');
+  const prev = document.getElementById('ccPrev');
+  const next = document.getElementById('ccNext');
+  if(!carousel) return;
+  const slide = () => carousel.querySelector('.cc-slide');
+  const slideW = () => slide() ? slide().offsetWidth + 20 : 320;
+  if(prev) prev.addEventListener('click', () => carousel.scrollBy({left: -slideW(), behavior:'smooth'}));
+  if(next) next.addEventListener('click', () => carousel.scrollBy({left: slideW(), behavior:'smooth'}));
+})();
