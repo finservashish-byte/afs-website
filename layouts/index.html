@@ -292,6 +292,54 @@
 </section>
 {{ end }}
 
+<!-- ===== CREDIT CARDS ===== -->
+{{ $cards := .Site.Data.creditCards }}
+<section class="section section-gray" aria-labelledby="cards-heading">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem;">
+      <div>
+        <span class="section-label">Smart Money Moves</span>
+        <h2 id="cards-heading" class="section-title" style="max-width:480px;">The Smartest Thing in Your Wallet<br><em style="color:var(--orange);font-style:normal;">Probably Isn't There Yet</em></h2>
+        <p style="max-width:480px;margin-top:.5rem;">Most people carry a card out of habit — not strategy. We reviewed every card worth carrying. Here are the ones that quietly work for you every single day.</p>
+      </div>
+      <a href="/credit-cards/" class="btn btn-outline" style="flex-shrink:0;">Explore All Cards →</a>
+    </div>
+
+    <!-- Carousel -->
+    <div class="cc-carousel-wrap">
+      <div class="cc-carousel" id="ccCarousel">
+        {{ range $cards }}{{ if .featured }}
+        <div class="cc-slide">
+          <div class="cc-tile">
+            <div class="cc-tile-card" style="background:linear-gradient(135deg,{{ .card_color_start }},{{ .card_color_end }})">
+              <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.7);text-transform:uppercase">{{ .name | split " " | first }}</div>
+              <div style="font-size:16px;font-weight:800;color:#fff;margin-top:4px">{{ .card_text }}</div>
+            </div>
+            <div class="cc-tile-body">
+              {{ if .featured_label }}<span class="cc-tile-badge">{{ .featured_label }}</span>{{ end }}
+              <div class="cc-tile-name">{{ .name }}</div>
+              <div class="cc-tile-tagline">{{ .tagline }}</div>
+              <div class="cc-tile-benefit">✓ {{ .highlight_benefit }}</div>
+              <div style="display:flex;gap:.6rem;margin-top:1rem;">
+                <a href="{{ .affiliate_link }}" target="_blank" rel="noopener noreferrer" class="cc-tile-apply">Apply →</a>
+                <a href="/credit-cards/{{ .slug }}/" class="cc-tile-review">Full Review</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{ end }}{{ end }}
+      </div>
+      <button class="cc-arrow cc-prev" id="ccPrev" aria-label="Previous">&#8592;</button>
+      <button class="cc-arrow cc-next" id="ccNext" aria-label="Next">&#8594;</button>
+    </div>
+
+    <div style="text-align:center;margin-top:2rem;">
+      <a href="/credit-cards/" class="btn btn-navy">Discover What You're Missing →</a>
+    </div>
+  </div>
+</section>
+
+
 <!-- ===== TESTIMONIALS ===== -->
 <section class="section section-dark" aria-labelledby="testimonials-heading">
   <div class="container text-center">
